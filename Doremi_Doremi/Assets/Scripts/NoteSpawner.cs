@@ -6,6 +6,8 @@ public class NoteSpawner : MonoBehaviour
     public RectTransform staffPanel;
     public GameObject quarterNotePrefab;
     public GameObject ledgerLinePrefab;
+    public RectTransform notesContainer;
+
     public float staffHeight = 150f;
 
     public TextAsset songsJson;  // 👈 JSON 연결
@@ -61,7 +63,7 @@ public class NoteSpawner : MonoBehaviour
                 continue;
             }
 
-            GameObject note = Instantiate(quarterNotePrefab, staffPanel);
+            GameObject note = Instantiate(quarterNotePrefab, notesContainer);
             RectTransform rt = note.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(0.5f, 0);
             rt.anchorMax = new Vector2(0.5f, 0);
@@ -84,7 +86,7 @@ public class NoteSpawner : MonoBehaviour
 
     private void CreateLedgerLine(float ledger, float baseY, float spacing, float x)
     {
-        GameObject ledgerLine = Instantiate(ledgerLinePrefab, staffPanel);
+        GameObject ledgerLine = Instantiate(ledgerLinePrefab, notesContainer);
         RectTransform lr = ledgerLine.GetComponent<RectTransform>();
         lr.anchorMin = new Vector2(0.5f, 0);
         lr.anchorMax = new Vector2(0.5f, 0);
