@@ -7,6 +7,7 @@ using UnityEditor;
 public class StaffLineRenderer : MonoBehaviour
 {
     public RectTransform staffPanel;
+    public RectTransform linesContainer; // ✅ 오선 전용 컨테이너 연결
     public GameObject linePrefab;
     public float staffHeight = 150f;
     public float lineThickness = 7f;
@@ -28,7 +29,7 @@ public class StaffLineRenderer : MonoBehaviour
     {
         EditorApplication.update -= DelayedRedraw;
 
-        if (!this || !staffPanel || !linePrefab) return;
+        if (!this || !linesContainer || !linePrefab) return;
 
         ClearChildren();
         DrawStaffLines();
@@ -53,7 +54,7 @@ public class StaffLineRenderer : MonoBehaviour
 
         for (int i = 0; i < lineCount; i++)
         {
-            GameObject line = Instantiate(linePrefab, staffPanel);
+            GameObject line = Instantiate(linePrefab, linesContainer); // ✅ staffPanel → linesContainer
             RectTransform rt = line.GetComponent<RectTransform>();
 
             rt.anchorMin = new Vector2(0, 0);
@@ -68,19 +69,18 @@ public class StaffLineRenderer : MonoBehaviour
 
     private void ClearChildren()
     {
-        for (int i = staffPanel.childCount - 1; i >= 0; i--)
+        for (int i = linesContainer.childCount - 1; i >= 0; i--) // ✅ staffPanel → linesContainer
         {
-            Transform child = staffPanel.GetChild(i);
-            if (child.name.StartsWith(linePrefab.name)) // 🎯 이름 비교로 오선만 삭제
+            Transform child = linesContainer.GetChild(i);
+            if (child.name.StartsWith(linePrefab.name))
             {
 #if UNITY_EDITOR
-            if (!UnityEngine.Application.isPlaying)
-                Object.DestroyImmediate(child.gameObject);
-            else
+                if (!UnityEngine.Application.isPlaying)
+                    Object.DestroyImmediate(child.gameObject);
+                else
 #endif
                 Destroy(child.gameObject);
             }
         }
     }
-
 }
