@@ -1,47 +1,31 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// 🎵 JSON 기반 악보를 읽고 음표 프리팹을 생성하는 메인 컴포넌트
-/// </summary>
 public class NoteSpawner : MonoBehaviour
 {
     [Header("Helpers")]
     [SerializeField] private NotePrefabProvider prefabProvider;
 
     [Header("🎹 UI")]
-    public RectTransform staffPanel;             // 오선 패널
-    public RectTransform notesContainer;         // 음표가 배치될 부모 오브젝트
+    [SerializeField] private RectTransform linesContainer; // StaffLineRenderer → linesContainer
+    [SerializeField] private RectTransform notesContainer; // 음표가 올라갈 컨테이너
 
     [Header("📄 Data")]
-    public TextAsset songsJson;                  // JSON 악보 데이터
-    public int selectedSongIndex = 0;
+    [SerializeField] private TextAsset songsJson;
+    [SerializeField] private int selectedSongIndex = 0;
 
     [Header("⚙ Settings")]
-    public float staffHeight = 150f;             // 오선 전체 높이
-    public float noteYOffset = 0f;               // 기본 Y 위치 보정값
-    public float ledgerYOffset = 4f;             // 덧줄 위치 미세 보정
-    public float beatSpacing = 80f;              // 음표 간 X 간격
-    public float stemDownYOffset = 6f;           // stemDown 프리팹 Y 위치 추가 보정
+    [SerializeField] private float staffHeight = 150f;  // 오선 전체 높이
+    [SerializeField] private float beatSpacing = 80f;  // 음표 간 X 간격
+    [SerializeField] private float noteYOffset = 0f;  // 음표 세로 오프셋
+    [SerializeField] private float ledgerYOffset = 0f;  // 보조선 세로 오프셋
+    [SerializeField] private float noteScale = 2f;  // 음표 스케일
 
-    // 내부 도우미
     private NoteDataLoader dataLoader;
     private NoteMapper noteMapper;
     private LedgerLineHelper ledgerHelper;
 
     private void Awake()
     {
-        if (songsJson == null)
-        {
-            Debug.LogError("[NoteSpawner] 🎵 songsJson이 할당되지 않았습니다.");
-            return;
-        }
-
-        if (prefabProvider == null)
-        {
-            Debug.LogError("[NoteSpawner] 🎯 NotePrefabProvider가 연결되지 않았습니다.");
-            return;
-        }
-
         dataLoader = new NoteDataLoader(songsJson);
         noteMapper = new NoteMapper();
         ledgerHelper = new LedgerLineHelper(prefabProvider.ledgerLinePrefab, notesContainer);
@@ -53,70 +37,82 @@ public class NoteSpawner : MonoBehaviour
         SpawnSongNotes();
     }
 
-    /// <summary> 기존 음표 제거 </summary>
     private void ClearNotes()
     {
         for (int i = notesContainer.childCount - 1; i >= 0; i--)
-        {
             Destroy(notesContainer.GetChild(i).gameObject);
-        }
     }
 
-    /// <summary> 악보에서 음표를 생성 </summary>
     private void SpawnSongNotes()
     {
+        // 1) 악보 읽기
         var songList = dataLoader.LoadSongs();
         var song = songList.songs[selectedSongIndex];
+        var notes = song.notes;
+        int count = notes.Length;
 
-        float spacing = staffHeight / 4f;      // 오선 두 줄 간격 (줄-줄)
-        float baseY = -108f;                   // G4 (index = 0f)가 두 번째 줄에 위치하도록 설정
-        float currentX = -200f;
+        // 2) 가로(시간)축 중앙 정렬
+        float totalSpan = beatSpacing * (count - 1);
+        float currentX = -totalSpan / 2f;
 
-        foreach (var token in song.notes)
+        // 3) 세로 기준선 계산
+        //    linesContainer 자식(0~4) 중 [2]가 세 번째 오선입니다.
+        var midLineRT = linesContainer.GetChild(2).GetComponent<RectTransform>();
+        float baselineY = midLineRT.anchoredPosition.y;
+        float spacing = staffHeight / 4f;  // 오선 5줄 → 간격 4칸
+
+        // 4) 음표 생성 루프
+        foreach (var token in notes)
         {
-            string[] parts = token.Split(':');
+            var parts = token.Split(':');
             string pitch = parts[0];
-            string code = parts.Length > 1 ? parts[1].Trim() : "4";
+            string code = parts.Length > 1 ? parts[1] : "4";
             bool isRest = pitch == "R";
 
+            // 높이 인덱스 & 꼬리 방향
             float index = 0f;
             bool stemDown = false;
-
             if (!isRest && noteMapper.TryGetIndex(pitch, out index))
-            {
-                stemDown = index >= 2.5f; // B4 이상부터 stemDown 처리
-            }
+                stemDown = index >= -1f;
 
-            GameObject prefab = prefabProvider.GetPrefab(code, stemDown);
+            // 음표 Prefab
+            var prefab = prefabProvider.GetPrefab(code, stemDown);
             if (prefab == null)
             {
-                Debug.LogWarning($"[NoteSpawner] ❌ 알 수 없는 음표 코드: {code}");
+                Debug.LogWarning($"Unknown code: {code}");
+                currentX += beatSpacing * GetBeatLength(code);
                 continue;
             }
 
-            GameObject note = Instantiate(prefab, notesContainer);
-            RectTransform rt = note.GetComponent<RectTransform>();
+            // 생성 & 세팅
+            var note = Instantiate(prefab, notesContainer);
+            var rt = note.GetComponent<RectTransform>();
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.localScale = Vector3.one * noteScale;
+            rt.localRotation = stemDown
+                               ? Quaternion.Euler(0, 0, 180f)
+                               : Quaternion.identity;
 
-            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0);
-            rt.pivot = new Vector2(0.5f, 0.5f);  // 프리팹 기준을 정중앙으로 설정
-
-            float y = isRest
-                ? baseY + noteYOffset
-                : Mathf.Round(baseY + index * spacing + noteYOffset + (stemDown ? stemDownYOffset : 0f));
-
+            // Y 위치: baselineY + index*spacing + noteYOffset
+            float y = baselineY + index * spacing + noteYOffset;
             rt.anchoredPosition = new Vector2(currentX, y);
-            rt.localRotation = Quaternion.identity; // 회전 제거: 프리팹이 이미 올바른 방향이라면 회전 불필요
 
+            // 보조선
             if (!isRest)
-            {
-                ledgerHelper.GenerateLedgerLines(index, baseY, spacing, currentX, ledgerYOffset);
-            }
+                ledgerHelper.GenerateLedgerLines(
+                    index,
+                    baselineY,
+                    spacing,
+                    currentX,
+                    ledgerYOffset
+                );
 
+            // 다음 음표
             currentX += beatSpacing * GetBeatLength(code);
         }
     }
 
-    /// <summary> 음표 코드에 따른 길이 계산 </summary>
     private float GetBeatLength(string code)
     {
         return code switch
