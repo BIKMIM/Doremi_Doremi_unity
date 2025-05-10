@@ -4,13 +4,25 @@ using UnityEngine;
 public class NoteSpawner : MonoBehaviour
 {
     public RectTransform staffPanel;
-    public RectTransform notesContainer; // ✅ 새로 추가: 음표 전용 컨테이너
-    public GameObject quarterNotePrefab;
-    public GameObject ledgerLinePrefab;
-    public float staffHeight = 150f;
-
+    public RectTransform notesContainer;
     public TextAsset songsJson;
     public int selectedSongIndex = 0;
+
+    [Header("Note Prefabs")]
+    [SerializeField] private GameObject halfNotePrefab;
+    [SerializeField] private GameObject quarterNotePrefab;
+    [SerializeField] private GameObject eighthNotePrefab;
+    [SerializeField] private GameObject sixteenthNotePrefab;
+
+    [Header("Rest Prefabs")]
+    [SerializeField] private GameObject halfRestPrefab;
+    [SerializeField] private GameObject quarterRestPrefab;
+    [SerializeField] private GameObject eighthRestPrefab;
+    [SerializeField] private GameObject sixteenthRestPrefab;
+
+    [Header("Other")]
+    public GameObject ledgerLinePrefab;
+    public float staffHeight = 150f;
 
     private float ledgerYOffset = 4f;
     private float noteYOffset = -10f;
@@ -25,7 +37,7 @@ public class NoteSpawner : MonoBehaviour
 
     private void Start()
     {
-        ClearNotes();      // ✅ 음표 전용 클리어 함수
+        ClearNotes();
         SpawnSongNotes();
     }
 
@@ -55,39 +67,75 @@ public class NoteSpawner : MonoBehaviour
 
         for (int i = 0; i < song.notes.Length; i++)
         {
-            string noteName = song.notes[i];
-            if (!noteToIndex.TryGetValue(noteName, out float index))
+            string token = song.notes[i];
+            string[] parts = token.Split(':');
+            string pitch = parts[0];           // 예: C4 or R
+            string code = parts.Length > 1 ? parts[1] : "4";
+            bool isRest = pitch == "R";
+
+            GameObject prefab = GetPrefab(code);
+            if (prefab == null)
             {
-                Debug.LogWarning($"Unknown note: {noteName}");
+                Debug.LogWarning($"Unknown duration code: {code}");
                 continue;
             }
 
-            // 🎵 음표 생성 → notesContainer에 넣기
-            GameObject note = Instantiate(quarterNotePrefab, notesContainer);
+            GameObject note = Instantiate(prefab, notesContainer);
             RectTransform rt = note.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(0.5f, 0);
             rt.anchorMax = new Vector2(0.5f, 0);
             rt.pivot = new Vector2(0.5f, 0);
-            float noteY = Mathf.Round(baseY + index * spacing + noteYOffset);
-            rt.anchoredPosition = new Vector2(startX + i * 80f, noteY);
 
-            // 🎵 덧줄 생성 (높거나 낮은 음)
-            if (index <= -1f)
+            if (isRest)
             {
-                for (float ledger = index; ledger <= -1f; ledger += 1f)
-                    CreateLedgerLine(ledger, baseY, spacing, startX + i * 80f);
+                float restY = baseY + noteYOffset;
+                rt.anchoredPosition = new Vector2(startX + i * 80f, restY);
             }
-            else if (index >= 4f)
+            else
             {
-                for (float ledger = index; ledger >= 4f; ledger -= 1f)
-                    CreateLedgerLine(ledger, baseY, spacing, startX + i * 80f);
+                if (!noteToIndex.TryGetValue(pitch, out float index))
+                {
+                    Debug.LogWarning($"Unknown note: {pitch}");
+                    continue;
+                }
+
+                float noteY = Mathf.Round(baseY + index * spacing + noteYOffset);
+                rt.anchoredPosition = new Vector2(startX + i * 80f, noteY);
+
+                // 덧줄이 필요한 경우
+                if (index <= -1f)
+                {
+                    for (float ledger = index; ledger <= -1f; ledger += 1f)
+                        CreateLedgerLine(ledger, baseY, spacing, startX + i * 80f);
+                }
+                else if (index >= 4f)
+                {
+                    for (float ledger = index; ledger >= 4f; ledger -= 1f)
+                        CreateLedgerLine(ledger, baseY, spacing, startX + i * 80f);
+                }
             }
         }
     }
 
+    private GameObject GetPrefab(string code)
+    {
+        return code switch
+        {
+            "2" => halfNotePrefab,
+            "4" => quarterNotePrefab,
+            "8" => eighthNotePrefab,
+            "16" => sixteenthNotePrefab,
+            "2R" => halfRestPrefab,
+            "4R" => quarterRestPrefab,
+            "8R" => eighthRestPrefab,
+            "16R" => sixteenthRestPrefab,
+            _ => null
+        };
+    }
+
     private void CreateLedgerLine(float ledger, float baseY, float spacing, float x)
     {
-        GameObject ledgerLine = Instantiate(ledgerLinePrefab, notesContainer); // ✅ 여기도 notesContainer
+        GameObject ledgerLine = Instantiate(ledgerLinePrefab, notesContainer);
         RectTransform lr = ledgerLine.GetComponent<RectTransform>();
         lr.anchorMin = new Vector2(0.5f, 0);
         lr.anchorMax = new Vector2(0.5f, 0);
@@ -100,7 +148,6 @@ public class NoteSpawner : MonoBehaviour
         lr.anchoredPosition = new Vector2(x, Mathf.Round(ledgerY));
     }
 
-    // ✅ 음표만 지우는 전용 함수
     private void ClearNotes()
     {
         for (int i = notesContainer.childCount - 1; i >= 0; i--)
