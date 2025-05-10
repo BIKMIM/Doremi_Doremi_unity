@@ -11,17 +11,24 @@ public class NoteSpawner : MonoBehaviour
 
     // === 🎵 음표 프리팹들 ===
     [Header("Note Prefabs")]
-    [SerializeField] private GameObject halfNotePrefab;
-    [SerializeField] private GameObject quarterNotePrefab;
-    [SerializeField] private GameObject eighthNotePrefab;
-    [SerializeField] private GameObject sixteenthNotePrefab;
+    [SerializeField] private GameObject wholeNotePrefab;   // 🎵 1분음표 (온음표)
+    [SerializeField] private GameObject halfNotePrefab;// 🎵 2분음표 (온음표)
+    [SerializeField] private GameObject quarterNotePrefab;// 🎵 4분음표 (온음표)
+    [SerializeField] private GameObject eighthNotePrefab;// 🎵 8분음표 (온음표)
+    [SerializeField] private GameObject sixteenthNotePrefab;// 🎵 16분음표 (온음표)
+
+    [SerializeField] private GameObject halfNotePrefab_Down;// 🎵 2분음표-아래 (온음표)
+    [SerializeField] private GameObject quarterNotePrefab_Down;// 🎵 4분음표-아래 (온음표)
+    [SerializeField] private GameObject eighthNotePrefab_Down;// 🎵 8분음표-아래 (온음표)
+    [SerializeField] private GameObject sixteenthNotePrefab_Down;// 🎵 16분음표-아래 (온음표)
 
     // === 🔇 쉼표 프리팹들 ===
     [Header("Rest Prefabs")]
-    [SerializeField] private GameObject halfRestPrefab;
-    [SerializeField] private GameObject quarterRestPrefab;
-    [SerializeField] private GameObject eighthRestPrefab;
-    [SerializeField] private GameObject sixteenthRestPrefab;
+    [SerializeField] private GameObject wholeRestPrefab;   // 🔇 1분쉼표 (온쉼표)
+    [SerializeField] private GameObject halfRestPrefab;// 🔇 2분쉼표 (온쉼표)
+    [SerializeField] private GameObject quarterRestPrefab;// 🔇 4분쉼표 (온쉼표)
+    [SerializeField] private GameObject eighthRestPrefab;// 🔇 8분쉼표 (온쉼표)
+    [SerializeField] private GameObject sixteenthRestPrefab;// 🔇 16분쉼표 (온쉼표)
 
     // === 📏 기타 설정 ===
     [Header("Other")]
@@ -78,46 +85,41 @@ public class NoteSpawner : MonoBehaviour
 
         for (int i = 0; i < song.notes.Length; i++)
         {
-            // 🔹 "C4:4" 형식 분리
             string token = song.notes[i];
             string[] parts = token.Split(':');
             string pitch = parts[0];
             string code = parts.Length > 1 ? parts[1].Trim() : "4";
             bool isRest = pitch == "R";
 
-            // 🔹 프리팹 선택
-            GameObject prefab = GetPrefab(code);
+            // 🔸 음 높이에 따른 꼬리 방향 판단
+            bool stemDown = false;
+            float index = 0f;
+            if (!isRest && noteToIndex.TryGetValue(pitch, out index))
+                stemDown = index > 2f;
+
+            // ✅ 올바른 방식: 방향 포함한 프리팹 가져오기
+            GameObject prefab = GetPrefab(code, stemDown);
             if (prefab == null)
             {
                 Debug.LogWarning($"Unknown duration code: {code}");
                 continue;
             }
 
-            // 🔹 음표 생성
             GameObject note = Instantiate(prefab, notesContainer);
             RectTransform rt = note.GetComponent<RectTransform>();
             rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0);
             rt.pivot = new Vector2(0.5f, 0);
 
             float y;
-
             if (isRest)
             {
-                // 🔸 쉼표는 중간쯤 고정
                 y = baseY + noteYOffset;
             }
             else
             {
-                // 🔸 음표 위치 계산
-                if (!noteToIndex.TryGetValue(pitch, out float index))
-                {
-                    Debug.LogWarning($"Unknown note: {pitch}");
-                    continue;
-                }
-
                 y = Mathf.Round(baseY + index * spacing + noteYOffset);
 
-                // 🔸 덧줄 생성
+                // 덧줄
                 if (index <= -1f)
                 {
                     for (float ledger = index; ledger <= -1f; ledger += 1f)
@@ -128,22 +130,15 @@ public class NoteSpawner : MonoBehaviour
                     for (float ledger = index; ledger >= 4f; ledger -= 1f)
                         CreateLedgerLine(ledger, baseY, spacing, currentX);
                 }
-
-                // 🔸 음 높이에 따른 꼬리 방향 조정
-                if (index > 2f)  // B4보다 높으면 꼬리 아래
-                    rt.localScale = new Vector3(1, -1, 1);
-                else             // B4 이하 → 기본 (꼬리 위)
-                    rt.localScale = new Vector3(1, 1, 1);
             }
 
-            // 🔹 위치 배치
             rt.anchoredPosition = new Vector2(currentX, y);
 
-            // 🔹 간격 증가 (박자에 따라)
             float beatSpacing = 80f;
             float beatLength = GetBeatLength(code);
             currentX += beatSpacing * beatLength;
         }
+
     }
 
     // === 박자 길이 계산 (음표 간격에 사용) ===
@@ -151,10 +146,12 @@ public class NoteSpawner : MonoBehaviour
     {
         return code switch
         {
+            "1" => 2f,
             "2" => 2f,
             "4" => 1.5f,
             "8" => 1f,
             "16" => 1f,
+            "1R" => 2f,
             "2R" => 2f,
             "4R" => 1.5f,
             "8R" => 1f,
@@ -164,21 +161,29 @@ public class NoteSpawner : MonoBehaviour
     }
 
     // === 프리팹 매핑 ===
-    private GameObject GetPrefab(string code)
+    private GameObject GetPrefab(string code, bool stemDown)
     {
-        return code switch
+        return (code, stemDown) switch
         {
-            "2" => halfNotePrefab,
-            "4" => quarterNotePrefab,
-            "8" => eighthNotePrefab,
-            "16" => sixteenthNotePrefab,
-            "2R" => halfRestPrefab,
-            "4R" => quarterRestPrefab,
-            "8R" => eighthRestPrefab,
-            "16R" => sixteenthRestPrefab,
+            ("1", false) => wholeNotePrefab,
+            ("2", false) => halfNotePrefab,
+            ("2", true) => halfNotePrefab_Down,
+            ("4", false) => quarterNotePrefab,
+            ("4", true) => quarterNotePrefab_Down,
+            ("8", false) => eighthNotePrefab,
+            ("8", true) => eighthNotePrefab_Down,
+            ("16", false) => sixteenthNotePrefab,
+            ("16", true) => sixteenthNotePrefab_Down,
+            // 쉼표는 방향 무관
+            ("1R", _) => wholeRestPrefab,
+            ("2R", _) => halfRestPrefab,
+            ("4R", _) => quarterRestPrefab,
+            ("8R", _) => eighthRestPrefab,
+            ("16R", _) => sixteenthRestPrefab,
             _ => null
         };
     }
+
 
     // === 덧줄 생성 ===
     private void CreateLedgerLine(float ledger, float baseY, float spacing, float x)
