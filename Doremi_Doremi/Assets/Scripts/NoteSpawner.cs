@@ -4,13 +4,12 @@ using UnityEngine;
 public class NoteSpawner : MonoBehaviour
 {
     public RectTransform staffPanel;
+    public RectTransform notesContainer; // ✅ 새로 추가: 음표 전용 컨테이너
     public GameObject quarterNotePrefab;
     public GameObject ledgerLinePrefab;
-    public RectTransform notesContainer;
-
     public float staffHeight = 150f;
 
-    public TextAsset songsJson;  // 👈 JSON 연결
+    public TextAsset songsJson;
     public int selectedSongIndex = 0;
 
     private float ledgerYOffset = 4f;
@@ -26,6 +25,7 @@ public class NoteSpawner : MonoBehaviour
 
     private void Start()
     {
+        ClearNotes();      // ✅ 음표 전용 클리어 함수
         SpawnSongNotes();
     }
 
@@ -39,7 +39,6 @@ public class NoteSpawner : MonoBehaviour
             { "C5", 2.5f }, { "D5", 3f }, { "E5", 3.5f }, { "F5", 4f },
             { "G5", 4.5f }, { "A5", 5f }, { "B5", 5.5f }, { "C6", 6f }
         };
-
     }
 
     private void LoadSongData()
@@ -63,6 +62,7 @@ public class NoteSpawner : MonoBehaviour
                 continue;
             }
 
+            // 🎵 음표 생성 → notesContainer에 넣기
             GameObject note = Instantiate(quarterNotePrefab, notesContainer);
             RectTransform rt = note.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(0.5f, 0);
@@ -71,6 +71,7 @@ public class NoteSpawner : MonoBehaviour
             float noteY = Mathf.Round(baseY + index * spacing + noteYOffset);
             rt.anchoredPosition = new Vector2(startX + i * 80f, noteY);
 
+            // 🎵 덧줄 생성 (높거나 낮은 음)
             if (index <= -1f)
             {
                 for (float ledger = index; ledger <= -1f; ledger += 1f)
@@ -86,7 +87,7 @@ public class NoteSpawner : MonoBehaviour
 
     private void CreateLedgerLine(float ledger, float baseY, float spacing, float x)
     {
-        GameObject ledgerLine = Instantiate(ledgerLinePrefab, notesContainer);
+        GameObject ledgerLine = Instantiate(ledgerLinePrefab, notesContainer); // ✅ 여기도 notesContainer
         RectTransform lr = ledgerLine.GetComponent<RectTransform>();
         lr.anchorMin = new Vector2(0.5f, 0);
         lr.anchorMax = new Vector2(0.5f, 0);
@@ -97,5 +98,14 @@ public class NoteSpawner : MonoBehaviour
             ledgerY += (ledger >= 4f ? -spacing / 2f : spacing / 2f);
 
         lr.anchoredPosition = new Vector2(x, Mathf.Round(ledgerY));
+    }
+
+    // ✅ 음표만 지우는 전용 함수
+    private void ClearNotes()
+    {
+        for (int i = notesContainer.childCount - 1; i >= 0; i--)
+        {
+            Destroy(notesContainer.GetChild(i).gameObject);
+        }
     }
 }
