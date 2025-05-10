@@ -13,13 +13,12 @@ public class StaffLineRenderer : MonoBehaviour
     public float lineThickness = 7f;
 
 #if UNITY_EDITOR
-    private bool needsRedraw = false;
 
     private void OnValidate()
     {
         if (!UnityEngine.Application.isPlaying)
         {
-            needsRedraw = true;
+            
             EditorApplication.update -= DelayedRedraw;
             EditorApplication.update += DelayedRedraw;
         }
@@ -33,7 +32,6 @@ public class StaffLineRenderer : MonoBehaviour
 
         ClearChildren();
         DrawStaffLines();
-        needsRedraw = false;
     }
 #endif
 

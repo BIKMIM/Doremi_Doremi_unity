@@ -15,7 +15,7 @@ D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-60672
+61588
 Successfully changed project path to: D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
 D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,12 +49,12 @@ D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [5148] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 3743244133 [EditorId] 3743244133 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [16404] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 3487664876 [EditorId] 3487664876 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [5148] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 3743244133 [EditorId] 3743244133 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [16404] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 3487664876 [EditorId] 3487664876 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 11 workers.
-Refreshing native plugins compatible for Editor in 3.67 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 4.43 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.22f1 (887be4894c44)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Resources/UnitySubsystems
@@ -70,47 +70,47 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56540
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56232
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.006576 seconds.
-- Loaded All Assemblies, in  0.204 seconds
+Registered in 0.007043 seconds.
+- Loaded All Assemblies, in  0.255 seconds
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 179 ms
+Android Extension - Scanning For ADB Devices 189 ms
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.378 seconds
-Domain Reload Profiling: 581ms
-	BeginReloadAssembly (63ms)
+- Finished resetting the current domain, in  0.419 seconds
+Domain Reload Profiling: 673ms
+	BeginReloadAssembly (65ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (0ms)
-	RebuildCommonClasses (19ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (36ms)
-	LoadAllAssembliesAndSetupDomain (78ms)
-		LoadAssemblies (62ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (25ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (45ms)
+	LoadAllAssembliesAndSetupDomain (108ms)
+		LoadAssemblies (64ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (76ms)
-			TypeCache.Refresh (76ms)
-				TypeCache.ScanAssembly (68ms)
+		AnalyzeDomain (106ms)
+			TypeCache.Refresh (105ms)
+				TypeCache.ScanAssembly (95ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (378ms)
+	FinalizeReload (420ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (343ms)
+		SetupLoadedEditorAssemblies (379ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (243ms)
-			SetLoadedEditorAssemblies (2ms)
+			InitializePlatformSupportModulesInManaged (269ms)
+			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (1ms)
-			ProcessInitializeOnLoadAttributes (69ms)
-			ProcessInitializeOnLoadMethodAttributes (27ms)
+			BeforeProcessingInitializeOnLoad (2ms)
+			ProcessInitializeOnLoadAttributes (74ms)
+			ProcessInitializeOnLoadMethodAttributes (32ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -118,61 +118,203 @@ Domain Reload Profiling: 581ms
 ========================================================================
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D87F01020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7DF28E30 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D666D93E0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-0000021A38FF3050 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D65FDD880 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021A7E78B730 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D42E770C0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-0000021A5C35EE70 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.354 seconds
-Refreshing native plugins compatible for Editor in 1.44 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.351 seconds
+Refreshing native plugins compatible for Editor in 1.22 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.337 seconds
-Domain Reload Profiling: 690ms
-	BeginReloadAssembly (89ms)
+- Finished resetting the current domain, in  0.386 seconds
+Domain Reload Profiling: 736ms
+	BeginReloadAssembly (90ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (15ms)
-	RebuildCommonClasses (18ms)
+		CreateAndSetChildDomain (16ms)
+	RebuildCommonClasses (19ms)
 	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (26ms)
-	LoadAllAssembliesAndSetupDomain (213ms)
-		LoadAssemblies (167ms)
+	initialDomainReloadingComplete (25ms)
+	LoadAllAssembliesAndSetupDomain (210ms)
+		LoadAssemblies (161ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (98ms)
+		AnalyzeDomain (99ms)
 			TypeCache.Refresh (86ms)
 				TypeCache.ScanAssembly (77ms)
 			ScanForSourceGeneratedMonoScriptInfo (9ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (337ms)
+	FinalizeReload (386ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (251ms)
+		SetupLoadedEditorAssemblies (283ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (14ms)
+			InitializePlatformSupportModulesInManaged (19ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (39ms)
+			BeforeProcessingInitializeOnLoad (40ms)
+			ProcessInitializeOnLoadAttributes (193ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
+			AfterProcessingInitializeOnLoad (9ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (7ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 1.54 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3242 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 39 unused Assets / (57.2 KB). Loaded Objects now: 3706.
+Memory consumption went from 135.1 MB to 135.1 MB.
+Total: 2.383900 ms (FindLiveObjects: 0.206300 ms CreateObjectMapping: 0.061500 ms MarkObjects: 2.018600 ms  DeleteObjects: 0.097000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-00000218A73B0080 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A5BD4F060 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A7DF94E00 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A5C6055B0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.271 seconds
+Refreshing native plugins compatible for Editor in 1.10 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.514 seconds
+Domain Reload Profiling: 784ms
+	BeginReloadAssembly (105ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (26ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (123ms)
+		LoadAssemblies (161ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (15ms)
+			TypeCache.Refresh (4ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (5ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (514ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (256ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (41ms)
 			ProcessInitializeOnLoadAttributes (177ms)
-			ProcessInitializeOnLoadMethodAttributes (12ms)
-			AfterProcessingInitializeOnLoad (6ms)
+			ProcessInitializeOnLoadMethodAttributes (15ms)
+			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (5ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.55 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.17 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3242 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 39 unused Assets / (57.4 KB). Loaded Objects now: 3706.
-Memory consumption went from 135.1 MB to 135.0 MB.
-Total: 2.098200 ms (FindLiveObjects: 0.185300 ms CreateObjectMapping: 0.058800 ms MarkObjects: 1.762800 ms  DeleteObjects: 0.090600 ms)
+Unloading 3214 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3710.
+Memory consumption went from 130.4 MB to 130.4 MB.
+Total: 2.089000 ms (FindLiveObjects: 0.211400 ms CreateObjectMapping: 0.065800 ms MarkObjects: 1.770400 ms  DeleteObjects: 0.040800 ms)
 
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-00000218A83396E0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0492E50 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0BDC9C0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0492E50 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.262 seconds
+Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.465 seconds
+Domain Reload Profiling: 726ms
+	BeginReloadAssembly (101ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (23ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (118ms)
+		LoadAssemblies (155ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (14ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (466ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (229ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (37ms)
+			ProcessInitializeOnLoadAttributes (157ms)
+			ProcessInitializeOnLoadMethodAttributes (12ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 1.91 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3214 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3713.
+Memory consumption went from 132.4 MB to 132.3 MB.
+Total: 2.025900 ms (FindLiveObjects: 0.187000 ms CreateObjectMapping: 0.052800 ms MarkObjects: 1.744200 ms  DeleteObjects: 0.041100 ms)
+
+Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -188,210 +330,139 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 47559.889939 seconds.
-  path: Assets/Scripts/NoteSpawner.cs
-  artifactKey: Guid(547d1bb9218e3fb429d54f3cb1847726) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/NoteSpawner.cs using Guid(547d1bb9218e3fb429d54f3cb1847726) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c65d83e4335a1a7067520377034ef91') in 0.001997 seconds
+  Time since last request: 49104.142555 seconds.
+  path: Assets/Scripts/NoteDataLoader.cs
+  artifactKey: Guid(a65727ddfecc75844a477548b26a35b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/NoteDataLoader.cs using Guid(a65727ddfecc75844a477548b26a35b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77c437d24709f074b30c99658932ebb6') in 0.002955 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D90716060 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-00000218A0EE7020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D88B27440 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-0000021A7E657030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D88B27440 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-00000218A7782F70 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D65D5E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A7782F70 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.262 seconds
-Refreshing native plugins compatible for Editor in 1.14 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.263 seconds
+Refreshing native plugins compatible for Editor in 1.23 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.468 seconds
-Domain Reload Profiling: 729ms
-	BeginReloadAssembly (101ms)
+- Finished resetting the current domain, in  0.505 seconds
+Domain Reload Profiling: 767ms
+	BeginReloadAssembly (102ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (24ms)
+		CreateAndSetChildDomain (26ms)
 	RebuildCommonClasses (18ms)
 	RebuildNativeTypeToScriptingClass (7ms)
 	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (118ms)
-		LoadAssemblies (154ms)
+	LoadAllAssembliesAndSetupDomain (119ms)
+		LoadAssemblies (155ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (14ms)
+		AnalyzeDomain (13ms)
 			TypeCache.Refresh (5ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (4ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (468ms)
+	FinalizeReload (505ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (230ms)
+		SetupLoadedEditorAssemblies (247ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (15ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (38ms)
-			ProcessInitializeOnLoadAttributes (156ms)
+			ProcessInitializeOnLoadAttributes (171ms)
+			ProcessInitializeOnLoadMethodAttributes (16ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (6ms)
+Refreshing native plugins compatible for Editor in 1.58 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3214 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3717.
+Memory consumption went from 134.1 MB to 134.0 MB.
+Total: 2.394000 ms (FindLiveObjects: 0.349100 ms CreateObjectMapping: 0.065900 ms MarkObjects: 1.930200 ms  DeleteObjects: 0.048000 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-00000218A0EE7020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A7DED2010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A5C859210 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A7977010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.280 seconds
+Refreshing native plugins compatible for Editor in 1.23 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.464 seconds
+Domain Reload Profiling: 742ms
+	BeginReloadAssembly (99ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (24ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (137ms)
+		LoadAssemblies (174ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (13ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (464ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (225ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (37ms)
+			ProcessInitializeOnLoadAttributes (153ms)
 			ProcessInitializeOnLoadMethodAttributes (13ms)
 			AfterProcessingInitializeOnLoad (4ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 1.60 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3212 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3709.
-Memory consumption went from 130.2 MB to 130.1 MB.
-Total: 1.991700 ms (FindLiveObjects: 0.187500 ms CreateObjectMapping: 0.052000 ms MarkObjects: 1.704800 ms  DeleteObjects: 0.046300 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file data-0000018D9081E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D892ACF30 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D892ACF30 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89A03010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.248 seconds
-Refreshing native plugins compatible for Editor in 1.08 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.541 seconds
-Domain Reload Profiling: 787ms
-	BeginReloadAssembly (96ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (3ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (22ms)
-	RebuildCommonClasses (18ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (16ms)
-	LoadAllAssembliesAndSetupDomain (109ms)
-		LoadAssemblies (151ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (8ms)
-			TypeCache.Refresh (3ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (541ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (263ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (16ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (42ms)
-			ProcessInitializeOnLoadAttributes (182ms)
-			ProcessInitializeOnLoadMethodAttributes (14ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.55 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3712.
-Memory consumption went from 132.3 MB to 132.3 MB.
-Total: 1.957700 ms (FindLiveObjects: 0.214500 ms CreateObjectMapping: 0.047900 ms MarkObjects: 1.652700 ms  DeleteObjects: 0.041600 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file data-0000018D92F8F020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D88FDA050 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D88FDA050 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D65EF23D0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.257 seconds
-Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.531 seconds
-Domain Reload Profiling: 787ms
-	BeginReloadAssembly (101ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (3ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (25ms)
-	RebuildCommonClasses (23ms)
-	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (16ms)
-	LoadAllAssembliesAndSetupDomain (109ms)
-		LoadAssemblies (150ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (7ms)
-			TypeCache.Refresh (3ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (3ms)
-	FinalizeReload (531ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (263ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
-			SetLoadedEditorAssemblies (4ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (44ms)
-			ProcessInitializeOnLoadAttributes (179ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (5ms)
-Refreshing native plugins compatible for Editor in 1.47 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.72 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3715.
-Memory consumption went from 134.3 MB to 134.2 MB.
-Total: 1.953800 ms (FindLiveObjects: 0.193000 ms CreateObjectMapping: 0.056400 ms MarkObjects: 1.666700 ms  DeleteObjects: 0.036900 ms)
+Unloading 3215 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3720.
+Memory consumption went from 136.3 MB to 136.2 MB.
+Total: 2.105200 ms (FindLiveObjects: 0.226800 ms CreateObjectMapping: 0.046200 ms MarkObjects: 1.785500 ms  DeleteObjects: 0.045900 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -410,272 +481,59 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D889EE010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D90C44F50 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-00000218A8B27010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D65D5E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89834040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A8B27010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.253 seconds
-Refreshing native plugins compatible for Editor in 1.40 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.269 seconds
+Refreshing native plugins compatible for Editor in 1.39 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.550 seconds
-Domain Reload Profiling: 802ms
-	BeginReloadAssembly (100ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (24ms)
-	RebuildCommonClasses (19ms)
-	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (16ms)
-	LoadAllAssembliesAndSetupDomain (110ms)
-		LoadAssemblies (151ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (9ms)
-			TypeCache.Refresh (3ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (550ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (268ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (19ms)
-			SetLoadedEditorAssemblies (4ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (44ms)
-			ProcessInitializeOnLoadAttributes (181ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.54 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3718.
-Memory consumption went from 136.2 MB to 136.2 MB.
-Total: 1.933500 ms (FindLiveObjects: 0.216100 ms CreateObjectMapping: 0.046200 ms MarkObjects: 1.632500 ms  DeleteObjects: 0.037900 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file data-0000018D889EE010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D659A1020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D907F6030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D90B66020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.263 seconds
-Refreshing native plugins compatible for Editor in 1.59 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.537 seconds
-Domain Reload Profiling: 799ms
-	BeginReloadAssembly (104ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (3ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (24ms)
-	RebuildCommonClasses (21ms)
-	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (112ms)
-		LoadAssemblies (157ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (10ms)
-			TypeCache.Refresh (4ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (538ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (270ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (18ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (42ms)
-			ProcessInitializeOnLoadAttributes (186ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (6ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.45 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3721.
-Memory consumption went from 138.1 MB to 138.1 MB.
-Total: 2.379400 ms (FindLiveObjects: 0.207400 ms CreateObjectMapping: 0.052400 ms MarkObjects: 2.078800 ms  DeleteObjects: 0.039900 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file data-0000018D889EE010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D659A1020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D4281FA10 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D9532C040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.254 seconds
-Refreshing native plugins compatible for Editor in 1.28 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.551 seconds
-Domain Reload Profiling: 804ms
+- Finished resetting the current domain, in  0.493 seconds
+Domain Reload Profiling: 760ms
 	BeginReloadAssembly (105ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (24ms)
-	RebuildCommonClasses (18ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (16ms)
-	LoadAllAssembliesAndSetupDomain (107ms)
-		LoadAssemblies (154ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (7ms)
-			TypeCache.Refresh (3ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (3ms)
-	FinalizeReload (551ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (268ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (43ms)
-			ProcessInitializeOnLoadAttributes (183ms)
-			ProcessInitializeOnLoadMethodAttributes (16ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (5ms)
-Refreshing native plugins compatible for Editor in 1.44 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3724.
-Memory consumption went from 140.0 MB to 140.0 MB.
-Total: 2.043500 ms (FindLiveObjects: 0.201500 ms CreateObjectMapping: 0.052100 ms MarkObjects: 1.752000 ms  DeleteObjects: 0.037100 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file data-0000018D65E88F40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D659A1020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89CC6030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D9532C040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.260 seconds
-Refreshing native plugins compatible for Editor in 1.26 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.542 seconds
-Domain Reload Profiling: 801ms
-	BeginReloadAssembly (101ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (3ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (24ms)
-	RebuildCommonClasses (18ms)
+		CreateAndSetChildDomain (26ms)
+	RebuildCommonClasses (20ms)
 	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (21ms)
-	LoadAllAssembliesAndSetupDomain (111ms)
-		LoadAssemblies (154ms)
+	initialDomainReloadingComplete (16ms)
+	LoadAllAssembliesAndSetupDomain (119ms)
+		LoadAssemblies (157ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (9ms)
-			TypeCache.Refresh (5ms)
+		AnalyzeDomain (16ms)
+			TypeCache.Refresh (7ms)
 				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (543ms)
+	FinalizeReload (493ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (263ms)
+		SetupLoadedEditorAssemblies (241ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (19ms)
+			InitializePlatformSupportModulesInManaged (14ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (41ms)
-			ProcessInitializeOnLoadAttributes (181ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (167ms)
 			ProcessInitializeOnLoadMethodAttributes (14ms)
 			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (5ms)
-Refreshing native plugins compatible for Editor in 1.67 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.79 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.2 KB). Loaded Objects now: 3727.
-Memory consumption went from 142.0 MB to 141.9 MB.
-Total: 2.348400 ms (FindLiveObjects: 0.199300 ms CreateObjectMapping: 0.055300 ms MarkObjects: 2.020600 ms  DeleteObjects: 0.072500 ms)
+Unloading 3216 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3724.
+Memory consumption went from 138.2 MB to 138.2 MB.
+Total: 2.165600 ms (FindLiveObjects: 0.200300 ms CreateObjectMapping: 0.052300 ms MarkObjects: 1.870400 ms  DeleteObjects: 0.041800 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -692,24 +550,32 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
+Received Import Request.
+  Time since last request: 69.632492 seconds.
+  path: Assets/Scripts/NoteFrefabProvider.cs
+  artifactKey: Guid(e5a66d5858cc8e142a07cf9ea3afaac9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/NoteFrefabProvider.cs using Guid(e5a66d5858cc8e142a07cf9ea3afaac9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2431d7ef275edaedea4e95e0bc886337') in 0.002825 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D907AA030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A5BC13010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018DD6B33020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-00000218A7739040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89D8E030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021A7E403020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D9532C040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A018C010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.252 seconds
-Refreshing native plugins compatible for Editor in 1.25 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.273 seconds
+Refreshing native plugins compatible for Editor in 1.35 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.485 seconds
-Domain Reload Profiling: 736ms
-	BeginReloadAssembly (98ms)
+- Finished resetting the current domain, in  0.491 seconds
+Domain Reload Profiling: 763ms
+	BeginReloadAssembly (103ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
@@ -717,16 +583,16 @@ Domain Reload Profiling: 736ms
 		CreateAndSetChildDomain (25ms)
 	RebuildCommonClasses (18ms)
 	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (111ms)
-		LoadAssemblies (151ms)
+	initialDomainReloadingComplete (16ms)
+	LoadAllAssembliesAndSetupDomain (127ms)
+		LoadAssemblies (165ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (8ms)
-			TypeCache.Refresh (3ms)
+		AnalyzeDomain (15ms)
+			TypeCache.Refresh (6ms)
 				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (3ms)
-	FinalizeReload (485ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (491ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
 		SetupLoadedEditorAssemblies (243ms)
@@ -734,19 +600,169 @@ Domain Reload Profiling: 736ms
 			InitializePlatformSupportModulesInManaged (15ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (41ms)
+			ProcessInitializeOnLoadAttributes (166ms)
+			ProcessInitializeOnLoadMethodAttributes (14ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.16 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3215 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3727.
+Memory consumption went from 139.9 MB to 139.8 MB.
+Total: 2.196100 ms (FindLiveObjects: 0.203600 ms CreateObjectMapping: 0.051800 ms MarkObjects: 1.898100 ms  DeleteObjects: 0.041900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A5BC13010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A08A6030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0516A20 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A5C4A9030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.272 seconds
+Refreshing native plugins compatible for Editor in 1.36 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.527 seconds
+Domain Reload Profiling: 797ms
+	BeginReloadAssembly (109ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (27ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (119ms)
+		LoadAssemblies (161ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (14ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (527ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (269ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (19ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (39ms)
-			ProcessInitializeOnLoadAttributes (170ms)
+			ProcessInitializeOnLoadAttributes (189ms)
+			ProcessInitializeOnLoadMethodAttributes (14ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 2.07 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3731.
+Memory consumption went from 142.0 MB to 142.0 MB.
+Total: 2.106700 ms (FindLiveObjects: 0.204900 ms CreateObjectMapping: 0.043100 ms MarkObjects: 1.817000 ms  DeleteObjects: 0.041100 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 24.712002 seconds.
+  path: Assets/Scripts/LedgerLineHelper.cs
+  artifactKey: Guid(a52506c4fb264b14c8b0a8befb27903f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/LedgerLineHelper.cs using Guid(a52506c4fb264b14c8b0a8befb27903f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc43a04d55fe26d4377171f665ba7de2') in 0.002211 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E17D010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC210C020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.269 seconds
+Refreshing native plugins compatible for Editor in 1.48 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.467 seconds
+Domain Reload Profiling: 735ms
+	BeginReloadAssembly (105ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (27ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (122ms)
+		LoadAssemblies (159ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (14ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (467ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (226ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (14ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (37ms)
+			ProcessInitializeOnLoadAttributes (155ms)
 			ProcessInitializeOnLoadMethodAttributes (13ms)
 			AfterProcessingInitializeOnLoad (4ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.19 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3730.
-Memory consumption went from 143.9 MB to 143.9 MB.
-Total: 1.864800 ms (FindLiveObjects: 0.195700 ms CreateObjectMapping: 0.045400 ms MarkObjects: 1.585300 ms  DeleteObjects: 0.037600 ms)
+Unloading 3216 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3734.
+Memory consumption went from 143.7 MB to 143.7 MB.
+Total: 2.046500 ms (FindLiveObjects: 0.183000 ms CreateObjectMapping: 0.052000 ms MarkObjects: 1.771500 ms  DeleteObjects: 0.039100 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -765,59 +781,130 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D889EE010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D880CDE60 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-00000218A7739040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89CC6030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D9532C040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A018C010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.254 seconds
-Refreshing native plugins compatible for Editor in 1.31 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.264 seconds
+Refreshing native plugins compatible for Editor in 1.08 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.538 seconds
-Domain Reload Profiling: 791ms
-	BeginReloadAssembly (97ms)
+- Finished resetting the current domain, in  0.462 seconds
+Domain Reload Profiling: 726ms
+	BeginReloadAssembly (100ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (25ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (19ms)
+	LoadAllAssembliesAndSetupDomain (119ms)
+		LoadAssemblies (155ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (13ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (463ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (228ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (37ms)
+			ProcessInitializeOnLoadAttributes (155ms)
+			ProcessInitializeOnLoadMethodAttributes (14ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.13 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3737.
+Memory consumption went from 145.9 MB to 145.9 MB.
+Total: 1.935500 ms (FindLiveObjects: 0.192300 ms CreateObjectMapping: 0.055000 ms MarkObjects: 1.650500 ms  DeleteObjects: 0.037000 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E17D010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0507330 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.264 seconds
+Refreshing native plugins compatible for Editor in 1.10 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.475 seconds
+Domain Reload Profiling: 738ms
+	BeginReloadAssembly (104ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (24ms)
-	RebuildCommonClasses (19ms)
-	RebuildNativeTypeToScriptingClass (10ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
 	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (109ms)
-		LoadAssemblies (150ms)
+	LoadAllAssembliesAndSetupDomain (116ms)
+		LoadAssemblies (162ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
 		AnalyzeDomain (8ms)
 			TypeCache.Refresh (4ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (3ms)
-	FinalizeReload (539ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (475ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (267ms)
+		SetupLoadedEditorAssemblies (234ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (16ms)
+			InitializePlatformSupportModulesInManaged (15ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (42ms)
-			ProcessInitializeOnLoadAttributes (187ms)
-			ProcessInitializeOnLoadMethodAttributes (14ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (160ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
 			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.49 ms, found 3 plugins.
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.40 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3733.
-Memory consumption went from 145.8 MB to 145.8 MB.
-Total: 2.146100 ms (FindLiveObjects: 0.190300 ms CreateObjectMapping: 0.044800 ms MarkObjects: 1.870900 ms  DeleteObjects: 0.039500 ms)
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3740.
+Memory consumption went from 147.8 MB to 147.8 MB.
+Total: 1.832600 ms (FindLiveObjects: 0.179500 ms CreateObjectMapping: 0.043400 ms MarkObjects: 1.574100 ms  DeleteObjects: 0.035100 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -836,22 +923,164 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D95200D50 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89D86020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-00000218A0507330 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D87E96450 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D888D6010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A7835A20 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.263 seconds
-Refreshing native plugins compatible for Editor in 1.39 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.264 seconds
+Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.464 seconds
-Domain Reload Profiling: 726ms
+- Finished resetting the current domain, in  0.465 seconds
+Domain Reload Profiling: 727ms
 	BeginReloadAssembly (99ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (24ms)
+	RebuildCommonClasses (22ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (18ms)
+	LoadAllAssembliesAndSetupDomain (117ms)
+		LoadAssemblies (151ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (14ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (465ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (228ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (14ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (36ms)
+			ProcessInitializeOnLoadAttributes (157ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 1.45 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3743.
+Memory consumption went from 149.7 MB to 149.7 MB.
+Total: 2.117900 ms (FindLiveObjects: 0.220700 ms CreateObjectMapping: 0.053200 ms MarkObjects: 1.804500 ms  DeleteObjects: 0.038700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0507330 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.261 seconds
+Refreshing native plugins compatible for Editor in 1.28 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.467 seconds
+Domain Reload Profiling: 727ms
+	BeginReloadAssembly (102ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (24ms)
+	RebuildCommonClasses (24ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (16ms)
+	LoadAllAssembliesAndSetupDomain (112ms)
+		LoadAssemblies (154ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (10ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (467ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (229ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (36ms)
+			ProcessInitializeOnLoadAttributes (158ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.13 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3746.
+Memory consumption went from 151.7 MB to 151.6 MB.
+Total: 1.825200 ms (FindLiveObjects: 0.172800 ms CreateObjectMapping: 0.044900 ms MarkObjects: 1.573400 ms  DeleteObjects: 0.033600 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0507330 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A7835A20 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.275 seconds
+Refreshing native plugins compatible for Editor in 1.30 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.481 seconds
+Domain Reload Profiling: 755ms
+	BeginReloadAssembly (103ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
@@ -860,35 +1089,35 @@ Domain Reload Profiling: 726ms
 	RebuildCommonClasses (19ms)
 	RebuildNativeTypeToScriptingClass (6ms)
 	initialDomainReloadingComplete (18ms)
-	LoadAllAssembliesAndSetupDomain (119ms)
-		LoadAssemblies (154ms)
+	LoadAllAssembliesAndSetupDomain (128ms)
+		LoadAssemblies (166ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
 		AnalyzeDomain (14ms)
 			TypeCache.Refresh (5ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (4ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (465ms)
+	FinalizeReload (481ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (227ms)
+		SetupLoadedEditorAssemblies (238ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (15ms)
+			InitializePlatformSupportModulesInManaged (14ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (36ms)
-			ProcessInitializeOnLoadAttributes (155ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (166ms)
 			ProcessInitializeOnLoadMethodAttributes (13ms)
-			AfterProcessingInitializeOnLoad (5ms)
+			AfterProcessingInitializeOnLoad (4ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (5ms)
-Refreshing native plugins compatible for Editor in 1.80 ms, found 3 plugins.
+		AwakeInstancesAfterBackupRestoration (6ms)
+Refreshing native plugins compatible for Editor in 1.54 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3736.
-Memory consumption went from 147.7 MB to 147.7 MB.
-Total: 1.977400 ms (FindLiveObjects: 0.181700 ms CreateObjectMapping: 0.052500 ms MarkObjects: 1.704100 ms  DeleteObjects: 0.038600 ms)
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3749.
+Memory consumption went from 153.6 MB to 153.6 MB.
+Total: 1.873000 ms (FindLiveObjects: 0.206300 ms CreateObjectMapping: 0.044400 ms MarkObjects: 1.578400 ms  DeleteObjects: 0.043200 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -907,59 +1136,130 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D888C4030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D665C4C90 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-0000021AC2F48010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89A03010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D9081E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.257 seconds
-Refreshing native plugins compatible for Editor in 1.10 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.259 seconds
+Refreshing native plugins compatible for Editor in 1.80 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.540 seconds
-Domain Reload Profiling: 796ms
+- Finished resetting the current domain, in  0.468 seconds
+Domain Reload Profiling: 727ms
+	BeginReloadAssembly (104ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (25ms)
+	RebuildCommonClasses (22ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (16ms)
+	LoadAllAssembliesAndSetupDomain (107ms)
+		LoadAssemblies (149ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (8ms)
+			TypeCache.Refresh (4ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (469ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (229ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (156ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.48 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3752.
+Memory consumption went from 155.5 MB to 155.5 MB.
+Total: 1.829600 ms (FindLiveObjects: 0.168800 ms CreateObjectMapping: 0.054100 ms MarkObjects: 1.569300 ms  DeleteObjects: 0.036800 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A7E127030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A7835A20 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.245 seconds
+Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.478 seconds
+Domain Reload Profiling: 723ms
 	BeginReloadAssembly (99ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (24ms)
-	RebuildCommonClasses (23ms)
+	RebuildCommonClasses (19ms)
 	RebuildNativeTypeToScriptingClass (7ms)
 	initialDomainReloadingComplete (16ms)
-	LoadAllAssembliesAndSetupDomain (110ms)
-		LoadAssemblies (153ms)
+	LoadAllAssembliesAndSetupDomain (104ms)
+		LoadAssemblies (142ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (7ms)
-			TypeCache.Refresh (3ms)
+		AnalyzeDomain (8ms)
+			TypeCache.Refresh (4ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (540ms)
+	FinalizeReload (479ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (268ms)
+		SetupLoadedEditorAssemblies (232ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
+			InitializePlatformSupportModulesInManaged (14ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (43ms)
-			ProcessInitializeOnLoadAttributes (184ms)
-			ProcessInitializeOnLoadMethodAttributes (16ms)
+			BeforeProcessingInitializeOnLoad (39ms)
+			ProcessInitializeOnLoadAttributes (158ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
 			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.39 ms, found 3 plugins.
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.30 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3739.
-Memory consumption went from 149.7 MB to 149.6 MB.
-Total: 2.057100 ms (FindLiveObjects: 0.252500 ms CreateObjectMapping: 0.062000 ms MarkObjects: 1.705100 ms  DeleteObjects: 0.037000 ms)
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3755.
+Memory consumption went from 157.4 MB to 157.4 MB.
+Total: 2.397400 ms (FindLiveObjects: 0.210700 ms CreateObjectMapping: 0.052900 ms MarkObjects: 2.090700 ms  DeleteObjects: 0.042400 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -978,22 +1278,93 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D888C4030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D92746010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-0000021A7E64F020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D89A03010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D65FDC040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.251 seconds
-Refreshing native plugins compatible for Editor in 1.73 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.260 seconds
+Refreshing native plugins compatible for Editor in 1.77 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.541 seconds
-Domain Reload Profiling: 791ms
-	BeginReloadAssembly (97ms)
+- Finished resetting the current domain, in  0.469 seconds
+Domain Reload Profiling: 728ms
+	BeginReloadAssembly (102ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (26ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (16ms)
+	LoadAllAssembliesAndSetupDomain (115ms)
+		LoadAssemblies (155ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (10ms)
+			TypeCache.Refresh (4ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (470ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (229ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (155ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.21 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3758.
+Memory consumption went from 159.3 MB to 159.3 MB.
+Total: 1.873000 ms (FindLiveObjects: 0.186500 ms CreateObjectMapping: 0.053000 ms MarkObjects: 1.594500 ms  DeleteObjects: 0.038300 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A7E64F020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0039310 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.255 seconds
+Refreshing native plugins compatible for Editor in 1.20 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.476 seconds
+Domain Reload Profiling: 730ms
+	BeginReloadAssembly (99ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
@@ -1001,36 +1372,36 @@ Domain Reload Profiling: 791ms
 		CreateAndSetChildDomain (23ms)
 	RebuildCommonClasses (18ms)
 	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (111ms)
+	initialDomainReloadingComplete (20ms)
+	LoadAllAssembliesAndSetupDomain (110ms)
 		LoadAssemblies (151ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (10ms)
+		AnalyzeDomain (8ms)
 			TypeCache.Refresh (3ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (5ms)
-	FinalizeReload (541ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (476ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (266ms)
+		SetupLoadedEditorAssemblies (233ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
+			InitializePlatformSupportModulesInManaged (15ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (42ms)
-			ProcessInitializeOnLoadAttributes (183ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (6ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (159ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.73 ms, found 3 plugins.
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.30 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3742.
-Memory consumption went from 151.6 MB to 151.5 MB.
-Total: 2.027300 ms (FindLiveObjects: 0.203300 ms CreateObjectMapping: 0.048900 ms MarkObjects: 1.736100 ms  DeleteObjects: 0.038200 ms)
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3761.
+Memory consumption went from 161.3 MB to 161.2 MB.
+Total: 1.865400 ms (FindLiveObjects: 0.165100 ms CreateObjectMapping: 0.059400 ms MarkObjects: 1.602100 ms  DeleteObjects: 0.038200 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -1049,59 +1420,201 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-Symbol file data-0000018D888C4030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D659EF020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file data-0000021A7E64F020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D4281FA10 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file data-0000021AC3F1A7D0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000018D92746010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file data-00000218A8755E40 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.255 seconds
-Refreshing native plugins compatible for Editor in 1.08 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.261 seconds
+Refreshing native plugins compatible for Editor in 1.27 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.532 seconds
-Domain Reload Profiling: 786ms
+- Finished resetting the current domain, in  0.493 seconds
+Domain Reload Profiling: 753ms
+	BeginReloadAssembly (98ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (24ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (121ms)
+		LoadAssemblies (155ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (14ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (493ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (240ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (39ms)
+			ProcessInitializeOnLoadAttributes (164ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3764.
+Memory consumption went from 163.2 MB to 163.2 MB.
+Total: 2.174200 ms (FindLiveObjects: 0.224500 ms CreateObjectMapping: 0.053200 ms MarkObjects: 1.854100 ms  DeleteObjects: 0.041700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A7E64F020 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC0FE8040 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0039310 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.265 seconds
+Refreshing native plugins compatible for Editor in 1.52 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.471 seconds
+Domain Reload Profiling: 735ms
+	BeginReloadAssembly (106ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (26ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (19ms)
+	LoadAllAssembliesAndSetupDomain (110ms)
+		LoadAssemblies (158ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (8ms)
+			TypeCache.Refresh (4ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (471ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (230ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (37ms)
+			ProcessInitializeOnLoadAttributes (156ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.14 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3767.
+Memory consumption went from 165.1 MB to 165.1 MB.
+Total: 2.110400 ms (FindLiveObjects: 0.269700 ms CreateObjectMapping: 0.054400 ms MarkObjects: 1.744100 ms  DeleteObjects: 0.041600 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file data-0000021A7E92E010 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021AC11EA070 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.VectorGraphics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-0000021A5C84F030 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-00000218A0CCF0C0 doesn't match image D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.003.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.260 seconds
+Refreshing native plugins compatible for Editor in 1.24 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.559 seconds
+Domain Reload Profiling: 818ms
 	BeginReloadAssembly (100ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (25ms)
-	RebuildCommonClasses (18ms)
+		CreateAndSetChildDomain (23ms)
+	RebuildCommonClasses (20ms)
 	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (111ms)
-		LoadAssemblies (153ms)
+	initialDomainReloadingComplete (20ms)
+	LoadAllAssembliesAndSetupDomain (112ms)
+		LoadAssemblies (154ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (7ms)
-			TypeCache.Refresh (3ms)
+		AnalyzeDomain (8ms)
+			TypeCache.Refresh (4ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (532ms)
+	FinalizeReload (559ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (262ms)
+		SetupLoadedEditorAssemblies (273ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (18ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (41ms)
-			ProcessInitializeOnLoadAttributes (180ms)
-			ProcessInitializeOnLoadMethodAttributes (14ms)
-			AfterProcessingInitializeOnLoad (6ms)
+			BeforeProcessingInitializeOnLoad (44ms)
+			ProcessInitializeOnLoadAttributes (188ms)
+			ProcessInitializeOnLoadMethodAttributes (15ms)
+			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (5ms)
-Refreshing native plugins compatible for Editor in 1.33 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.41 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3213 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 27 unused Assets / (31.1 KB). Loaded Objects now: 3745.
-Memory consumption went from 153.5 MB to 153.5 MB.
-Total: 2.116600 ms (FindLiveObjects: 0.195000 ms CreateObjectMapping: 0.051800 ms MarkObjects: 1.825000 ms  DeleteObjects: 0.044100 ms)
+Unloading 3217 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 27 unused Assets / (31.0 KB). Loaded Objects now: 3770.
+Memory consumption went from 167.1 MB to 167.0 MB.
+Total: 2.036300 ms (FindLiveObjects: 0.211500 ms CreateObjectMapping: 0.061200 ms MarkObjects: 1.721200 ms  DeleteObjects: 0.041700 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
