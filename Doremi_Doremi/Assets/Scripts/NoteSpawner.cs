@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -39,23 +40,36 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private float staffHeight = 150f;
     [SerializeField] private float beatSpacingFactor = 2.0f;
     [SerializeField] private float noteYOffset = 0f;
-    [SerializeField] private float ledgerYOffset = 0f;
     [SerializeField] private float noteScale = 2f;
 
     private NoteDataLoader dataLoader;
     private NoteMapper noteMapper;
-    private LedgerLineHelper ledgerHelper; // 주석 해제
+    private LedgerLineHelper ledgerHelper;
+    private KeySignatureRenderer keySigRenderer;
 
     private void Awake()
     {
         dataLoader = new NoteDataLoader(songsJson);
         noteMapper = new NoteMapper();
-        // LedgerLineHelper 인스턴스 생성
-        ledgerHelper = new LedgerLineHelper(prefabProvider.ledgerLinePrefab, notesContainer);
+        ledgerHelper = new LedgerLineHelper(prefabProvider.LedgerLinePrefab, notesContainer);
+
+        keySigRenderer = new KeySignatureRenderer(
+     prefabProvider.SharpKeySignaturePrefab,
+     prefabProvider.FlatKeySignaturePrefab,
+     linesContainer,
+     staffHeight / 4f,
+     Mathf.Round(notesContainer.anchoredPosition.y)
+ );
+
     }
 
     private void Start()
     {
+
+        var test = Instantiate(prefabProvider.SharpKeySignaturePrefab, notesContainer);
+        test.name = "TestSharpManual";
+        test.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+
         var songList = dataLoader.LoadSongs();
         if (songList?.songs == null || songList.songs.Length == 0) return;
         if (selectedSongIndex < 0 || selectedSongIndex >= songList.songs.Length) return;
@@ -63,6 +77,7 @@ public class NoteSpawner : MonoBehaviour
         var song = songList.songs[selectedSongIndex];
 
         SpawnClef(song.clef);
+        keySigRenderer.Render(song.key);
         SpawnTimeSignature(song.time);
         ClearNotes();
         SpawnSongNotes(song);
@@ -122,53 +137,61 @@ public class NoteSpawner : MonoBehaviour
             string[] parts = noteStr.Split(':');
             if (parts.Length != 2) continue;
 
-            string pitch = parts[0];
+            string rawPitch = parts[0];
             string durationCode = parts[1];
+            string pureDuration = durationCode.Replace("R", "");
             bool isRest = durationCode.EndsWith("R");
-            string pureDuration = isRest ? durationCode.Replace("R", "") : durationCode;
-            float duration = GetBeatLength(pureDuration);
 
-            if (isRest)
+            if (!isRest)
             {
-                var restPrefab = prefabProvider.GetRest(durationCode);
-                if (!restPrefab) continue;
-
-                var rest = Instantiate(restPrefab, notesContainer);
-                var rt = rest.GetComponent<RectTransform>();
-                rt.anchoredPosition = new Vector2(currentX, baseY + (noteYOffset * spacing));
-                rt.localScale = Vector3.one * noteScale;
-            }
-            else
-            {
-                if (!noteMapper.TryGetIndex(pitch, out float index)) continue;
+                if (!noteMapper.TryGetIndex(rawPitch, out float index))
+                    continue;
 
                 float x = currentX;
                 float y = baseY + index * spacing + noteYOffset * spacing + verticalCorrection;
 
-                NoteDebugLogger.LogNote(pitch, index, spacing, baseY);
-
-                GameObject head = prefabProvider.GetNoteHead(pureDuration);
-                GameObject stem = (pureDuration == "1") ? null : prefabProvider.noteStemPrefab;
-                GameObject flag = pureDuration switch
-                {
-                    "8" => prefabProvider.noteFlag8Prefab,
-                    "16" => prefabProvider.noteFlag16Prefab,
-                    _ => null
-                };
-
-                bool stemDown = index < 2.5f;
-
-                NoteFactory.CreateNoteWrap(
-                    notesContainer, head, stem, flag, null,
-                    stemDown, new Vector2(x, y), noteScale, spacing
+                GameObject wrap = NoteFactory.CreateNoteWrap(
+                    notesContainer,
+                    prefabProvider.GetNoteHead(pureDuration),
+                    pureDuration == "1" ? null : prefabProvider.NoteStemPrefab,
+                    GetFlagPrefab(pureDuration),
+                    null,
+                    index < 2.5f,
+                    new Vector2(x, y),
+                    noteScale,
+                    spacing
                 );
 
-                // 덧줄을 그리기 위한 올바른 파라미터 전달
-                ledgerHelper.GenerateLedgerLines(index, spacing, x, baseY, -3.1f * spacing);
+                if (rawPitch.Contains("#") || rawPitch.Contains("b"))
+                {
+                    string accCode = rawPitch.Contains("#") ? "#" : "b";
+                    GameObject accPrefab = prefabProvider.GetAccidental(accCode);
+                    if (accPrefab != null)
+                    {
+                        var acc = Instantiate(accPrefab, wrap.transform);
+                        var rt = acc.GetComponent<RectTransform>();
+                        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+                        rt.pivot = new Vector2(0.5f, 0.5f);
+                        rt.anchoredPosition = new Vector2(-spacing * 0.3f, verticalCorrection);
+                        rt.localScale = Vector3.one;
+                    }
+                }
+
+                ledgerHelper.GenerateLedgerLines(index, spacing, x, baseY, verticalCorrection);
             }
 
-            currentX += spacing * beatSpacingFactor * duration;
+            currentX += spacing * beatSpacingFactor * GetBeatLength(pureDuration);
         }
+    }
+
+    private GameObject GetFlagPrefab(string code)
+    {
+        return code switch
+        {
+            "8" => prefabProvider.NoteFlag8Prefab,
+            "16" => prefabProvider.NoteFlag16Prefab,
+            _ => null
+        };
     }
 
     private float GetBeatLength(string code)

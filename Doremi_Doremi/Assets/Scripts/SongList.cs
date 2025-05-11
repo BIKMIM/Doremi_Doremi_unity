@@ -21,6 +21,8 @@ public class Song
     public string clef;
 
     public string time; // 🧩 여기 추가
+
+    public string key;  // ✅ 조표 정보
 }
 
 /// <summary>
