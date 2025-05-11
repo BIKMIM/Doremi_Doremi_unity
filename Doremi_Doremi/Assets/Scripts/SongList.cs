@@ -20,7 +20,9 @@ public class Song
 
     public string clef;
 
-    public string time; // 🧩 여기 추가
+    public string time; 
+
+    public string key;   
 }
 
 /// <summary>
