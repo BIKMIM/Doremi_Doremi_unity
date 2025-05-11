@@ -51,7 +51,8 @@ public class NoteSpawner : MonoBehaviour
     {
         dataLoader = new NoteDataLoader(songsJson);
         noteMapper = new NoteMapper();
-        ledgerHelper = new LedgerLineHelper(prefabProvider.LedgerLinePrefab, notesContainer);
+        ledgerHelper = new LedgerLineHelper(prefabProvider.LedgerLinePrefab, notesContainer, yOffsetRatio: -2.1f);
+
 
         keySigRenderer = new KeySignatureRenderer(
      prefabProvider.SharpKeySignaturePrefab,
@@ -129,7 +130,12 @@ public class NoteSpawner : MonoBehaviour
         float spacing = staffHeight / 4f;
         float baseY = Mathf.Round(notesContainer.anchoredPosition.y);
         float centerX = notesContainer.rect.width * 0.5f;
-        float currentX = -centerX + spacing * -18f;
+        // 조표 수를 감안해서 offset
+        int keyAccidentalCount = KeySignatureHelper.GetAccidentals(song.key).Count;
+        float keyOffsetX = keyAccidentalCount * spacing * 0.5f;
+
+        // 기존 X 시작점 + 조표 간 거리만큼 밀어줌
+        float currentX = -centerX + spacing * -18f + keyOffsetX;
         float verticalCorrection = spacing * -1.0f;
 
         foreach (var noteStr in song.notes)
