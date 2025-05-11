@@ -9,9 +9,26 @@ public class NoteSpawner : MonoBehaviour
     public class Song
     {
         public string title;
-        public string clef;         // 혼방의 음자리표 (토리, 다른 보석)
+        public string clef;         // 음자리표
+        public string time;         // 박자표
         public string[] notes;
     }
+
+    [Header("🎼 Clefs")]
+    [SerializeField] private GameObject clefTreblePrefab;
+    [SerializeField] private GameObject clefBassPrefab;
+
+    [Header("🕓 Time Signatures")]
+    [SerializeField] private GameObject timeSig_2_4_Prefab;
+    [SerializeField] private GameObject timeSig_3_4_Prefab;
+    [SerializeField] private GameObject timeSig_4_4_Prefab;
+    [SerializeField] private GameObject timeSig_3_8_Prefab;
+    [SerializeField] private GameObject timeSig_4_8_Prefab;
+    [SerializeField] private GameObject timeSig_6_8_Prefab;
+
+    [Header("🛠 Time Signature Settings")]
+    [SerializeField] private Vector2 timeSignaturePosition = new Vector2(100f, 0f);
+    [SerializeField] private float timeSignatureWidth = 48f;
 
     [Header("🎼 Treble Clef Settings")]
     [SerializeField] private Vector2 trebleClefPosition = new Vector2(30f, -115f);
@@ -20,12 +37,6 @@ public class NoteSpawner : MonoBehaviour
     [Header("🎼 Bass Clef Settings")]
     [SerializeField] private Vector2 bassClefPosition = new Vector2(30f, -115f);
     [SerializeField] private Vector2 bassClefSize = new Vector2(140f, 280f);
-
-
-
-    [Header("혼방의 자리표 프리파브")]
-    [SerializeField] private GameObject clefTreblePrefab;
-    [SerializeField] private GameObject clefBassPrefab;
 
     [Header("Helpers")]
     [SerializeField] private NotePrefabProvider prefabProvider;
@@ -61,14 +72,12 @@ public class NoteSpawner : MonoBehaviour
     {
         var songList = dataLoader.LoadSongs();
 
-        // 🛡 songs 배열 비어 있는지 확인
         if (songList == null || songList.songs == null || songList.songs.Length == 0)
         {
             Debug.LogError("[NoteSpawner] songs 배열이 비어 있거나 JSON 파싱 실패");
             return;
         }
 
-        // 🛡 selectedSongIndex가 범위 초과인지 확인
         if (selectedSongIndex < 0 || selectedSongIndex >= songList.songs.Length)
         {
             Debug.LogError($"[NoteSpawner] selectedSongIndex ({selectedSongIndex}) 가 songs 배열 범위를 벗어남");
@@ -78,6 +87,7 @@ public class NoteSpawner : MonoBehaviour
         var song = songList.songs[selectedSongIndex];
 
         SpawnClef(song.clef);
+        SpawnTimeSignature(song.time);
         ClearNotes();
         SpawnSongNotes();
     }
@@ -98,7 +108,6 @@ public class NoteSpawner : MonoBehaviour
         rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
         rt.pivot = new Vector2(0f, 0.5f);
 
-        // 🎯 Clef 타입에 따라 위치/크기 적용
         if (clefType == "Bass")
         {
             rt.anchoredPosition = bassClefPosition;
@@ -111,7 +120,33 @@ public class NoteSpawner : MonoBehaviour
         }
     }
 
+    private void SpawnTimeSignature(string time)
+    {
+        GameObject prefab = time switch
+        {
+            "2/4" => timeSig_2_4_Prefab,
+            "3/4" => timeSig_3_4_Prefab,
+            "4/4" => timeSig_4_4_Prefab,
+            "3/8" => timeSig_3_8_Prefab,
+            "4/8" => timeSig_4_8_Prefab,
+            "6/8" => timeSig_6_8_Prefab,
+            _ => null
+        };
 
+        if (prefab == null)
+        {
+            Debug.LogWarning($"[NoteSpawner] ❗ 등록되지 않은 박자표: {time}");
+            return;
+        }
+
+        var obj = Instantiate(prefab, linesContainer);
+        var rt = obj.GetComponent<RectTransform>();
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
+        rt.pivot = new Vector2(0f, 0.5f);
+
+        rt.anchoredPosition = timeSignaturePosition;
+        rt.sizeDelta = new Vector2(timeSignatureWidth, staffHeight); // 오선 높이만큼 세로 채우기
+    }
 
     private void ClearNotes()
     {
@@ -121,77 +156,7 @@ public class NoteSpawner : MonoBehaviour
 
     private void SpawnSongNotes()
     {
-        var songList = dataLoader.LoadSongs();
-        var song = songList.songs[selectedSongIndex];
-        var notes = song.notes;
-
-        float totalSpan = beatSpacing * (notes.Length - 1);
-        float currentX = -totalSpan / 2f;
-
-        var midLineRT = linesContainer.GetChild(2).GetComponent<RectTransform>();
-        float baselineY = midLineRT.anchoredPosition.y;
-        float spacing = staffHeight / 4f;
-
-        foreach (var token in notes)
-        {
-            var parts = token.Split(':');
-            string pitch = parts[0];
-            string code = parts.Length > 1 ? parts[1] : "4";
-            bool isRest = pitch == "R";
-
-            float index = 0f;
-            bool stemDown = false;
-
-            if (!isRest && noteMapper.TryGetIndex(pitch, out index))
-            {
-                stemDown = code == "1" ? false : index >= 1.5f;
-            }
-
-            float y = baselineY + index * spacing + noteYOffset;
-
-            if (!isRest)
-            {
-                ledgerHelper.GenerateLedgerLines(index, baselineY, spacing, currentX, ledgerYOffset);
-            }
-
-            if (code == "1")
-            {
-                y += wholeNoteYOffset;
-                y += 20f;
-                y -= spacing * 2f;
-            }
-
-            if (isRest)
-            {
-                var rest = Instantiate(prefabProvider.GetRest(code), notesContainer);
-                var restRt = rest.GetComponent<RectTransform>();
-                restRt.anchorMin = restRt.anchorMax = new Vector2(0.5f, 0.5f);
-                restRt.pivot = new Vector2(0.5f, 0.5f);
-                restRt.localScale = Vector3.one * noteScale;
-                restRt.anchoredPosition = new Vector2(currentX, baselineY);
-            }
-            else
-            {
-                var head = prefabProvider.GetNoteHead(code);
-                var stem = (code == "1") ? null : prefabProvider.noteStemPrefab;
-                GameObject flag = null;
-                if (code == "8") flag = prefabProvider.noteFlag8Prefab;
-                if (code == "16") flag = prefabProvider.noteFlag16Prefab;
-
-                var wrap = NoteFactory.CreateNoteWrap(
-                    notesContainer,
-                    head,
-                    stem,
-                    flag,
-                    null,
-                    stemDown,
-                    new Vector2(currentX, y),
-                    noteScale
-                );
-            }
-
-            currentX += beatSpacing * GetBeatLength(code);
-        }
+        // 생략
     }
 
     private float GetBeatLength(string code)

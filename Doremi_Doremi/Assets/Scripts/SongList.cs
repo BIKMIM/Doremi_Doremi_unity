@@ -1,36 +1,38 @@
-using System;
+ï»¿using System;
 
 /// <summary>
-/// ´ÜÀÏ °î Á¤º¸¸¦ ´ã´Â µ¥ÀÌÅÍ Å¬·¡½ºÀÔ´Ï´Ù.
-/// Title°ú Note ¹è¿­À» Æ÷ÇÔÇÏ¿© ÇÏ³ªÀÇ ¾Çº¸ ´ÜÀ§¸¦ Ç¥ÇöÇÕ´Ï´Ù.
+/// ë‹¨ì¼ ê³¡ ì •ë³´ë¥¼ ë‹´ëŠ” ë°ì´í„° í´ëž˜ìŠ¤ìž…ë‹ˆë‹¤.
+/// Titleê³¼ Note ë°°ì—´ì„ í¬í•¨í•˜ì—¬ í•˜ë‚˜ì˜ ì•…ë³´ ë‹¨ìœ„ë¥¼ í‘œí˜„í•©ë‹ˆë‹¤.
 /// </summary>
 [Serializable]
 public class Song
 {
     /// <summary>
-    /// °î Á¦¸ñ (¿¹: "Twinkle Twinkle Little Star")
+    /// ê³¡ ì œëª© (ì˜ˆ: "Twinkle Twinkle Little Star")
     /// </summary>
     public string title;
 
     /// <summary>
-    /// °îÀ» ±¸¼ºÇÏ´Â À½Ç¥ ¹®ÀÚ¿­ ¹è¿­
-    /// ¿¹: { "C4:4", "D4:4", "E4:2R" }
+    /// ê³¡ì„ êµ¬ì„±í•˜ëŠ” ìŒí‘œ ë¬¸ìžì—´ ë°°ì—´
+    /// ì˜ˆ: { "C4:4", "D4:4", "E4:2R" }
     /// </summary>
     public string[] notes;
 
     public string clef;
+
+    public string time; // ðŸ§© ì—¬ê¸° ì¶”ê°€
 }
 
 /// <summary>
-/// Song °´Ã¼¸¦ ¹è¿­·Î ¹­¾î JSON µð½Ã¸®¾ó¶óÀÌÁî ½Ã »ç¿ëµÇ´Â ·¡ÆÛ Å¬·¡½ºÀÔ´Ï´Ù.
-/// SongList.songs¸¦ ÅëÇØ ¿©·¯ °îÀ» °ü¸®ÇÕ´Ï´Ù.
+/// Song ê°ì²´ë¥¼ ë°°ì—´ë¡œ ë¬¶ì–´ JSON ë””ì‹œë¦¬ì–¼ë¼ì´ì¦ˆ ì‹œ ì‚¬ìš©ë˜ëŠ” ëž˜í¼ í´ëž˜ìŠ¤ìž…ë‹ˆë‹¤.
+/// SongList.songsë¥¼ í†µí•´ ì—¬ëŸ¬ ê³¡ì„ ê´€ë¦¬í•©ë‹ˆë‹¤.
 /// </summary>
 [Serializable]
 public class SongList
 {
     /// <summary>
-    /// °î ¸ñ·Ï ¹è¿­
-    /// JSON Å°´Â "songs"·Î ¸ÅÇÎµË´Ï´Ù.
+    /// ê³¡ ëª©ë¡ ë°°ì—´
+    /// JSON í‚¤ëŠ” "songs"ë¡œ ë§¤í•‘ë©ë‹ˆë‹¤.
     /// </summary>
     public Song[] songs;
 }
