@@ -1,6 +1,5 @@
-﻿using System;  // 기본 .NET 네임스페이스
-using UnityEngine;  // Unity 엔진 핵심 기능 제공
-using Object = UnityEngine.Object;  // DestroyImmediate 등을 위한 명시적 참조
+﻿using UnityEngine;
+using Object = UnityEngine.Object; // Added to resolve Object.Instantiate
 
 /// <summary>
 /// LedgerLineHelper 클래스는 오선 밖에 위치한 음표에 대해
@@ -18,52 +17,87 @@ public class LedgerLineHelper
     /// <param name="parent">보조선을 자식으로 붙일 부모 Transform</param>
     public LedgerLineHelper(GameObject ledgerLinePrefab, Transform parent)
     {
-        this.ledgerLinePrefab = ledgerLinePrefab;  // 멤버 변수에 프리팹 할당
-        this.parent = parent;                     // 멤버 변수에 부모 Transform 할당
+        this.ledgerLinePrefab = ledgerLinePrefab;
+        this.parent = parent;
     }
 
     /// <summary>
     /// 음표 높이(index)에 따라 필요한 보조선을 생성합니다.
     /// </summary>
     /// <param name="index">음표의 lineIndex (상대적 위치)</param>
-    /// <param name="baseY">기준선(Y0) 위치</param>
-    /// <param name="spacing">오선 간격 (Y 간격)
+    /// <param name="spacing">오선 간격 (Y 간격)</param>
     /// <param name="posX">보조선의 X 위치</param>
-    /// <param name="yOffset">추가 Y 오프셋 조정값</param>
-    public void GenerateLedgerLines(float index, float baseY, float spacing, float posX, float yOffset)
+    /// <param name="baseY">기준선(Y0) 위치</param>
+    /// <param name="verticalCorrection">추가 Y 오프셋 조정값</param>
+    public void GenerateLedgerLines(float index, float spacing, float posX, float baseY, float verticalCorrection)
     {
+        Debug.Log($"📌 덧줄 검사 진입: index={index}, spacing={spacing}, posX={posX}, baseY={baseY}, verticalCorrection={verticalCorrection}");
 
-        // 오선 범위: E4(-3) ~ F5(1)
-        float minStaffLine = -0.5f;  // E4 라인 인덱스
-        float maxStaffLine = 3.5f;   // F5 라인 인덱스
+        // NoteMapper의 인덱스 기준:
+        // C4 = -0.5f (첫 번째 덧줄 아래)
+        // A3 = -1.5f (두 번째 덧줄 아래)
+        // F3 = -2.5f (세 번째 덧줄 아래)
+        // D3 = -3.5f (네 번째 덧줄 아래)
 
-        // 아래 보조선: D4(–1.0) 혹은 그 아래
+        // A5 = 5.5f (첫 번째 덧줄 위)
+        // C6 = 6.5f (두 번째 덧줄 위)
+        // E6 = 7.5f (세 번째 덧줄 위)
+        // G6 = 8.5f (네 번째 덧줄 위)
+
+        // Lower ledger lines
+        // C4 is index -0.5f. If note is C4 or lower, draw C4 ledger line.
+        if (index <= -0.5f)
+        {
+            CreateLedgerLine(posX, baseY + (-0.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 C4 (-0.5f) 덧줄 생성 for note index={index} → y={baseY + (-0.5f) * spacing + verticalCorrection}");
+        }
+        // A3 is index -1.5f. If note is A3 or lower, draw A3 ledger line.
         if (index <= -1.5f)
         {
-            // 첫 번째 보조선(E4) at index -1.0
-            CreateLedgerLine(posX, baseY + (-1.5f * spacing) + yOffset);
-            // 두 번째 보조선(C4) at index -2.0
-            if (index <= -2.5f)
-                CreateLedgerLine(posX, baseY + (-2.5f * spacing) + yOffset);
-            // 두 번째 보조선(C4) at index -2.0
-            if (index <= -3.5f)
-                CreateLedgerLine(posX, baseY + (-3.5f * spacing) + yOffset);
+            CreateLedgerLine(posX, baseY + (-1.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 A3 (-1.5f) 덧줄 생성 for note index={index} → y={baseY + (-1.5f) * spacing + verticalCorrection}");
         }
-
-        // 위 보조선: G5(3.5) 혹은 그 위
-        if (index >= 4.5f)
+        // F3 is index -2.5f. If note is F3 or lower, draw F3 ledger line.
+        if (index <= -2.5f)
         {
-            // 첫 번째 보조선(F5) at index 3.0
-            CreateLedgerLine(posX, baseY + (4.5f * spacing) + yOffset);
-            // (필요하다면 G5 위에 두 번째 보조선도)
-            // 두 번째 보조선(C4) at index -2.0
-            if (index >= 5.5f)
-                CreateLedgerLine(posX, baseY + (5.5f * spacing) + yOffset);
-            // 세 번째 보조선(C4) at index -2.0
-            if (index >= 6.5f)
-                CreateLedgerLine(posX, baseY + (6.5f * spacing) + yOffset);
+            CreateLedgerLine(posX, baseY + (-2.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 F3 (-2.5f) 덧줄 생성 for note index={index} → y={baseY + (-2.5f) * spacing + verticalCorrection}");
         }
+        // D3 is index -3.5f. If note is D3 or lower, draw D3 ledger line.
+        if (index <= -3.5f)
+        {
+            CreateLedgerLine(posX, baseY + (-3.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 D3 (-3.5f) 덧줄 생성 for note index={index} → y={baseY + (-3.5f) * spacing + verticalCorrection}");
+        }
+        // Add more for lower notes if needed (e.g., B2 = -4.5f, G2 = -5.0f)
 
+
+        // Upper ledger lines
+        // A5 is index 5.5f. If note is A5 or higher, draw A5 ledger line.
+        if (index >= 5.5f)
+        {
+            CreateLedgerLine(posX, baseY + (5.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 A5 (5.5f) 덧줄 생성 for note index={index} → y={baseY + (5.5f) * spacing + verticalCorrection}");
+        }
+        // C6 is index 6.5f. If note is C6 or higher, draw C6 ledger line.
+        if (index >= 6.5f)
+        {
+            CreateLedgerLine(posX, baseY + (6.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 C6 (6.5f) 덧줄 생성 for note index={index} → y={baseY + (6.5f) * spacing + verticalCorrection}");
+        }
+        // E6 is index 7.5f (if in NoteMapper). If note is E6 or higher, draw E6 ledger line.
+        if (index >= 7.5f)
+        {
+            CreateLedgerLine(posX, baseY + (7.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 E6 (7.5f) 덧줄 생성 for note index={index} → y={baseY + (7.5f) * spacing + verticalCorrection}");
+        }
+        // G6 is index 8.5f (if in NoteMapper). If note is G6 or higher, draw G6 ledger line.
+        if (index >= 8.5f)
+        {
+            CreateLedgerLine(posX, baseY + (8.5f) * spacing + verticalCorrection);
+            Debug.Log($"🧾 G6 (8.5f) 덧줄 생성 for note index={index} → y={baseY + (8.5f) * spacing + verticalCorrection}");
+        }
+        // Add more for higher notes if needed
     }
 
     /// <summary>
@@ -73,11 +107,9 @@ public class LedgerLineHelper
     /// <param name="y">보조선의 Y 좌표</param>
     private void CreateLedgerLine(float x, float y)
     {
-        // 보조선 게임오브젝트 인스턴스화
         GameObject ledgerLine = Object.Instantiate(ledgerLinePrefab, parent);
-
-        // RectTransform 컴포넌트를 가져와 위치 설정
         RectTransform rt = ledgerLine.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(x, y);
+        rt.anchoredPosition = new Vector2(x, Mathf.Round(y)); // Mathf.Round(y) is good for pixel-perfect alignment
+        // rt.sizeDelta = new Vector2(30f, rt.sizeDelta.y); // Optional: Adjust width if needed
     }
 }

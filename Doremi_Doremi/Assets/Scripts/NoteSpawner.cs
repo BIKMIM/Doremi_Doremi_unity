@@ -1,6 +1,4 @@
-﻿// ✅ NoteSpawner.cs (해상도 독립형 + 디버그 지원 통합 버전)
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -46,12 +44,13 @@ public class NoteSpawner : MonoBehaviour
 
     private NoteDataLoader dataLoader;
     private NoteMapper noteMapper;
-    private LedgerLineHelper ledgerHelper;
+    private LedgerLineHelper ledgerHelper; // 주석 해제
 
     private void Awake()
     {
         dataLoader = new NoteDataLoader(songsJson);
         noteMapper = new NoteMapper();
+        // LedgerLineHelper 인스턴스 생성
         ledgerHelper = new LedgerLineHelper(prefabProvider.ledgerLinePrefab, notesContainer);
     }
 
@@ -114,12 +113,8 @@ public class NoteSpawner : MonoBehaviour
     {
         float spacing = staffHeight / 4f;
         float baseY = Mathf.Round(notesContainer.anchoredPosition.y);
-
-
-        // ✅ 화면 왼쪽에서 시작되도록 보정
         float centerX = notesContainer.rect.width * 0.5f;
         float currentX = -centerX + spacing * -18f;
-
         float verticalCorrection = spacing * -1.0f;
 
         foreach (var noteStr in song.notes)
@@ -131,7 +126,6 @@ public class NoteSpawner : MonoBehaviour
             string durationCode = parts[1];
             bool isRest = durationCode.EndsWith("R");
             string pureDuration = isRest ? durationCode.Replace("R", "") : durationCode;
-
             float duration = GetBeatLength(pureDuration);
 
             if (isRest)
@@ -151,12 +145,9 @@ public class NoteSpawner : MonoBehaviour
                 float x = currentX;
                 float y = baseY + index * spacing + noteYOffset * spacing + verticalCorrection;
 
-                // 🎯 디버그 로그
                 NoteDebugLogger.LogNote(pitch, index, spacing, baseY);
 
                 GameObject head = prefabProvider.GetNoteHead(pureDuration);
-
-                // ✅ 온음표면 stem, flag 제거
                 GameObject stem = (pureDuration == "1") ? null : prefabProvider.noteStemPrefab;
                 GameObject flag = pureDuration switch
                 {
@@ -165,7 +156,6 @@ public class NoteSpawner : MonoBehaviour
                     _ => null
                 };
 
-
                 bool stemDown = index < 2.5f;
 
                 NoteFactory.CreateNoteWrap(
@@ -173,8 +163,8 @@ public class NoteSpawner : MonoBehaviour
                     stemDown, new Vector2(x, y), noteScale, spacing
                 );
 
-                ledgerHelper.GenerateLedgerLines(index, y, spacing, x, ledgerYOffset);
-
+                // 덧줄을 그리기 위한 올바른 파라미터 전달
+                ledgerHelper.GenerateLedgerLines(index, spacing, x, baseY, -3.1f * spacing);
             }
 
             currentX += spacing * beatSpacingFactor * duration;
@@ -197,29 +187,5 @@ public class NoteSpawner : MonoBehaviour
             "16R" => 1f,
             _ => 1f
         };
-    }
-
-    private void CreateLedgerLine(float x, float y)
-    {
-        GameObject ledgerLine = Instantiate(prefabProvider.ledgerLinePrefab, notesContainer);
-        RectTransform rt = ledgerLine.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(x, y);
-    }
-
-    public void GenerateLedgerLines(float index, float headY, float spacing, float posX, float yOffset)
-    {
-        if (index <= -1.5f)
-        {
-            CreateLedgerLine(posX, headY - spacing);
-            if (index <= -2.5f) CreateLedgerLine(posX, headY - spacing * 2);
-            if (index <= -3.5f) CreateLedgerLine(posX, headY - spacing * 3);
-        }
-
-        if (index >= 4.5f)
-        {
-            CreateLedgerLine(posX, headY + spacing);
-            if (index >= 5.5f) CreateLedgerLine(posX, headY + spacing * 2);
-            if (index >= 6.5f) CreateLedgerLine(posX, headY + spacing * 3);
-        }
     }
 }
