@@ -17,6 +17,8 @@ public class Song
     /// ¿¹: { "C4:4", "D4:4", "E4:2R" }
     /// </summary>
     public string[] notes;
+
+    public string clef;
 }
 
 /// <summary>

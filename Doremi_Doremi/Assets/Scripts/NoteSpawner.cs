@@ -5,18 +5,40 @@
 /// </summary>
 public class NoteSpawner : MonoBehaviour
 {
+    [System.Serializable]
+    public class Song
+    {
+        public string title;
+        public string clef;         // 혼방의 음자리표 (토리, 다른 보석)
+        public string[] notes;
+    }
+
+    [Header("🎼 Treble Clef Settings")]
+    [SerializeField] private Vector2 trebleClefPosition = new Vector2(30f, -115f);
+    [SerializeField] private Vector2 trebleClefSize = new Vector2(140f, 280f);
+
+    [Header("🎼 Bass Clef Settings")]
+    [SerializeField] private Vector2 bassClefPosition = new Vector2(30f, -115f);
+    [SerializeField] private Vector2 bassClefSize = new Vector2(140f, 280f);
+
+
+
+    [Header("혼방의 자리표 프리파브")]
+    [SerializeField] private GameObject clefTreblePrefab;
+    [SerializeField] private GameObject clefBassPrefab;
+
     [Header("Helpers")]
     [SerializeField] private NotePrefabProvider prefabProvider;
 
-    [Header("🎹 UI")]
+    [Header("표시 UI")]
     [SerializeField] private RectTransform linesContainer;
     [SerializeField] private RectTransform notesContainer;
 
-    [Header("📄 Data")]
+    [Header("파일 데이터")]
     [SerializeField] private TextAsset songsJson;
     [SerializeField] private int selectedSongIndex = 0;
 
-    [Header("⚙ Settings")]
+    [Header("설정")]
     [SerializeField] private float staffHeight = 150f;
     [SerializeField] private float beatSpacing = 80f;
     [SerializeField] private float noteYOffset = 0f;
@@ -37,9 +59,59 @@ public class NoteSpawner : MonoBehaviour
 
     private void Start()
     {
+        var songList = dataLoader.LoadSongs();
+
+        // 🛡 songs 배열 비어 있는지 확인
+        if (songList == null || songList.songs == null || songList.songs.Length == 0)
+        {
+            Debug.LogError("[NoteSpawner] songs 배열이 비어 있거나 JSON 파싱 실패");
+            return;
+        }
+
+        // 🛡 selectedSongIndex가 범위 초과인지 확인
+        if (selectedSongIndex < 0 || selectedSongIndex >= songList.songs.Length)
+        {
+            Debug.LogError($"[NoteSpawner] selectedSongIndex ({selectedSongIndex}) 가 songs 배열 범위를 벗어남");
+            return;
+        }
+
+        var song = songList.songs[selectedSongIndex];
+
+        SpawnClef(song.clef);
         ClearNotes();
         SpawnSongNotes();
     }
+
+    private void SpawnClef(string clefType)
+    {
+        GameObject clefPrefab = clefType == "Bass" ? clefBassPrefab : clefTreblePrefab;
+
+        if (clefPrefab == null)
+        {
+            Debug.LogWarning("[NoteSpawner] Clef prefab이 설정되지 않았습니다.");
+            return;
+        }
+
+        var clef = Instantiate(clefPrefab, linesContainer);
+        var rt = clef.GetComponent<RectTransform>();
+
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
+        rt.pivot = new Vector2(0f, 0.5f);
+
+        // 🎯 Clef 타입에 따라 위치/크기 적용
+        if (clefType == "Bass")
+        {
+            rt.anchoredPosition = bassClefPosition;
+            rt.sizeDelta = bassClefSize;
+        }
+        else
+        {
+            rt.anchoredPosition = trebleClefPosition;
+            rt.sizeDelta = trebleClefSize;
+        }
+    }
+
+
 
     private void ClearNotes()
     {
@@ -72,7 +144,7 @@ public class NoteSpawner : MonoBehaviour
 
             if (!isRest && noteMapper.TryGetIndex(pitch, out index))
             {
-                stemDown = code == "1" ? false : index >= -1f;
+                stemDown = code == "1" ? false : index >= 1.5f;
             }
 
             float y = baselineY + index * spacing + noteYOffset;
@@ -85,7 +157,7 @@ public class NoteSpawner : MonoBehaviour
             if (code == "1")
             {
                 y += wholeNoteYOffset;
-                y += 20f; // 피벗 보정
+                y += 20f;
                 y -= spacing * 2f;
             }
 
@@ -111,7 +183,7 @@ public class NoteSpawner : MonoBehaviour
                     head,
                     stem,
                     flag,
-                    null, // dotPrefab은 추후 구현
+                    null,
                     stemDown,
                     new Vector2(currentX, y),
                     noteScale
