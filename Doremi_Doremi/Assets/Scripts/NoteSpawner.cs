@@ -2,6 +2,8 @@
 
 public class NoteSpawner : MonoBehaviour
 {
+    [SerializeField] private RectTransform ledgerContainer;
+
     [Header("🎼 Clefs")]
     [SerializeField] private GameObject clefTreblePrefab;
     [SerializeField] private GameObject clefBassPrefab;
@@ -36,10 +38,10 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private int selectedSongIndex = 0;
 
     [Header("Settings")]
+    [SerializeField] private float noteHeadOffsetRatio = -1.0f;  // spacing 대비 음표 머리 offset
+    [SerializeField] private float ledgerYOffsetRatio = -0.5f;  // spacing 대비 덧줄 offset
     [SerializeField] private float staffHeight = 150f;
     [SerializeField] private float beatSpacingFactor = 2.0f;
-    [SerializeField] private float noteYOffset = 0f;
-    [SerializeField] private float ledgerYOffset = 0f;
     [SerializeField] private float noteScale = 2f;
 
     private NoteDataLoader dataLoader;
@@ -50,8 +52,8 @@ public class NoteSpawner : MonoBehaviour
     {
         dataLoader = new NoteDataLoader(songsJson);
         noteMapper = new NoteMapper();
-        // LedgerLineHelper 인스턴스 생성
-        ledgerHelper = new LedgerLineHelper(prefabProvider.ledgerLinePrefab, notesContainer);
+        // 보조선은 staff 라인이 그려진 linesContainer 좌표계에서 찍혀야 합니다.
+        ledgerHelper = new LedgerLineHelper(prefabProvider.ledgerLinePrefab, ledgerContainer);
     }
 
     private void Start()
@@ -65,6 +67,7 @@ public class NoteSpawner : MonoBehaviour
         SpawnClef(song.clef);
         SpawnTimeSignature(song.time);
         ClearNotes();
+        ClearLedgerLines();
         SpawnSongNotes(song);
     }
 
@@ -80,6 +83,13 @@ public class NoteSpawner : MonoBehaviour
         rt.anchoredPosition = clefType == "Bass" ? bassClefPosition : trebleClefPosition;
         rt.sizeDelta = clefType == "Bass" ? bassClefSize : trebleClefSize;
     }
+
+    private void ClearLedgerLines()
+    {
+        for (int i = ledgerContainer.childCount - 1; i >= 0; i--)
+            Destroy(ledgerContainer.GetChild(i).gameObject);
+    }
+
 
     private void SpawnTimeSignature(string time)
     {
@@ -109,67 +119,70 @@ public class NoteSpawner : MonoBehaviour
             Destroy(notesContainer.GetChild(i).gameObject);
     }
 
+
     private void SpawnSongNotes(Song song)
     {
         float spacing = staffHeight / 4f;
-        float baseY = Mathf.Round(notesContainer.anchoredPosition.y);
+        float baseY = 0f;
         float centerX = notesContainer.rect.width * 0.5f;
         float currentX = -centerX + spacing * -18f;
-        float verticalCorrection = spacing * -1.0f;
+
+        // 음표에 적용될 기본 수직 보정값
+        float noteVerticalCorrection = noteHeadOffsetRatio * spacing;
+
+        // 덧줄에 적용될 최종 수직 보정값: (음표의 기본 보정값 + 덧줄 고유의 오프셋)
+        float ledgerFinalVerticalCorrection = noteVerticalCorrection + (ledgerYOffsetRatio * spacing);
 
         foreach (var noteStr in song.notes)
         {
-            string[] parts = noteStr.Split(':');
-            if (parts.Length != 2) continue;
-
+            var parts = noteStr.Split(':');
+            if (parts.Length != 2) { continue; }
             string pitch = parts[0];
-            string durationCode = parts[1];
-            bool isRest = durationCode.EndsWith("R");
-            string pureDuration = isRest ? durationCode.Replace("R", "") : durationCode;
-            float duration = GetBeatLength(pureDuration);
+            string duration = parts[1];
+            bool isRest = duration.EndsWith("R");
+            string pureCode = isRest ? duration.Replace("R", "") : duration;
+            float beatLength = GetBeatLength(pureCode);
 
-            if (isRest)
+            if (!isRest)
             {
-                var restPrefab = prefabProvider.GetRest(durationCode);
-                if (!restPrefab) continue;
-
-                var rest = Instantiate(restPrefab, notesContainer);
-                var rt = rest.GetComponent<RectTransform>();
-                rt.anchoredPosition = new Vector2(currentX, baseY + (noteYOffset * spacing));
-                rt.localScale = Vector3.one * noteScale;
-            }
-            else
-            {
-                if (!noteMapper.TryGetIndex(pitch, out float index)) continue;
+                if (!noteMapper.TryGetIndex(pitch, out float index))
+                {
+                    currentX += spacing * beatSpacingFactor * beatLength;
+                    continue;
+                }
 
                 float x = currentX;
-                float y = baseY + index * spacing + noteYOffset * spacing + verticalCorrection;
+                // 음표의 Y 위치 계산 시에는 noteVerticalCorrection 사용
+                float y = baseY + index * spacing + noteVerticalCorrection;
 
-                NoteDebugLogger.LogNote(pitch, index, spacing, baseY);
-
-                GameObject head = prefabProvider.GetNoteHead(pureDuration);
-                GameObject stem = (pureDuration == "1") ? null : prefabProvider.noteStemPrefab;
-                GameObject flag = pureDuration switch
+                GameObject head = prefabProvider.GetNoteHead(pureCode);
+                GameObject stem = (pureCode == "1") ? null : prefabProvider.noteStemPrefab;
+                GameObject flag = pureCode switch
                 {
                     "8" => prefabProvider.noteFlag8Prefab,
                     "16" => prefabProvider.noteFlag16Prefab,
                     _ => null
                 };
-
                 bool stemDown = index < 2.5f;
 
                 NoteFactory.CreateNoteWrap(
-                    notesContainer, head, stem, flag, null,
-                    stemDown, new Vector2(x, y), noteScale, spacing
+                    notesContainer,
+                    head, stem, flag, null,
+                    stemDown,
+                    new Vector2(x, y),
+                    noteScale,
+                    spacing
                 );
 
-                // 덧줄을 그리기 위한 올바른 파라미터 전달
-                ledgerHelper.GenerateLedgerLines(index, spacing, x, baseY, -3.1f * spacing);
+                // 5) 덧줄 생성 시에는 ledgerFinalVerticalCorrection 사용
+                ledgerHelper.GenerateLedgerLines(index, spacing, x, baseY, ledgerFinalVerticalCorrection); // <--- 수정된 부분
             }
 
-            currentX += spacing * beatSpacingFactor * duration;
+            currentX += spacing * beatSpacingFactor * beatLength;
         }
     }
+
+
 
     private float GetBeatLength(string code)
     {
