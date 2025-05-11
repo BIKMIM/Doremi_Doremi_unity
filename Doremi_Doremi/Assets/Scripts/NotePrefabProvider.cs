@@ -5,6 +5,12 @@
 /// </summary>
 public class NotePrefabProvider : MonoBehaviour
 {
+    #region Dots (점음표)
+    [Header("🎯 Dots")]
+    [SerializeField] private GameObject noteDotPrefab;
+    public GameObject NoteDotPrefab => noteDotPrefab;
+    #endregion
+
     #region Note Heads (음표 머리)
     [Header("🎵 Note Heads")]
     [SerializeField] private GameObject wholeNoteHeadPrefab;
@@ -17,11 +23,6 @@ public class NotePrefabProvider : MonoBehaviour
     [SerializeField] private GameObject noteStemPrefab;
     [SerializeField] private GameObject noteFlag8Prefab;
     [SerializeField] private GameObject noteFlag16Prefab;
-    #endregion
-
-    #region Dots (점음표)
-    [Header("🎯 Dots")]
-    [SerializeField] private GameObject noteDotPrefab;
     #endregion
 
     #region Rests (쉼표)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -41,6 +42,19 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private float beatSpacingFactor = 2.0f;
     [SerializeField] private float noteYOffset = 0f;
     [SerializeField] private float noteScale = 2f;
+
+    [Header("🎯 Dotted Note Settings")]
+    [SerializeField] private Vector2 dottedNoteOffsetRatio = new Vector2(0.45f, 0.3f);
+    [SerializeField] private Vector2 dottedNoteOffsetAbsolute = new Vector2(0f, -20f);
+
+
+
+
+
+
+    [SerializeField] private float dottedNoteScale = 1.0f;                              // 크기 배율
+
+
 
     private NoteDataLoader dataLoader;
     private NoteMapper noteMapper;
@@ -138,6 +152,8 @@ public class NoteSpawner : MonoBehaviour
         float currentX = -centerX + spacing * -18f + keyOffsetX;
         float verticalCorrection = spacing * -1.0f;
 
+
+
         foreach (var noteStr in song.notes)
         {
             string[] parts = noteStr.Split(':');
@@ -145,8 +161,10 @@ public class NoteSpawner : MonoBehaviour
 
             string rawPitch = parts[0];
             string durationCode = parts[1];
-            string pureDuration = durationCode.Replace("R", "");
+
+            string pureDuration = durationCode.Replace("R", "").Replace(".", "");
             bool isRest = durationCode.EndsWith("R");
+            bool isDotted = durationCode.Contains(".");
 
             if (!isRest)
             {
@@ -167,6 +185,28 @@ public class NoteSpawner : MonoBehaviour
                     noteScale,
                     spacing
                 );
+
+                if (isDotted)
+                {
+                    GameObject dot = UnityEngine.Object.Instantiate(prefabProvider.NoteDotPrefab, wrap.transform);
+                    RectTransform rtDot = dot.GetComponent<RectTransform>();
+                    rtDot.anchorMin = rtDot.anchorMax = new Vector2(0.5f, 0f); // 피벗에 맞춤
+                    rtDot.pivot = new Vector2(0.5f, 0f);  // 기준점을 note-head 아래쪽에 맞춤
+
+                    // 🎯 음표 헤드 기준 위치 계산
+                    var noteHead = wrap.transform.Find("NoteHead")?.GetComponent<RectTransform>();
+                    Vector2 headPos = noteHead != null ? noteHead.anchoredPosition : Vector2.zero;
+
+                    // ✅ 오프셋: 오른쪽으로 30~40px, 위로 10~15px 정도 이동
+                    Vector2 dotOffset = new Vector2(30f, 10f);  // 상황에 따라 이 값은 조정 가능
+
+                    rtDot.anchoredPosition = headPos + dotOffset;
+                    rtDot.localScale = Vector3.one * dottedNoteScale;
+                }
+
+
+
+
 
                 if (rawPitch.Contains("#") || rawPitch.Contains("b"))
                 {
@@ -204,16 +244,37 @@ public class NoteSpawner : MonoBehaviour
     {
         return code switch
         {
+            // 🎵 온음표
             "1" => 2f,
-            "2" => 2f,
-            "4" => 1.5f,
-            "8" => 1f,
-            "16" => 1f,
+            "1." => 3f,     // 2 + 1
             "1R" => 2f,
+            "1R." => 3f,
+
+            // 🎵 2분음표
+            "2" => 2f,
+            "2." => 3f,
             "2R" => 2f,
+            "2R." => 3f,
+
+            // 🎵 4분음표
+            "4" => 1.5f,
+            "4." => 2.25f,
             "4R" => 1.5f,
+            "4R." => 2.25f,
+
+            // 🎵 8분음표
+            "8" => 1f,
+            "8." => 1.5f,
             "8R" => 1f,
+            "8R." => 1.5f,
+
+            // 🎵 16분음표
+            "16" => 1f,
+            "16." => 1.5f,
             "16R" => 1f,
+            "16R." => 1.5f,
+
+            // 기본값 (예외 처리)
             _ => 1f
         };
     }
