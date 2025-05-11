@@ -1,19 +1,9 @@
-﻿using UnityEngine;
+﻿// ✅ NoteSpawner.cs (해상도 독립형 + 디버그 지원 통합 버전)
 
-/// <summary>
-/// 악보 데이터를 기반으로 음표를 생성하는 컴포넌트
-/// </summary>
+using UnityEngine;
+
 public class NoteSpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public class Song
-    {
-        public string title;
-        public string clef;         // 음자리표
-        public string time;         // 박자표
-        public string[] notes;
-    }
-
     [Header("🎼 Clefs")]
     [SerializeField] private GameObject clefTreblePrefab;
     [SerializeField] private GameObject clefBassPrefab;
@@ -30,32 +20,29 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private Vector2 timeSignaturePosition = new Vector2(100f, 0f);
     [SerializeField] private float timeSignatureWidth = 48f;
 
-    [Header("🎼 Treble Clef Settings")]
+    [Header("🎼 Clef Settings")]
     [SerializeField] private Vector2 trebleClefPosition = new Vector2(30f, -115f);
     [SerializeField] private Vector2 trebleClefSize = new Vector2(140f, 280f);
-
-    [Header("🎼 Bass Clef Settings")]
     [SerializeField] private Vector2 bassClefPosition = new Vector2(30f, -115f);
     [SerializeField] private Vector2 bassClefSize = new Vector2(140f, 280f);
 
     [Header("Helpers")]
     [SerializeField] private NotePrefabProvider prefabProvider;
 
-    [Header("표시 UI")]
+    [Header("📋 UI Targets")]
     [SerializeField] private RectTransform linesContainer;
     [SerializeField] private RectTransform notesContainer;
 
-    [Header("파일 데이터")]
+    [Header("📂 JSON Data")]
     [SerializeField] private TextAsset songsJson;
     [SerializeField] private int selectedSongIndex = 0;
 
-    [Header("설정")]
+    [Header("Settings")]
     [SerializeField] private float staffHeight = 150f;
-    [SerializeField] private float beatSpacing = 80f;
+    [SerializeField] private float beatSpacingFactor = 2.0f;
     [SerializeField] private float noteYOffset = 0f;
     [SerializeField] private float ledgerYOffset = 0f;
     [SerializeField] private float noteScale = 2f;
-    [SerializeField] private float wholeNoteYOffset = 0f;
 
     private NoteDataLoader dataLoader;
     private NoteMapper noteMapper;
@@ -71,53 +58,28 @@ public class NoteSpawner : MonoBehaviour
     private void Start()
     {
         var songList = dataLoader.LoadSongs();
-
-        if (songList == null || songList.songs == null || songList.songs.Length == 0)
-        {
-            Debug.LogError("[NoteSpawner] songs 배열이 비어 있거나 JSON 파싱 실패");
-            return;
-        }
-
-        if (selectedSongIndex < 0 || selectedSongIndex >= songList.songs.Length)
-        {
-            Debug.LogError($"[NoteSpawner] selectedSongIndex ({selectedSongIndex}) 가 songs 배열 범위를 벗어남");
-            return;
-        }
+        if (songList?.songs == null || songList.songs.Length == 0) return;
+        if (selectedSongIndex < 0 || selectedSongIndex >= songList.songs.Length) return;
 
         var song = songList.songs[selectedSongIndex];
 
         SpawnClef(song.clef);
         SpawnTimeSignature(song.time);
         ClearNotes();
-        SpawnSongNotes();
+        SpawnSongNotes(song);
     }
 
     private void SpawnClef(string clefType)
     {
         GameObject clefPrefab = clefType == "Bass" ? clefBassPrefab : clefTreblePrefab;
-
-        if (clefPrefab == null)
-        {
-            Debug.LogWarning("[NoteSpawner] Clef prefab이 설정되지 않았습니다.");
-            return;
-        }
+        if (!clefPrefab) return;
 
         var clef = Instantiate(clefPrefab, linesContainer);
         var rt = clef.GetComponent<RectTransform>();
-
         rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
         rt.pivot = new Vector2(0f, 0.5f);
-
-        if (clefType == "Bass")
-        {
-            rt.anchoredPosition = bassClefPosition;
-            rt.sizeDelta = bassClefSize;
-        }
-        else
-        {
-            rt.anchoredPosition = trebleClefPosition;
-            rt.sizeDelta = trebleClefSize;
-        }
+        rt.anchoredPosition = clefType == "Bass" ? bassClefPosition : trebleClefPosition;
+        rt.sizeDelta = clefType == "Bass" ? bassClefSize : trebleClefSize;
     }
 
     private void SpawnTimeSignature(string time)
@@ -133,19 +95,13 @@ public class NoteSpawner : MonoBehaviour
             _ => null
         };
 
-        if (prefab == null)
-        {
-            Debug.LogWarning($"[NoteSpawner] ❗ 등록되지 않은 박자표: {time}");
-            return;
-        }
-
+        if (prefab == null) return;
         var obj = Instantiate(prefab, linesContainer);
         var rt = obj.GetComponent<RectTransform>();
         rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
         rt.pivot = new Vector2(0f, 0.5f);
-
         rt.anchoredPosition = timeSignaturePosition;
-        rt.sizeDelta = new Vector2(timeSignatureWidth, staffHeight); // 오선 높이만큼 세로 채우기
+        rt.sizeDelta = new Vector2(timeSignatureWidth, staffHeight);
     }
 
     private void ClearNotes()
@@ -154,9 +110,75 @@ public class NoteSpawner : MonoBehaviour
             Destroy(notesContainer.GetChild(i).gameObject);
     }
 
-    private void SpawnSongNotes()
+    private void SpawnSongNotes(Song song)
     {
-        // 생략
+        float spacing = staffHeight / 4f;
+        float baseY = Mathf.Round(notesContainer.anchoredPosition.y);
+
+
+        // ✅ 화면 왼쪽에서 시작되도록 보정
+        float centerX = notesContainer.rect.width * 0.5f;
+        float currentX = -centerX + spacing * -18f;
+
+        float verticalCorrection = spacing * -1.0f;
+
+        foreach (var noteStr in song.notes)
+        {
+            string[] parts = noteStr.Split(':');
+            if (parts.Length != 2) continue;
+
+            string pitch = parts[0];
+            string durationCode = parts[1];
+            bool isRest = durationCode.EndsWith("R");
+            string pureDuration = isRest ? durationCode.Replace("R", "") : durationCode;
+
+            float duration = GetBeatLength(pureDuration);
+
+            if (isRest)
+            {
+                var restPrefab = prefabProvider.GetRest(durationCode);
+                if (!restPrefab) continue;
+
+                var rest = Instantiate(restPrefab, notesContainer);
+                var rt = rest.GetComponent<RectTransform>();
+                rt.anchoredPosition = new Vector2(currentX, baseY + (noteYOffset * spacing));
+                rt.localScale = Vector3.one * noteScale;
+            }
+            else
+            {
+                if (!noteMapper.TryGetIndex(pitch, out float index)) continue;
+
+                float x = currentX;
+                float y = baseY + index * spacing + noteYOffset * spacing + verticalCorrection;
+
+                // 🎯 디버그 로그
+                NoteDebugLogger.LogNote(pitch, index, spacing, baseY);
+
+                GameObject head = prefabProvider.GetNoteHead(pureDuration);
+
+                // ✅ 온음표면 stem, flag 제거
+                GameObject stem = (pureDuration == "1") ? null : prefabProvider.noteStemPrefab;
+                GameObject flag = pureDuration switch
+                {
+                    "8" => prefabProvider.noteFlag8Prefab,
+                    "16" => prefabProvider.noteFlag16Prefab,
+                    _ => null
+                };
+
+
+                bool stemDown = index < 2.5f;
+
+                NoteFactory.CreateNoteWrap(
+                    notesContainer, head, stem, flag, null,
+                    stemDown, new Vector2(x, y), noteScale, spacing
+                );
+
+                ledgerHelper.GenerateLedgerLines(index, y, spacing, x, ledgerYOffset);
+
+            }
+
+            currentX += spacing * beatSpacingFactor * duration;
+        }
     }
 
     private float GetBeatLength(string code)
@@ -175,5 +197,29 @@ public class NoteSpawner : MonoBehaviour
             "16R" => 1f,
             _ => 1f
         };
+    }
+
+    private void CreateLedgerLine(float x, float y)
+    {
+        GameObject ledgerLine = Instantiate(prefabProvider.ledgerLinePrefab, notesContainer);
+        RectTransform rt = ledgerLine.GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector2(x, y);
+    }
+
+    public void GenerateLedgerLines(float index, float headY, float spacing, float posX, float yOffset)
+    {
+        if (index <= -1.5f)
+        {
+            CreateLedgerLine(posX, headY - spacing);
+            if (index <= -2.5f) CreateLedgerLine(posX, headY - spacing * 2);
+            if (index <= -3.5f) CreateLedgerLine(posX, headY - spacing * 3);
+        }
+
+        if (index >= 4.5f)
+        {
+            CreateLedgerLine(posX, headY + spacing);
+            if (index >= 5.5f) CreateLedgerLine(posX, headY + spacing * 2);
+            if (index >= 6.5f) CreateLedgerLine(posX, headY + spacing * 3);
+        }
     }
 }

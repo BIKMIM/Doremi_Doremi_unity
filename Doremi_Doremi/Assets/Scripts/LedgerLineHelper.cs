@@ -32,8 +32,6 @@ public class LedgerLineHelper
     /// <param name="yOffset">추가 Y 오프셋 조정값</param>
     public void GenerateLedgerLines(float index, float baseY, float spacing, float posX, float yOffset)
     {
-        // ↓ 이 라인을 추가
-        yOffset -= 1.6f * spacing;
 
         // 오선 범위: E4(-3) ~ F5(1)
         float minStaffLine = -0.5f;  // E4 라인 인덱스
