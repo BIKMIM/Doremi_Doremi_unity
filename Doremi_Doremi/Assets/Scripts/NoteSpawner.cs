@@ -49,10 +49,15 @@ public class NoteSpawner : MonoBehaviour
 
     [Header("🎼 Bar Line Settings")]
     [SerializeField] private GameObject barLinePrefab;  // 마디선 프리팹
-    [SerializeField] private float barLineWidth = 2f;   // 마디선 너비
-    [SerializeField] private float barLineHeight = 150f; // 마디선 높이 (staffHeight와 동일)
+    [SerializeField] private float barLineWidth = 60f;   // 마디선 너비
+    [SerializeField] private float barLineHeight = 160f; // 마디선 높이 (staffHeight와 동일)
+    [SerializeField] private float barLineVerticalOffset = -30f;
+
 
     [SerializeField] private float dottedNoteScale = 1.0f;  // 점음표 크기 배율
+
+    
+
 
 
     private NoteDataLoader dataLoader;
@@ -98,7 +103,6 @@ public class NoteSpawner : MonoBehaviour
         float baseY = Mathf.Round(notesContainer.anchoredPosition.y);
 
         // 마디선 생성
-        SpawnBarLines(song, spacing, startX, baseY);
 
         // 음표 생성
         SpawnSongNotes(song, spacing, startX, baseY);
@@ -150,9 +154,7 @@ public class NoteSpawner : MonoBehaviour
     {
         float currentX = startX;
         float verticalCorrection = spacing * -1.0f;
-
         float accumulatedBeats = 0f;
-        float nextBarBeat = 4f;
 
         foreach (var noteStr in song.notes)
         {
@@ -165,22 +167,37 @@ public class NoteSpawner : MonoBehaviour
             bool isDotted = durationCode.Contains(".");
             bool isRest = durationCode.EndsWith("R");
 
-            // 🔍 순수 박자 코드 (ex. "4." → "4")
             string baseCode = durationCode.Replace("R", "").Replace(".", "");
             float baseBeat = GetBeatLength(baseCode);
             float beat = isDotted ? baseBeat * 1.5f : baseBeat;
 
-            // 🧮 마디선 위치 계산 (정확한 위치에 1줄만!)
-            if (accumulatedBeats < nextBarBeat && accumulatedBeats + beat >= nextBarBeat)
+            // 🎯 barIndex 방식
+            int barIndexBefore = Mathf.FloorToInt(accumulatedBeats / 4f);
+            int barIndexAfter = Mathf.FloorToInt((accumulatedBeats + beat) / 4f);
+
+            bool drewBarLine = false;
+
+            if (barIndexAfter > barIndexBefore)
             {
+                float nextBarBeat = (barIndexBefore + 1) * 4f;
                 float fraction = (nextBarBeat - accumulatedBeats) / beat;
                 float barLineX = currentX + spacing * beatSpacingFactor * beat * fraction;
 
+                // 너무 겹치면 보정 (좌측 or 우측 이동)
+                if (Mathf.Abs(fraction - 1f) < 0.05f)
+                {
+                    if (baseCode == "8" || baseCode == "16")
+                        barLineX += spacing * 0.3f;  // 깃발 피해서 오른쪽 이동
+                    else
+                        barLineX -= spacing * 0.4f;  // 일반 음표는 왼쪽으로
+                }
+
                 DrawBarLineAtX(barLineX, baseY);
-                nextBarBeat += 4f;
+                drewBarLine = true;
             }
 
-            // 🎵 음표 생성
+
+            // 🎵 음표 생성 (isRest 생략된 상태)
             if (!isRest)
             {
                 if (!noteMapper.TryGetIndex(rawPitch, out float index)) continue;
@@ -200,10 +217,9 @@ public class NoteSpawner : MonoBehaviour
                     spacing
                 );
 
-                // 🎯 점음표 렌더링
                 if (isDotted)
                 {
-                    GameObject dot = UnityEngine.Object.Instantiate(prefabProvider.NoteDotPrefab, wrap.transform);
+                    GameObject dot = Instantiate(prefabProvider.NoteDotPrefab, wrap.transform);
                     RectTransform rtDot = dot.GetComponent<RectTransform>();
                     rtDot.anchorMin = rtDot.anchorMax = new Vector2(0.5f, 0f);
                     rtDot.pivot = new Vector2(0.5f, 0f);
@@ -211,61 +227,55 @@ public class NoteSpawner : MonoBehaviour
                     var noteHead = wrap.transform.Find("NoteHead")?.GetComponent<RectTransform>();
                     Vector2 headPos = noteHead != null ? noteHead.anchoredPosition : Vector2.zero;
 
-                    Vector2 dotOffset = new Vector2(30f, 10f); // 필요 시 조정
+                    Vector2 dotOffset = new Vector2(30f, 10f);
                     rtDot.anchoredPosition = headPos + dotOffset;
                     rtDot.localScale = Vector3.one * dottedNoteScale;
                 }
 
-                ledgerHelper.GenerateLedgerLines(index, spacing, x, baseY, verticalCorrection);
+                ledgerHelper.GenerateLedgerLines(index, spacing, currentX, baseY, verticalCorrection);
             }
 
-            // 🧭 다음 음표 위치로 이동 (정확한 beat 기준, 1번만 이동)
-            currentX += spacing * beatSpacingFactor * beat;
+            // 🎯 마디선 그렸다면 그 다음 음표 간격 띄우기
+            if (drewBarLine)
+            {
+                currentX += spacing * beatSpacingFactor * 0.3f;
+            }
+
+            // 🎵 다음 음표 간격 계산
+            float visualBeat = Mathf.Max(beat, 0.85f);
+            currentX += spacing * beatSpacingFactor * visualBeat;
+
             accumulatedBeats += beat;
+
         }
     }
+
+
+
+
+
 
 
     private void DrawBarLineAtX(float x, float baseY)
     {
         GameObject barLine = Instantiate(barLinePrefab, notesContainer);
         RectTransform rt = barLine.GetComponent<RectTransform>();
+
         rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.anchoredPosition = new Vector2(x, baseY);
+
+        // ⬇️ 수직 위치 오프셋 반영!
+        rt.anchoredPosition = new Vector2(x, baseY + barLineVerticalOffset);
+
+        // ⬇️ 두께 + 높이 반영
         rt.sizeDelta = new Vector2(barLineWidth, barLineHeight);
+
         rt.localScale = Vector3.one;
     }
 
-    private void SpawnBarLines(Song song, float spacing, float startX, float baseY)
-    {
-        float totalBeats = 0f;
-        foreach (var noteStr in song.notes)
-        {
-            string[] parts = noteStr.Split(':');
-            if (parts.Length != 2) continue;
 
-            string durationCode = parts[1];
-            string pureDuration = durationCode.Replace("R", "").Replace(".", "");
-            totalBeats += GetBeatLength(pureDuration); // 소수 허용
-        }
 
-        // 4/4 기준으로 마디선 추가
-        int barCount = Mathf.FloorToInt(totalBeats / 4f);  // 4/4 기준
-
-        for (int i = 1; i <= barCount; i++)
-        {
-            float x = startX + i * 4f * spacing * beatSpacingFactor;
-
-            GameObject barLine = Instantiate(barLinePrefab, notesContainer);
-            RectTransform rt = barLine.GetComponent<RectTransform>();
-            rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
-            rt.pivot = new Vector2(0.5f, 0.5f);
-            rt.anchoredPosition = new Vector2(x, baseY);
-            rt.sizeDelta = new Vector2(barLineWidth, barLineHeight);
-            rt.localScale = Vector3.one;
-        }
-    }
+   
 
 
     private GameObject GetFlagPrefab(string code)
@@ -292,3 +302,4 @@ public class NoteSpawner : MonoBehaviour
     }
 
 }
+    
