@@ -74,13 +74,14 @@ public class NotePrefabProvider : MonoBehaviour
 
     public GameObject GetRest(string code) => code switch
     {
-        "1R" => wholeRestPrefab,
-        "2R" => halfRestPrefab,
-        "4R" => quarterRestPrefab,
-        "8R" => eighthRestPrefab,
-        "16R" => sixteenthRestPrefab,
+        "1" or "1R" => wholeRestPrefab,
+        "2" or "2R" => halfRestPrefab,
+        "4" or "4R" => quarterRestPrefab,
+        "8" or "8R" => eighthRestPrefab,
+        "16" or "16R" => sixteenthRestPrefab,
         _ => null
     };
+
 
     public GameObject GetAccidental(string symbol) => symbol switch
     {
