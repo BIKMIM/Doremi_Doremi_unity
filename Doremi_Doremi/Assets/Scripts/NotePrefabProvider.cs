@@ -44,6 +44,9 @@ public class NotePrefabProvider : MonoBehaviour
     [SerializeField] private GameObject flatKeySignaturePrefab;   // ✅ 조표 전용 플랫
     #endregion
 
+    [SerializeField] private GameObject beamPrefab;
+    public GameObject BeamPrefab => beamPrefab;
+
 
     public GameObject SharpAccidentalPrefab => sharpPrefab;
     public GameObject FlatAccidentalPrefab => flatPrefab;
