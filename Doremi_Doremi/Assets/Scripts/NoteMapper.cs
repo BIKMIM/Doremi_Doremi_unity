@@ -17,42 +17,30 @@ public class NoteMapper
         return trebleKeySigIndex.TryGetValue(accidentalNote, out float index) ? index : 0f;
     }
 
-    // ✅ 음표 위치 반환 (C4, G#4 등)
-    public bool TryGetIndex(string pitch, out float index)
+    // 🎵 오선 음높이 기준값 - C4부터 시작
+    private readonly Dictionary<string, float> _noteToIndex = new()
     {
-        // 1) 자연음 처리
-        if (noteToIndex.TryGetValue(pitch, out index))
-            return true;
-
-        // 2) 샵/플랫 처리
-        if (pitch.Length >= 3 && (pitch[1] == '#' || pitch[1] == 'b'))
-        {
-            string letter = pitch.Substring(0, 1);
-            string accidental = pitch.Substring(1, 1);
-            string octave = pitch.Substring(2);
-            string baseNote = letter + octave;
-
-            if (noteToIndex.TryGetValue(baseNote, out float baseIndex))
-            {
-                index = baseIndex + (accidental == "#" ? 0.5f : -0.5f);
-                return true;
-            }
-        }
-
-        index = 0;
-        return false;
-    }
-
-    // 🎵 오선 음높이 기준값
-    private readonly Dictionary<string, float> noteToIndex = new()
-    {
-        { "C3", -4.0f }, { "D3", -3.5f }, { "E3", -3.0f }, { "F3", -2.5f },
-        { "G3", -2.0f }, { "A3", -1.5f }, { "B3", -1.0f }, { "C4", -0.5f },
-        { "D4",  0.0f }, { "E4",  0.5f }, { "F4",  1.0f }, { "G4",  1.5f },
-        { "A4",  2.0f }, { "B4",  2.5f }, { "C5",  3.0f }, { "D5",  3.5f },
-        { "E5",  4.0f }, { "F5",  4.5f }, { "G5",  5.0f }, { "A5",  5.5f },
-        { "B5",  6.0f }, { "C6",  6.5f }, { "D6",  7.0f }, { "E6",  7.5f },
-        { "F6",  8.0f }, { "G6",  8.5f }, { "A6",  9.0f }, { "B6",  9.5f },
-        { "C7",  10.0f }
+        { "A3", -3.0f },   // 첫 번째 보조선 아래 2칸
+        { "B3", -2.5f },   // 첫 번째 보조선 아래 1칸
+        { "C4", -2.0f },   // 첫 번째 보조선
+        { "D4", -1.5f },   // 보조선과 첫 줄 사이
+        { "E4", 0.0f },    // 첫 번째 줄
+        { "F4", 0.5f },    // 첫~두 번째 줄 사이
+        { "G4", 1.0f },    // 두 번째 줄
+        { "A4", 1.5f },    // 두~세 번째 줄 사이
+        { "B4", 2.0f },    // 세 번째 줄
+        { "C5", 2.5f },    // 세~네 번째 줄 사이
+        { "D5", 3.0f },    // 네 번째 줄
+        { "E5", 3.5f },    // 네~다섯 번째 줄 사이
+        { "F5", 4.0f },    // 다섯 번째 줄
+        { "G5", 4.5f },    // 다섯 번째 줄 위
+        { "A5", 5.0f },    // 다섯 번째 줄 위 칸
+        { "B5", 5.5f },    // 다섯 번째 줄 위 두 칸
+        { "C6", 6.0f },    // 다섯 번째 줄 위 세 칸
     };
+
+    public bool TryGetIndex(string note, out float index)
+    {
+        return _noteToIndex.TryGetValue(note, out index);
+    }
 }

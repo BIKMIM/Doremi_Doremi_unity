@@ -7,54 +7,50 @@ using Object = UnityEngine.Object;
 /// </summary>
 public class LedgerLineHelper
 {
-    private readonly GameObject ledgerLinePrefab;
-    private readonly Transform parent;
-    private readonly float yOffsetRatio; // 덧줄 전용 Y 오프셋 비율
+    private readonly GameObject _ledgerLinePrefab;
+    private readonly RectTransform _container;
+    private readonly float _yOffsetRatio;
 
-    public LedgerLineHelper(GameObject ledgerLinePrefab, Transform parent, float yOffsetRatio = 0f)
+    public LedgerLineHelper(GameObject ledgerLinePrefab, RectTransform container, float yOffsetRatio = -2.1f)
     {
-        this.ledgerLinePrefab = ledgerLinePrefab;
-        this.parent = parent;
-        this.yOffsetRatio = yOffsetRatio;
+        _ledgerLinePrefab = ledgerLinePrefab;
+        _container = container;
+        _yOffsetRatio = yOffsetRatio;
     }
 
-    /// <summary>
-    /// index: 음표의 위치 (NoteMapper 기준), spacing: 오선 간격
-    /// posX: 덧줄의 X 좌표, baseY: 기준 Y 위치
-    /// </summary>
-    public void GenerateLedgerLines(float index, float spacing, float posX, float baseY, float verticalCorrection)
+    public void GenerateLedgerLines(float noteIndex, float spacing, float x, float baseY, float width)
     {
-        float offsetY = spacing * yOffsetRatio;
-
-        if (index <= -0.5f)
-            CreateLedgerLine(posX, baseY + (-0.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index <= -1.5f)
-            CreateLedgerLine(posX, baseY + (-1.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index <= -2.5f)
-            CreateLedgerLine(posX, baseY + (-2.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index <= -3.5f)
-            CreateLedgerLine(posX, baseY + (-3.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index >= 5.5f)
-            CreateLedgerLine(posX, baseY + (5.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index >= 6.5f)
-            CreateLedgerLine(posX, baseY + (6.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index >= 7.5f)
-            CreateLedgerLine(posX, baseY + (7.5f) * spacing + verticalCorrection + offsetY);
-
-        if (index >= 8.5f)
-            CreateLedgerLine(posX, baseY + (8.5f) * spacing + verticalCorrection + offsetY);
+        // 오선 범위: -2.0f ~ 4.0f (5줄)
+        // 덧줄은 오선 밖에 있는 음표에만 필요
+        if (noteIndex < -2.0f)
+        {
+            // 아래 덧줄 (C4와 그보다 낮은 음)
+            float lineCount = Mathf.Ceil(Mathf.Abs(noteIndex + 2.0f));
+            for (int i = 0; i < lineCount; i++)
+            {
+                float y = baseY + (-2.0f - i) * spacing;
+                CreateLedgerLine(x, y, width);
+            }
+        }
+        else if (noteIndex > 4.0f)
+        {
+            // 위 덧줄
+            float lineCount = Mathf.Ceil(noteIndex - 4.0f);
+            for (int i = 0; i < lineCount; i++)
+            {
+                float y = baseY + (4.0f + i) * spacing;
+                CreateLedgerLine(x, y, width);
+            }
+        }
     }
 
-    private void CreateLedgerLine(float x, float y)
+    private void CreateLedgerLine(float x, float y, float width)
     {
-        GameObject ledgerLine = Object.Instantiate(ledgerLinePrefab, parent);
-        RectTransform rt = ledgerLine.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(x, Mathf.Round(y));
+        var line = UnityEngine.Object.Instantiate(_ledgerLinePrefab, _container);
+        var rt = line.GetComponent<RectTransform>();
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0f);
+        rt.pivot = new Vector2(0.5f, 0f);
+        rt.anchoredPosition = new Vector2(x, y);
+        rt.sizeDelta = new Vector2(width, 2f);
     }
 }

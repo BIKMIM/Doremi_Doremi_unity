@@ -56,9 +56,20 @@ public class StaffLineRenderer : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        // Staff_Panel을 화면 위쪽 절반에 배치
+        if (staffPanel != null)
+        {
+            staffPanel.anchorMin = new Vector2(0, 0.5f);
+            staffPanel.anchorMax = new Vector2(1, 1);
+            staffPanel.pivot = new Vector2(0.5f, 1f);
+            staffPanel.anchoredPosition = Vector2.zero;
+            staffPanel.sizeDelta = Vector2.zero;
+        }
+        // staffHeight를 Staff_Panel 높이의 40%로 더 줄임
+        staffHeight = staffPanel.rect.height * 0.4f;
+
         if (Application.isPlaying)
         {
-            // 기존 오선 제거하고 새로 그리기
             ClearChildren();
             DrawStaffLines();
         }
@@ -70,28 +81,21 @@ public class StaffLineRenderer : MonoBehaviour
     /// </summary>
     private void DrawStaffLines()
     {
-        int lineCount = 5;  // 오선 5줄 고정
-        // 선 간격 계산: (전체 높이) / (줄 간격 칸 개수)
+        int lineCount = 5;
         float spacing = staffHeight / (lineCount - 1);
-        // 기준 Y 좌표: staffPanel의 앵커 기준 위치 (반올림하여 픽셀 단위 정수로)
-        float baseY = Mathf.Round(staffPanel.anchoredPosition.y);
+        // 기준 Y 좌표: staffPanel의 아래에서 35% 위쪽
+        float baseY = staffPanel.rect.height * 0.35f;
 
         for (int i = 0; i < lineCount; i++)
         {
-            // 프리팹 인스턴스화: linesContainer의 자식으로 생성
             GameObject line = Instantiate(linePrefab, linesContainer);
-            RectTransform rt = line.GetComponent<RectTransform>();  // RectTransform 가져오기
-
-            // 앵커 및 피벗 설정: 가로는 좌→우 꽉 채우고, 세로는 하단 고정
+            RectTransform rt = line.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(0, 0);
             rt.anchorMax = new Vector2(1, 0);
             rt.pivot = new Vector2(0.5f, 0);
-            // 크기 설정: 너비는 컨테이너 기준, 높이는 선 두께
             rt.sizeDelta = new Vector2(0, lineThickness);
 
-            // 선 Y 위치 계산: 위쪽부터 staffHeight만큼 내려오며 spacing 간격 적용
             float rawY = baseY + staffHeight - i * spacing;
-            // 최종 위치 반올림 후 설정
             rt.anchoredPosition = new Vector2(0, Mathf.Round(rawY));
         }
     }
