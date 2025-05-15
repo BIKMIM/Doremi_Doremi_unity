@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -32,6 +30,8 @@ public class NoteSpawner : MonoBehaviour
     [Header("📋 UI Targets")]
     [SerializeField] private RectTransform linesContainer;
     [SerializeField] private RectTransform notesContainer;
+    [SerializeField] private RectTransform staffPanel;
+    [SerializeField] private GameObject staffLinesPanel;  // 오선을 담당하는 패널
 
     [Header("📂 JSON Data")]
     [SerializeField] private TextAsset songsJson;
@@ -39,91 +39,162 @@ public class NoteSpawner : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float staffHeight = 150f;
-    [SerializeField] private float beatSpacingFactor = 2.0f;
     [SerializeField] private float noteYOffset = 0f;
     [SerializeField] private float noteScale = 2f;
-
-    [Header("🎯 Dotted Note Settings")]
-    [SerializeField] private Vector2 dottedNoteOffsetRatio = new Vector2(0.45f, 0.3f);  // 아래로 이동
-    [SerializeField] private Vector2 dottedNoteOffsetAbsolute = new Vector2(0f, -20f);  // 미세 보정
+    [SerializeField] private float dottedNoteScale = 1f;
 
     [Header("🎼 Bar Line Settings")]
-    [SerializeField] private GameObject barLinePrefab;  // 마디선 프리팹
-    [SerializeField] private float barLineWidth = 60f;   // 마디선 너비
-    [SerializeField] private float barLineHeight = 160f; // 마디선 높이 (staffHeight와 동일)
-    [SerializeField] private float barLineVerticalOffset = -30f;
+    [SerializeField] private GameObject barLinePrefab;
+    [SerializeField] private float barLineWidth = 60f;
+    [SerializeField] private float barLineHeight = 160f;
+    [SerializeField] private float barLineOffsetY = -30f;
 
+    [Header("🎼 Staff Line Settings")]
+    [SerializeField] private GameObject staffLinePrefab;  // 오선 프리팹 추가
+    [SerializeField] private float staffLineThickness = 2f;
 
-    [SerializeField] private float dottedNoteScale = 1.0f;  // 점음표 크기 배율
-
-    
-
-
-
-    private NoteDataLoader dataLoader;
-    private NoteMapper noteMapper;
-    private LedgerLineHelper ledgerHelper;
-    private KeySignatureRenderer keySigRenderer;
+    private NoteDataLoader _loader;
+    private NoteMapper _mapper;
+    private LedgerLineHelper _ledger;
+    private KeySignatureRenderer _keysig;
+    private NoteRenderer _renderer;
 
     private void Awake()
     {
-        // 데이터 로더와 도우미 객체 초기화
-        dataLoader = new NoteDataLoader(songsJson);
-        noteMapper = new NoteMapper();
-        ledgerHelper = new LedgerLineHelper(prefabProvider.LedgerLinePrefab, notesContainer, yOffsetRatio: -2.1f);
-        keySigRenderer = new KeySignatureRenderer(
+        // RectTransform 설정 통일
+        SetupRectTransforms();
+
+        _loader = new NoteDataLoader(songsJson);
+        _mapper = new NoteMapper();
+        _ledger = new LedgerLineHelper(prefabProvider.LedgerLinePrefab, notesContainer, yOffsetRatio: -2.1f);
+        _keysig = new KeySignatureRenderer(
             prefabProvider.SharpKeySignaturePrefab,
             prefabProvider.FlatKeySignaturePrefab,
             linesContainer,
             staffHeight / 4f,
-            Mathf.Round(notesContainer.anchoredPosition.y)
+            0f
         );
+        _renderer = new NoteRenderer(
+            prefabProvider,
+            _mapper,
+            _ledger,
+            notesContainer,
+            noteScale,
+            dottedNoteScale,
+            0f,
+            barLinePrefab,
+            barLineWidth,
+            barLineHeight,
+            0f
+        );
+    }
+
+    private void OnDestroy()
+    {
+        // 게임 종료 시 오선 패널 비활성화
+        if (staffLinesPanel != null)
+        {
+            staffLinesPanel.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        // RectTransform 설정 유지
+        SetupRectTransforms();
     }
 
     private void Start()
     {
-        var songList = dataLoader.LoadSongs();
-        if (songList?.songs == null || songList.songs.Length == 0) return;
-        if (selectedSongIndex < 0 || selectedSongIndex >= songList.songs.Length) return;
+        var list = _loader.LoadSongs();
+        if (list?.songs?.Length > 0)
+        {
+            var song = list.songs[selectedSongIndex];
+            
+            // Staff_Panel의 실제 높이 기준으로 계산
+            float panelHeight = staffPanel.rect.height;
+            float staffHeight = panelHeight * 0.4f;  // 오선이 패널 높이의 40% 차지
+            float spacing = staffHeight / 4f;        // 오선 5줄 = 4칸
+            float baseY = -panelHeight * 0.1f;       // 패널 상단에서 10% 아래에서 시작
 
-        var song = songList.songs[selectedSongIndex];
+            // 오선 패널 활성화 및 위치 조정
+            if (staffLinesPanel != null)
+            {
+                staffLinesPanel.SetActive(true);
+                var rt = staffLinesPanel.GetComponent<RectTransform>();
+                if (rt != null)
+                {
+                    rt.anchorMin = new Vector2(0, 0);
+                    rt.anchorMax = new Vector2(1, 0);
+                    rt.pivot = new Vector2(0.5f, 0);
+                    rt.anchoredPosition = Vector2.zero;
+                    rt.sizeDelta = staffPanel.sizeDelta;
+                }
+            }
 
-        // 음악의 구성 요소 생성
-        SpawnClef(song.clef);
-        keySigRenderer.Render(song.key);
-        SpawnTimeSignature(song.time);
-        ClearNotes();
-
-        // ✔ 마디선 관련 계산
-        float spacing = staffHeight / 4f;
-        float centerX = notesContainer.rect.width * 0.5f;
-        int keyAccidentalCount = KeySignatureHelper.GetAccidentals(song.key).Count;
-        float keyOffsetX = keyAccidentalCount * spacing * 0.5f;
-        float startX = -centerX + spacing * -18f + keyOffsetX;
-        float baseY = Mathf.Round(notesContainer.anchoredPosition.y);
-
-        // 마디선 생성
-
-        // 음표 생성
-        SpawnSongNotes(song, spacing, startX, baseY);
+            SpawnClef(song.clef, baseY, spacing);
+            _keysig.Render(song.key);
+            SpawnTimeSignature(song.time, baseY, spacing);
+            ClearNotes();
+            _renderer.RenderSongNotes(song, baseY, spacing);
+        }
     }
 
-    private void SpawnClef(string clefType)
+    private void SetupRectTransforms()
     {
-        GameObject clefPrefab = clefType == "Bass" ? clefBassPrefab : clefTreblePrefab;
-        if (!clefPrefab) return;
+        // Staff_Panel 설정 - 상단에 고정
+        if (staffPanel != null)
+        {
+            staffPanel.anchorMin = new Vector2(0, 1);
+            staffPanel.anchorMax = new Vector2(1, 1);
+            staffPanel.pivot = new Vector2(0.5f, 1);
+            staffPanel.anchoredPosition = Vector2.zero;
+            
+            // 높이가 0이면 기본값 설정
+            if (staffPanel.sizeDelta.y <= 0)
+            {
+                staffPanel.sizeDelta = new Vector2(0, 400);
+            }
+        }
 
-        var clef = Instantiate(clefPrefab, linesContainer);
-        var rt = clef.GetComponent<RectTransform>();
-        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
-        rt.pivot = new Vector2(0f, 0.5f);
-        rt.anchoredPosition = clefType == "Bass" ? bassClefPosition : trebleClefPosition;
-        rt.sizeDelta = clefType == "Bass" ? bassClefSize : trebleClefSize;
+        // LinesContainer 설정
+        if (linesContainer != null)
+        {
+            linesContainer.anchorMin = new Vector2(0, 1);
+            linesContainer.anchorMax = new Vector2(1, 1);
+            linesContainer.pivot = new Vector2(0.5f, 1);
+            linesContainer.anchoredPosition = Vector2.zero;
+            linesContainer.sizeDelta = staffPanel != null ? 
+                staffPanel.sizeDelta : new Vector2(0, 400);
+        }
+
+        // NotesContainer 설정
+        if (notesContainer != null)
+        {
+            notesContainer.anchorMin = new Vector2(0, 1);
+            notesContainer.anchorMax = new Vector2(1, 1);
+            notesContainer.pivot = new Vector2(0.5f, 1);
+            notesContainer.anchoredPosition = Vector2.zero;
+            notesContainer.sizeDelta = staffPanel != null ? 
+                staffPanel.sizeDelta : new Vector2(0, 400);
+        }
     }
 
-    private void SpawnTimeSignature(string time)
+    private void SpawnClef(string clef, float baseY, float spacing)
     {
-        GameObject prefab = time switch
+        var pf = clef == "Bass" ? clefBassPrefab : clefTreblePrefab;
+        if (!pf) return;
+        var obj = Instantiate(pf, linesContainer);
+        var rt = obj.GetComponent<RectTransform>();
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+        rt.pivot = new Vector2(0f, 1f);
+        rt.anchoredPosition = new Vector2(30f, baseY);
+        rt.sizeDelta = clef == "Bass" ? bassClefSize : trebleClefSize;
+    }
+
+    private void SpawnTimeSignature(string t, float baseY, float spacing)
+    {
+        GameObject pf = t switch
         {
             "2/4" => timeSig_2_4_Prefab,
             "3/4" => timeSig_3_4_Prefab,
@@ -133,173 +204,56 @@ public class NoteSpawner : MonoBehaviour
             "6/8" => timeSig_6_8_Prefab,
             _ => null
         };
-
-        if (prefab == null) return;
-        var obj = Instantiate(prefab, linesContainer);
+        if (pf == null) return;
+        var obj = Instantiate(pf, linesContainer);
         var rt = obj.GetComponent<RectTransform>();
-        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
-        rt.pivot = new Vector2(0f, 0.5f);
-        rt.anchoredPosition = timeSignaturePosition;
-        rt.sizeDelta = new Vector2(timeSignatureWidth, staffHeight);
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+        rt.pivot = new Vector2(0f, 1f);
+        rt.anchoredPosition = new Vector2(100f, baseY);
+        rt.sizeDelta = new Vector2(timeSignatureWidth, staffHeight * 1.25f);
+    }
+
+    private void ClearStaffLines()
+    {
+        if (linesContainer == null) return;
+        
+        // LinesContainer의 모든 자식 제거
+        for (int i = linesContainer.childCount - 1; i >= 0; i--)
+        {
+            var child = linesContainer.GetChild(i);
+            if (child != null)
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(child.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(child.gameObject);
+                }
+            }
+        }
     }
 
     private void ClearNotes()
     {
-        // 기존 음표 삭제
+        if (notesContainer == null) return;
+        
+        // NotesContainer의 모든 자식 제거
         for (int i = notesContainer.childCount - 1; i >= 0; i--)
-            Destroy(notesContainer.GetChild(i).gameObject);
-    }
-
-    private void SpawnSongNotes(Song song, float spacing, float startX, float baseY)
-    {
-        float currentX = startX;
-        float verticalCorrection = spacing * -1.0f;
-        float accumulatedBeats = 0f;
-
-        foreach (var noteStr in song.notes)
         {
-            string[] parts = noteStr.Split(':');
-            if (parts.Length != 2) continue;
-
-            string rawPitch = parts[0];
-            string durationCode = parts[1];
-
-            bool isDotted = durationCode.Contains(".");
-            bool isRest = durationCode.EndsWith("R");
-
-            string baseCode = durationCode.Replace("R", "").Replace(".", "");
-            float baseBeat = GetBeatLength(baseCode);
-            float beat = isDotted ? baseBeat * 1.5f : baseBeat;
-
-            // 🎯 barIndex 방식
-            int barIndexBefore = Mathf.FloorToInt(accumulatedBeats / 4f);
-            int barIndexAfter = Mathf.FloorToInt((accumulatedBeats + beat) / 4f);
-
-            bool drewBarLine = false;
-
-            if (barIndexAfter > barIndexBefore)
+            var child = notesContainer.GetChild(i);
+            if (child != null)
             {
-                float nextBarBeat = (barIndexBefore + 1) * 4f;
-                float fraction = (nextBarBeat - accumulatedBeats) / beat;
-                float barLineX = currentX + spacing * beatSpacingFactor * beat * fraction;
-
-                // 너무 겹치면 보정 (좌측 or 우측 이동)
-                if (Mathf.Abs(fraction - 1f) < 0.05f)
+                if (Application.isPlaying)
                 {
-                    if (baseCode == "8" || baseCode == "16")
-                        barLineX += spacing * 0.3f;  // 깃발 피해서 오른쪽 이동
-                    else
-                        barLineX -= spacing * 0.4f;  // 일반 음표는 왼쪽으로
+                    Destroy(child.gameObject);
                 }
-
-                DrawBarLineAtX(barLineX, baseY);
-                drewBarLine = true;
-            }
-
-
-            // 🎵 음표 생성 (isRest 생략된 상태)
-            if (!isRest)
-            {
-                if (!noteMapper.TryGetIndex(rawPitch, out float index)) continue;
-
-                float x = currentX;
-                float y = baseY + index * spacing + noteYOffset * spacing + verticalCorrection;
-
-                GameObject wrap = NoteFactory.CreateNoteWrap(
-                    notesContainer,
-                    prefabProvider.GetNoteHead(baseCode),
-                    baseCode == "1" ? null : prefabProvider.NoteStemPrefab,
-                    GetFlagPrefab(baseCode),
-                    null,
-                    index < 2.5f,
-                    new Vector2(x, y),
-                    noteScale,
-                    spacing
-                );
-
-                if (isDotted)
+                else
                 {
-                    GameObject dot = Instantiate(prefabProvider.NoteDotPrefab, wrap.transform);
-                    RectTransform rtDot = dot.GetComponent<RectTransform>();
-                    rtDot.anchorMin = rtDot.anchorMax = new Vector2(0.5f, 0f);
-                    rtDot.pivot = new Vector2(0.5f, 0f);
-
-                    var noteHead = wrap.transform.Find("NoteHead")?.GetComponent<RectTransform>();
-                    Vector2 headPos = noteHead != null ? noteHead.anchoredPosition : Vector2.zero;
-
-                    Vector2 dotOffset = new Vector2(30f, 10f);
-                    rtDot.anchoredPosition = headPos + dotOffset;
-                    rtDot.localScale = Vector3.one * dottedNoteScale;
+                    DestroyImmediate(child.gameObject);
                 }
-
-                ledgerHelper.GenerateLedgerLines(index, spacing, currentX, baseY, verticalCorrection);
             }
-
-            // 🎯 마디선 그렸다면 그 다음 음표 간격 띄우기
-            if (drewBarLine)
-            {
-                currentX += spacing * beatSpacingFactor * 0.3f;
-            }
-
-            // 🎵 다음 음표 간격 계산
-            float visualBeat = Mathf.Max(beat, 0.85f);
-            currentX += spacing * beatSpacingFactor * visualBeat;
-
-            accumulatedBeats += beat;
-
         }
     }
-
-
-
-
-
-
-
-    private void DrawBarLineAtX(float x, float baseY)
-    {
-        GameObject barLine = Instantiate(barLinePrefab, notesContainer);
-        RectTransform rt = barLine.GetComponent<RectTransform>();
-
-        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
-        rt.pivot = new Vector2(0.5f, 0.5f);
-
-        // ⬇️ 수직 위치 오프셋 반영!
-        rt.anchoredPosition = new Vector2(x, baseY + barLineVerticalOffset);
-
-        // ⬇️ 두께 + 높이 반영
-        rt.sizeDelta = new Vector2(barLineWidth, barLineHeight);
-
-        rt.localScale = Vector3.one;
-    }
-
-
-
-   
-
-
-    private GameObject GetFlagPrefab(string code)
-    {
-        return code switch
-        {
-            "8" => prefabProvider.NoteFlag8Prefab,
-            "16" => prefabProvider.NoteFlag16Prefab,
-            _ => null
-        };
-    }
-
-    private float GetBeatLength(string code)
-    {
-        return code switch
-        {
-            "1" => 4f,
-            "2" => 2f,
-            "4" => 1f,
-            "8" => 0.5f,
-            "16" => 0.25f,
-            _ => 1f
-        };
-    }
-
 }
-    

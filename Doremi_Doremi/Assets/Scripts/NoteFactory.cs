@@ -28,7 +28,7 @@ public static class NoteFactory
         wrapRt.localScale = Vector3.one * noteScale;
         wrapRt.anchoredPosition = position;
 
-        float verticalCorrection = spacing * -1.0f; // 🎯 시각적 중심 보정값 (도->솔 현상 해결)
+        float verticalCorrection = 0f;
 
         // 🎵 Head (음표 머리)
         if (headPrefab)
