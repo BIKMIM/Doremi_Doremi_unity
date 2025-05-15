@@ -31,7 +31,10 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private RectTransform linesContainer;
     [SerializeField] private RectTransform notesContainer;
     [SerializeField] private RectTransform staffPanel;
+<<<<<<< HEAD
     [SerializeField] private GameObject staffLinesPanel;  // 오선을 담당하는 패널
+=======
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
 
     [Header("📂 JSON Data")]
     [SerializeField] private TextAsset songsJson;
@@ -49,10 +52,13 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private float barLineHeight = 160f;
     [SerializeField] private float barLineOffsetY = -30f;
 
+<<<<<<< HEAD
     [Header("🎼 Staff Line Settings")]
     [SerializeField] private GameObject staffLinePrefab;  // 오선 프리팹 추가
     [SerializeField] private float staffLineThickness = 2f;
 
+=======
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
     private NoteDataLoader _loader;
     private NoteMapper _mapper;
     private LedgerLineHelper _ledger;
@@ -72,7 +78,11 @@ public class NoteSpawner : MonoBehaviour
             prefabProvider.FlatKeySignaturePrefab,
             linesContainer,
             staffHeight / 4f,
+<<<<<<< HEAD
             0f
+=======
+            0f  // baseY를 0으로 수정
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
         );
         _renderer = new NoteRenderer(
             prefabProvider,
@@ -81,6 +91,7 @@ public class NoteSpawner : MonoBehaviour
             notesContainer,
             noteScale,
             dottedNoteScale,
+<<<<<<< HEAD
             0f,
             barLinePrefab,
             barLineWidth,
@@ -98,6 +109,16 @@ public class NoteSpawner : MonoBehaviour
         }
     }
 
+=======
+            0f,  // noteYOffset을 0으로 수정
+            barLinePrefab,
+            barLineWidth,
+            barLineHeight,
+            0f   // barLineOffsetY를 0으로 수정
+        );
+    }
+
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
     private void Update()
     {
         // RectTransform 설정 유지
@@ -115,6 +136,7 @@ public class NoteSpawner : MonoBehaviour
             float panelHeight = staffPanel.rect.height;
             float staffHeight = panelHeight * 0.4f;  // 오선이 패널 높이의 40% 차지
             float spacing = staffHeight / 4f;        // 오선 5줄 = 4칸
+<<<<<<< HEAD
             float baseY = -panelHeight * 0.1f;       // 패널 상단에서 10% 아래에서 시작
 
             // 오선 패널 활성화 및 위치 조정
@@ -132,6 +154,10 @@ public class NoteSpawner : MonoBehaviour
                 }
             }
 
+=======
+            float baseY = panelHeight * 0.1f;        // 패널 아래에서 10% 위치에서 시작
+
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
             SpawnClef(song.clef, baseY, spacing);
             _keysig.Render(song.key);
             SpawnTimeSignature(song.time, baseY, spacing);
@@ -142,12 +168,21 @@ public class NoteSpawner : MonoBehaviour
 
     private void SetupRectTransforms()
     {
+<<<<<<< HEAD
         // Staff_Panel 설정 - 상단에 고정
         if (staffPanel != null)
         {
             staffPanel.anchorMin = new Vector2(0, 1);
             staffPanel.anchorMax = new Vector2(1, 1);
             staffPanel.pivot = new Vector2(0.5f, 1);
+=======
+        // Staff_Panel 설정
+        if (staffPanel != null)
+        {
+            staffPanel.anchorMin = new Vector2(0, 0);
+            staffPanel.anchorMax = new Vector2(1, 0);
+            staffPanel.pivot = new Vector2(0.5f, 0);
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
             staffPanel.anchoredPosition = Vector2.zero;
             
             // 높이가 0이면 기본값 설정
@@ -160,9 +195,15 @@ public class NoteSpawner : MonoBehaviour
         // LinesContainer 설정
         if (linesContainer != null)
         {
+<<<<<<< HEAD
             linesContainer.anchorMin = new Vector2(0, 1);
             linesContainer.anchorMax = new Vector2(1, 1);
             linesContainer.pivot = new Vector2(0.5f, 1);
+=======
+            linesContainer.anchorMin = new Vector2(0, 0);
+            linesContainer.anchorMax = new Vector2(1, 0);
+            linesContainer.pivot = new Vector2(0.5f, 0);
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
             linesContainer.anchoredPosition = Vector2.zero;
             linesContainer.sizeDelta = staffPanel != null ? 
                 staffPanel.sizeDelta : new Vector2(0, 400);
@@ -171,9 +212,15 @@ public class NoteSpawner : MonoBehaviour
         // NotesContainer 설정
         if (notesContainer != null)
         {
+<<<<<<< HEAD
             notesContainer.anchorMin = new Vector2(0, 1);
             notesContainer.anchorMax = new Vector2(1, 1);
             notesContainer.pivot = new Vector2(0.5f, 1);
+=======
+            notesContainer.anchorMin = new Vector2(0, 0);
+            notesContainer.anchorMax = new Vector2(1, 0);
+            notesContainer.pivot = new Vector2(0.5f, 0);
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
             notesContainer.anchoredPosition = Vector2.zero;
             notesContainer.sizeDelta = staffPanel != null ? 
                 staffPanel.sizeDelta : new Vector2(0, 400);
@@ -186,8 +233,13 @@ public class NoteSpawner : MonoBehaviour
         if (!pf) return;
         var obj = Instantiate(pf, linesContainer);
         var rt = obj.GetComponent<RectTransform>();
+<<<<<<< HEAD
         rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
         rt.pivot = new Vector2(0f, 1f);
+=======
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0f);
+        rt.pivot = new Vector2(0f, 0f);
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
         rt.anchoredPosition = new Vector2(30f, baseY);
         rt.sizeDelta = clef == "Bass" ? bassClefSize : trebleClefSize;
     }
@@ -207,6 +259,7 @@ public class NoteSpawner : MonoBehaviour
         if (pf == null) return;
         var obj = Instantiate(pf, linesContainer);
         var rt = obj.GetComponent<RectTransform>();
+<<<<<<< HEAD
         rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
         rt.pivot = new Vector2(0f, 1f);
         rt.anchoredPosition = new Vector2(100f, baseY);
@@ -233,10 +286,17 @@ public class NoteSpawner : MonoBehaviour
                 }
             }
         }
+=======
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0f);
+        rt.pivot = new Vector2(0f, 0f);
+        rt.anchoredPosition = new Vector2(100f, baseY);
+        rt.sizeDelta = new Vector2(timeSignatureWidth, staffHeight * 1.25f);
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
     }
 
     private void ClearNotes()
     {
+<<<<<<< HEAD
         if (notesContainer == null) return;
         
         // NotesContainer의 모든 자식 제거
@@ -255,5 +315,9 @@ public class NoteSpawner : MonoBehaviour
                 }
             }
         }
+=======
+        for (int i = notesContainer.childCount - 1; i >= 0; i--)
+            Destroy(notesContainer.GetChild(i).gameObject);
+>>>>>>> e07dfb26bf7734208eb8a21c3791426be1698ca0
     }
 }
