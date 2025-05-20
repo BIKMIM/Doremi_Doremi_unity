@@ -32,8 +32,37 @@ public class NoteAssembler : MonoBehaviour
     public GameObject rest16Prefab; // 16분 쉼표 프리팹
 
 
+    // 쉼표 별로 위치 조정
+    private Vector2 GetRestVisualOffset(int duration, float spacing)
+    {
+        return duration switch
+        {
+            1 => new Vector2(spacing * 0f, spacing * 0.7f),  // 1분 쉼표는 아래로 살짝
+            2 => new Vector2(spacing * 0f, spacing * 0.3f),   // 2분 쉼표는 위로 살짝
+            4 => new Vector2(spacing * 0f, spacing * 0.3f),   // 4분 쉼표는 위로 살짝
+            8 => new Vector2(spacing * 0f, spacing * 0.0f),   // 8분 쉼표는 위로 살짝
+            16 => new Vector2(spacing * 0f, spacing * -0.4f),   // 16분 쉼표는 위로 살짝
+            _ => new Vector2(0f, spacing * 1.5f)    // 그 외는 오선 중앙보다 위
+        };
+    }
+
+
+    // 쉼표별 크기 조정
+    private Vector2 GetRestSizeByDuration(int duration, float spacing)
+    {
+        return duration switch
+        {
+            1 => new Vector2(spacing * 1.5f, spacing * 0.5f),
+            2 => new Vector2(spacing * 1.5f, spacing * 0.5f),
+            4 => new Vector2(spacing * 1.0f, spacing * 3.0f),
+            8 => new Vector2(spacing * 1.0f, spacing * 1.6f),
+            16 => new Vector2(spacing * 1.0f, spacing * 2.3f),
+            _ => new Vector2(spacing, spacing)
+        };
+    }
+
     // 쉼표 생성 함수
-    public void SpawnRestNote(Vector2 anchoredPos, int duration, bool isDotted)
+    public void SpawnRestNote(Vector2 basePos, int duration, bool isDotted)
     {
         GameObject restPrefab = GetRestPrefab(duration);
         if (restPrefab == null)
@@ -47,18 +76,29 @@ public class NoteAssembler : MonoBehaviour
 
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.anchoredPosition = anchoredPos;
 
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
-        float size = spacing * 0.9f;
-        rt.sizeDelta = new Vector2(spacing * 1.0f, spacing * 3.0f);
+
+        // ✅ 쉼표 위치 조정
+        Vector2 offset = GetRestVisualOffset(duration, spacing);
+        rt.anchoredPosition = basePos + offset;
+
+        // ✅ 쉼표 크기 조정
+        Vector2 restSize = GetRestSizeByDuration(duration, spacing);
+        rt.sizeDelta = restSize;
+
+
         rt.localScale = Vector3.one;
 
         if (isDotted)
         {
-            AttachDot(rest, isOnLine: false); // 쉼표는 줄에 안 걸려있으므로 false
+            AttachDot(rest, isOnLine: false);
         }
     }
+
+
+    
+
 
 
     // 🎵 1. 머리 생성 함수
