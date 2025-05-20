@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// StaffLineDrawer.cs - 오선을 그릴 때 사용
+
 public class StaffLineDrawer : MonoBehaviour
 {
     [Header("오선을 그릴 대상 패널")]  // 헤더는 제목. 헤더 아래에 변수 선언.

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+
+// NoteAssembler.cs - 음표 조립(head, stem, flag, dot) 파일
+
 public class NoteAssembler : MonoBehaviour
 {
     [Header("오선 패널 (Canvas 내부)")]
@@ -14,11 +17,48 @@ public class NoteAssembler : MonoBehaviour
     [Header("Stem 프리팹")]
     public GameObject stemPrefab;
 
-    [Header("🎏 Flag 프리팹")]
-    public GameObject flagPrefab;
+    [Header("플래그 프리팹")]
+    public GameObject flag8Prefab;
+    public GameObject flag16Prefab;
 
     [Header("🎯 Dot 프리팹")]
     public GameObject dotPrefab;
+
+    [Header("쉼표 프리팹")]
+    public GameObject rest1Prefab; // 1분 쉼표 프리팹 
+    public GameObject rest2Prefab; // 2분 쉼표 프리팹 
+    public GameObject rest4Prefab; // 4분 쉼표 프리팹 
+    public GameObject rest8Prefab; // 8분 쉼표 프리팹 
+    public GameObject rest16Prefab; // 16분 쉼표 프리팹
+
+
+    // 쉼표 생성 함수
+    public void SpawnRestNote(Vector2 anchoredPos, int duration, bool isDotted)
+    {
+        GameObject restPrefab = GetRestPrefab(duration);
+        if (restPrefab == null)
+        {
+            Debug.LogWarning($"❗ 지원되지 않는 쉼표 길이: {duration}분음표");
+            return;
+        }
+
+        GameObject rest = Instantiate(restPrefab, staffPanel);
+        RectTransform rt = rest.GetComponent<RectTransform>();
+
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.anchoredPosition = anchoredPos;
+
+        float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
+        float size = spacing * 0.9f;
+        rt.sizeDelta = new Vector2(spacing * 1.0f, spacing * 3.0f);
+        rt.localScale = Vector3.one;
+
+        if (isDotted)
+        {
+            AttachDot(rest, isOnLine: false); // 쉼표는 줄에 안 걸려있으므로 false
+        }
+    }
 
 
     // 🎵 1. 머리 생성 함수
@@ -65,69 +105,135 @@ public class NoteAssembler : MonoBehaviour
 
 
     // 🎏 3. 플래그 붙이기 함수 (스템을 받아서 붙임)
-    public GameObject AttachFlag(GameObject stem)
+    public void AttachFlag(GameObject stem, int duration)
     {
-        RectTransform stemRT = stem.GetComponent<RectTransform>();
-        float stemHeight = stemRT.sizeDelta.y; // ✅ 진짜 높이 읽기
-        float spacing = MusicLayoutConfig.GetSpacing(staffPanel); // 필요하면 크기 비례용
+        GameObject flagPrefab = duration switch
+        {
+            8 => flag8Prefab,
+            16 => flag16Prefab,
+            _ => null
+        };
 
-        GameObject flag = Instantiate(flagPrefab, stem.transform); 
+        if (flagPrefab == null)
+        {
+            Debug.LogWarning($"❗ {duration}분음표에 대한 플래그 프리팹이 없습니다.");
+            return;
+        }
+
+        RectTransform stemRT = stem.GetComponent<RectTransform>();
+        float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
+
+        GameObject flag = Instantiate(flagPrefab, stem.transform);
         RectTransform flagRT = flag.GetComponent<RectTransform>();
 
-        flagRT.anchorMin = new Vector2(0f, 1f);
-        flagRT.anchorMax = new Vector2(0f, 1f);
-        flagRT.pivot = new Vector2(0f, 1f); // 좌측 상단 기준.3
-        
-        flagRT.anchoredPosition = new Vector2(0f, spacing * MusicLayoutConfig.FlagOffsetRatio * -0.1f); // stem 위에 딱 붙게
-        flagRT.sizeDelta = new Vector2(spacing * MusicLayoutConfig.FlagSizeXRatio, spacing * MusicLayoutConfig.FlagSizeYRatio); // 꼬리 길이
+        flagRT.anchorMin = flagRT.anchorMax = new Vector2(0f, 1f);
+        flagRT.pivot = new Vector2(0f, 1f);
+        flagRT.anchoredPosition = new Vector2(0f, spacing * MusicLayoutConfig.FlagOffsetRatio * -0.1f);
+        flagRT.sizeDelta = new Vector2(spacing * MusicLayoutConfig.FlagSizeXRatio, spacing * MusicLayoutConfig.FlagSizeYRatio);
         flagRT.localScale = Vector3.one;
-
-        return flag;
     }
 
+
+
     // 4. 점 붙이기 함수 (머리를 받아서 붙임)
-    public GameObject AttachDot(GameObject head, bool isOnLine)
+    public GameObject AttachDot(GameObject headOrRest, bool isOnLine)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
-        float dotSize = spacing * 0.3f; // 점 크기 (줄 간격의 1/4)
+        float dotSize = spacing * 0.3f;
         float headWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio;
 
-        GameObject dot = Instantiate(dotPrefab, head.transform);
-        RectTransform dotRT = dot.GetComponent<RectTransform>();
+        GameObject dot = Instantiate(dotPrefab, headOrRest.transform);
+        RectTransform rt = dot.GetComponent<RectTransform>();
 
-        dotRT.anchorMin = new Vector2(0.5f, 0.5f);
-        dotRT.anchorMax = new Vector2(0.5f, 0.5f);
-        dotRT.pivot = new Vector2(0f, 0.5f); // 왼쪽 가운데 기준
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0f, 0.5f);
 
+        // 🎯 위치 계산
+        float x = headWidth + spacing * -0.4f; // 점음표 위치 지정.
+        float y;
 
-        float x = headWidth + spacing * 0.1f;
-        float y = isOnLine ? spacing * 0.3f : spacing * -0.0f; // 라인에 걸쳐있으면 앞쪽, 아니면 뒤쪽 spacing 수정.
+        if (isOnLine)
+        {
+            // 음표가 줄에 걸쳐 있을 때는 도트 위치를 위로 살짝
+            y = spacing * 0.3f;
+        }
+        else
+        {
+            // 음표가 칸에 있을 때 또는 쉼표일 때는 동일하게 살짝 아래
+            y = spacing * -0.1f;
+        }
 
-
-        dotRT.anchoredPosition = new Vector2(x, y);
-        dotRT.sizeDelta = new Vector2(dotSize, dotSize);
-        dotRT.localScale = Vector3.one;
+        rt.anchoredPosition = new Vector2(x, y);
+        rt.sizeDelta = new Vector2(dotSize, dotSize);
+        rt.localScale = Vector3.one;
 
         return dot;
     }
 
 
     // ✅ 최종 조립 함수: 머리 → 스템 → 플래그
-    public void SpawnNoteFull(Vector2 anchoredPos)
-{
-    GameObject head = SpawnNoteHead(head4Prefab, anchoredPos);   
-    GameObject stem = AttachStem(head);
-    GameObject flag = AttachFlag(stem);
-
-    }
-
-    public void SpawnDottedNoteFull(Vector2 anchoredPos, float noteIndex, bool isOnLine)
+    // 🎵 음표 조립: 일반 음표
+    public void SpawnNoteFull(Vector2 anchoredPos, float noteIndex, int duration)
     {
-        GameObject head = SpawnNoteHead(head4Prefab, anchoredPos);
-        GameObject stem = AttachStem(head);
-        GameObject flag = AttachFlag(stem);
-        GameObject dot = AttachDot(head, isOnLine); // 점은 머리 위에 붙임
-    
+        GameObject head = SpawnNoteHead(GetHeadPrefab(duration), anchoredPos);
+
+        if (duration >= 2)
+        {
+            GameObject stem = AttachStem(head); // ✅ stem 선언이 필요함
+
+            if (duration >= 8)
+            {
+                AttachFlag(stem, duration); // ✅ duration 인자 넘겨줘야 함
+            }
+        }
     }
+
+
+    // 🎵 점음표 조립
+    public void SpawnDottedNoteFull(Vector2 anchoredPos, float noteIndex, bool isOnLine, int duration)
+    {
+        GameObject head = SpawnNoteHead(GetHeadPrefab(duration), anchoredPos);
+
+        if (duration >= 2)
+        {
+            GameObject stem = AttachStem(head); // ✅ stem 선언
+
+            if (duration >= 8)
+            {
+                AttachFlag(stem, duration); // ✅ duration 전달
+            }
+        }
+
+        AttachDot(head, isOnLine);
+    }
+
+
+    // 🎵 머리 프리팹 선택
+    private GameObject GetHeadPrefab(int duration)
+    {
+        return duration switch
+        {
+            1 => head1Prefab,
+            2 => head2Prefab,
+            4 => head4Prefab,
+            _ => head4Prefab
+        };
+    }
+
+
+
+    private GameObject GetRestPrefab(int duration)
+    {
+        return duration switch
+        {
+            1 => rest1Prefab,
+            2 => rest2Prefab,
+            4 => rest4Prefab,
+            8 => rest8Prefab,
+            16 => rest16Prefab,
+            _ => null
+        };
+    }
+
 
 }

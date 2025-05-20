@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// JsonLoader.cs - 노래를 저장한 Json 악보를 불러오기 위한 파일
+
 public class JsonLoader : MonoBehaviour
 {
 

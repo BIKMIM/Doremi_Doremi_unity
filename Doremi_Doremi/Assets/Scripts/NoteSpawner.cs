@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-
+// NoteSpawner.cs - 음표 생성, 점음표 점위치 조정,
+// JSON → NoteData 배열로 변환 후 음표 생성
+// 음이름에 따라 줄위치 인덱스 컨트롤  , 음끼리 겹치지 않도록 위치 조정.
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -69,47 +71,58 @@ public class NoteSpawner : MonoBehaviour
         Debug.Log($"🎵 \"{song.title}\"의 음표 {song.notes.Count}개 생성 시작");
 
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel); // 음표 간격 계산.
-        float headWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio;
-        float horizontalGap = headWidth * 3f; // 음표 머리 간격 계산. 머리 크기 * 3배.
+        float headWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio; // 음표 머리 너비 계산.
 
-        int order = 0; // 음표 순서 변수 초기화.
+        float currentX = 0f; // 현재 X 좌표 초기화.
+        int order = 0; // 음표 순서 초기화.
 
-        foreach (string noteNameRaw in song.notes)
+        foreach (string rawNote in song.notes)    
         {
-            bool isDotted = noteNameRaw.EndsWith("."); // 음 이름이 점으로 끝나는지 확인.
-            string pureNoteName = isDotted ? noteNameRaw.TrimEnd('.') : noteNameRaw; // 점을 제거한 순수 음 이름.
+            NoteData note = NoteParser.Parse(rawNote); // 🎯 새 구조로 파싱
 
-
-            if (!noteIndexTable.ContainsKey(pureNoteName)) // 음 이름이 매핑 테이블에 존재하는지 확인.
+            // 쉼표 처리
+            if (note.isRest)
             {
-                Debug.LogWarning($"🎵 알 수 없는 음표 이름: {pureNoteName}");
+                float restY = spacing * 0.0f; // 🎯 오선 중간보다 살짝 위
+
+                float spacingX = MusicLayoutConfig.GetBeatSpacingFor(staffPanel, note.duration, note.isDotted);
+                Vector2 restPos = new Vector2(currentX + spacingX * 0.5f, restY); // 🎯 살짝 오른쪽으로 이동
+
+                assembler.SpawnRestNote(restPos, note.duration, note.isDotted);
+                currentX += spacingX; // 🎯 생성 후 위치 증가
+
+                order++;
                 continue;
             }
 
-
-            float index = noteIndexTable[pureNoteName]; // 음 이름에 해당하는 줄 인덱스 가져오기.
-            float y = index * spacing * 0.5f; // 줄 인덱스에 따라 y 좌표 계산. 0.5배로 조정.
-            float x = order * horizontalGap; // 음표 순서에 따라 x 좌표 계산.
-
-
-
-            if (isDotted) 
+            // 유효한 음인지 확인
+            if (!noteIndexTable.ContainsKey(note.noteName))
             {
-            bool isOnLine = lineNotes.Contains(pureNoteName); 
-                float dotY = isOnLine ? spacing * 0.3f : spacing * -0.2f;
-                assembler.SpawnDottedNoteFull(new Vector2(x, y), index, isOnLine); // y는 음표 위치
+                Debug.LogWarning($"🎵 알 수 없는 음표 이름: {note.noteName}");
+                continue;
             }
 
-            else 
-            {
-            assembler.SpawnNoteFull(new Vector2(x, y));
+            float noteIndex = noteIndexTable[note.noteName]; 
+            float y = noteIndex * spacing * 0.5f; 
+            Vector2 pos = new Vector2(currentX, y); 
 
-            Debug.Log($"🎵 음표: {noteNameRaw} | 점음표: {isDotted}");
+            bool isOnLine = lineNotes.Contains(note.noteName); 
+
+            if (note.isDotted) 
+            {
+                assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration); 
             }
-            order++; 
+            else
+            {
+                assembler.SpawnNoteFull(pos, noteIndex, note.duration);
+            }
+
+            Debug.Log($"🎵 음표: {note.noteName} | 길이: {note.duration}분음표 | 점음표: {note.isDotted}");
+
+            currentX += MusicLayoutConfig.GetBeatSpacingFor(staffPanel, note.duration, note.isDotted);
+            order++;
         }
 
-        // ✅ 루프 끝나고 총 갯수 출력
         Debug.Log($"✅ \"{song.title}\"의 음표 {order}개 생성 완료");
     }
 }
