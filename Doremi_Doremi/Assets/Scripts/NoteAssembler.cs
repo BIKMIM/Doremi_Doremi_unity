@@ -33,11 +33,11 @@ public class NoteAssembler : MonoBehaviour
 
 
     // 쉼표 별로 위치 조정
-    private Vector2 GetRestVisualOffset(int duration, float spacing)
+    public Vector2 GetRestVisualOffset(int duration, float spacing)
     {
         return duration switch
         {
-            1 => new Vector2(spacing * 0f, spacing * 0.7f),  // 1분 쉼표는 아래로 살짝
+            1 => new Vector2(spacing * 0f, spacing * 0.8f),  // 1분 쉼표는 아래로 살짝
             2 => new Vector2(spacing * 0f, spacing * 0.3f),   // 2분 쉼표는 위로 살짝
             4 => new Vector2(spacing * 0f, spacing * 0.3f),   // 4분 쉼표는 위로 살짝
             8 => new Vector2(spacing * 0f, spacing * 0.0f),   // 8분 쉼표는 위로 살짝

@@ -83,14 +83,14 @@ public class NoteSpawner : MonoBehaviour
             // 쉼표 처리
             if (note.isRest)
             {
-                float restY = spacing * 0.0f; // 🎯 오선 중간보다 살짝 위
 
-                float spacingX = MusicLayoutConfig.GetBeatSpacingFor(staffPanel, note.duration, note.isDotted);
-                Vector2 restPos = new Vector2(currentX + spacingX * 0.5f, restY); // 🎯 살짝 오른쪽으로 이동
+                float baseY = 0f * spacing * 0.5f; // noteIndex = 0 기준 (B4 위치)
+                Vector2 offset = assembler.GetRestVisualOffset(note.duration, spacing);
+                Vector2 restPos = new Vector2(currentX, baseY) + offset;
 
                 assembler.SpawnRestNote(restPos, note.duration, note.isDotted);
-                currentX += spacingX; // 🎯 생성 후 위치 증가
 
+                currentX += MusicLayoutConfig.GetBeatSpacingFor(staffPanel, note.duration, note.isDotted);
                 order++;
                 continue;
             }
