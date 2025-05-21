@@ -14,7 +14,8 @@ public class JsonLoader : MonoBehaviour
     [System.Serializable] // JSON 데이터같은 연속된 DATA 구조를 정의하는 클래스
     public class SongData 
     {
-        public string title; 
+        public string title;
+        public string timeSignature; // <-- 🎵 이 줄을 추가해주세요! (곡의 박자 정보를 담을 변수)
         public List<string> notes; 
     }
 

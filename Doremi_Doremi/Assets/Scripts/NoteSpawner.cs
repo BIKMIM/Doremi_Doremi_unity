@@ -23,6 +23,16 @@ public class NoteSpawner : MonoBehaviour
     [Header("음표 조립 프리팹")]
     public NoteAssembler assembler; // NoteAssembler 스크립트 변수 선언. 음표 머리 생성하는 스크립트.
 
+    [Header("박자표 프리팹")]
+    public GameObject timeSig2_4Prefab;
+    public GameObject timeSig3_4Prefab;
+    public GameObject timeSig3_8Prefab;
+    public GameObject timeSig4_4Prefab;
+    public GameObject timeSig4_8Prefab;
+    public GameObject timeSig6_8Prefab;
+
+    // 곡 로딩 후 파싱된 TimeSignature 객체
+    private MusicLayoutConfig.TimeSignature currentSongTimeSignature; // 여기에 현재 곡의 박자 정보를 저장
 
 
     private Dictionary<string, float> noteIndexTable = new Dictionary<string, float> // 딕셔너리 변수 선언. 음 이름에 따라 줄 인덱스를 정의한 매핑 테이블
@@ -70,60 +80,163 @@ public class NoteSpawner : MonoBehaviour
         JsonLoader.SongData song = songList.songs[selectedSongIndex]; // 선택한 곡 로드.
         Debug.Log($"🎵 \"{song.title}\"의 음표 {song.notes.Count}개 생성 시작");
 
+        // 1. Json에서 읽어온 timeSignature 문자열을 MusicLayoutConfig.TimeSignature 구조체로 변환
+        //    (이 변환 로직은 JsonLoader나 NoteSpawner에 추가해야 합니다)
+        //    예: "4/4" -> new MusicLayoutConfig.TimeSignature(4, 4)
+        this.currentSongTimeSignature = ParseTimeSignatureFromString(song.timeSignature); // ParseTimeSignatureFromString 함수는 직접 구현 필요
+
+        // ⬇️ 이 부분 추가! (예시: 2마디를 화면에 표시한다고 가정)
+        float measureVisualWidth = staffPanel.rect.width / 2f;
+
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel); // 음표 간격 계산.
         float headWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio; // 음표 머리 너비 계산.
 
         float currentX = 0f; // 현재 X 좌표 초기화.
         int order = 0; // 음표 순서 초기화.
 
-        foreach (string rawNote in song.notes)    
+        // --- 박자표 생성 및 배치 ---
+        currentX = SpawnTimeSignatureSymbol(currentX, spacing);
+        // --------------------------
+
+        // 음표 생성
+
+        foreach (string rawNote in song.notes)
         {
-            NoteData note = NoteParser.Parse(rawNote); // 🎯 새 구조로 파싱
+            Debug.Log($"Processing raw note: {rawNote}");
+            NoteData note = NoteParser.Parse(rawNote);
+            Debug.Log($"Parsed: {note.ToString()}, Duration: {note.duration}, IsRest: {note.isRest}, IsDotted: {note.isDotted}");
+
+            // 새로운 방식으로 음표/쉼표의 시각적 너비 계산
+            float noteWidth = MusicLayoutConfig.GetNoteVisualWidth(
+                measureVisualWidth,             // 위에서 정의한 한 마디의 시각적 너비
+                this.currentSongTimeSignature,  // 파싱된 현재 곡의 박자
+                note.duration,
+                note.isDotted
+            );
 
             // 쉼표 처리
             if (note.isRest)
             {
-                float restY = spacing * 0.0f; // 🎯 오선 중간보다 살짝 위
-
-                float spacingX = MusicLayoutConfig.GetBeatSpacingFor(staffPanel, note.duration, note.isDotted);
-                Vector2 restPos = new Vector2(currentX + spacingX * 0.5f, restY); // 🎯 살짝 오른쪽으로 이동
-
+                float restY = spacing * 0.0f;
+                // 쉼표 위치는 currentX를 기준으로 하고, noteWidth를 고려하여 중앙 정렬 등을 할 수 있습니다.
+                // 예: 현재 위치에서 쉼표 너비의 절반만큼 이동하여 중앙에 배치
+                Vector2 restPos = new Vector2(currentX + noteWidth * 0.5f, restY);
+                Debug.Log($"Attempting to spawn REST: {rawNote} at X: {restPos.x} with Width: {noteWidth}");
                 assembler.SpawnRestNote(restPos, note.duration, note.isDotted);
-                currentX += spacingX; // 🎯 생성 후 위치 증가
-
-                order++;
-                continue;
+                currentX += noteWidth; // 계산된 너비만큼 currentX 증가
             }
-
-            // 유효한 음인지 확인
-            if (!noteIndexTable.ContainsKey(note.noteName))
+            else // 음표인 경우
             {
-                Debug.LogWarning($"🎵 알 수 없는 음표 이름: {note.noteName}");
-                continue;
+                if (!noteIndexTable.ContainsKey(note.noteName))
+                {
+                    Debug.LogWarning($"🎵 알 수 없는 음표 이름: {note.noteName}");
+                    order++; // 누락된 음표도 순서는 증가시켜야 전체 카운트가 맞습니다.
+                    continue;
+                }
+
+                float noteIndex = noteIndexTable[note.noteName];
+                float y = noteIndex * spacing * 0.5f;
+                // 음표 위치는 현재 currentX 값입니다. 음표 자체의 너비는 noteWidth로 표현됩니다.
+                Vector2 pos = new Vector2(currentX, y);
+                Debug.Log($"Attempting to spawn NOTE: {rawNote} at X: {pos.x} with Width: {noteWidth}");
+                
+                bool isOnLine = lineNotes.Contains(note.noteName);
+
+
+                if (note.isDotted)
+                {
+                    assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration);
+                }
+                else
+                {
+                    assembler.SpawnNoteFull(pos, noteIndex, note.duration);
+                }
+                Debug.Log($"🎵 음표: {note.noteName} | 길이: {note.duration}분음표 | 점음표: {note.isDotted}");
+                currentX += noteWidth; // 계산된 너비만큼 currentX 증가
             }
-
-            float noteIndex = noteIndexTable[note.noteName]; 
-            float y = noteIndex * spacing * 0.5f; 
-            Vector2 pos = new Vector2(currentX, y); 
-
-            bool isOnLine = lineNotes.Contains(note.noteName); 
-
-            if (note.isDotted) 
-            {
-                assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration); 
-            }
-            else
-            {
-                assembler.SpawnNoteFull(pos, noteIndex, note.duration);
-            }
-
-            Debug.Log($"🎵 음표: {note.noteName} | 길이: {note.duration}분음표 | 점음표: {note.isDotted}");
-
-            currentX += MusicLayoutConfig.GetBeatSpacingFor(staffPanel, note.duration, note.isDotted);
+            Debug.Log($"currentX after {rawNote}: {currentX}");
             order++;
         }
-
-        Debug.Log($"✅ \"{song.title}\"의 음표 {order}개 생성 완료");
+        Debug.Log($"✅ \"{song.title}\"의 음표 {order}개 생성 완료. 최종 currentX: {currentX}"); //
     }
+
+
+    // 박자표 심볼을 생성하는 메서드
+    private float SpawnTimeSignatureSymbol(float initialX, float staffSpacing)
+    {
+        GameObject prefabToUse = null;
+        string tsKey = $"{this.currentSongTimeSignature.beatsPerMeasure}/{this.currentSongTimeSignature.beatUnitType}";
+
+        switch (tsKey)
+        {
+            case "2/4": prefabToUse = timeSig2_4Prefab; break;
+            case "3/4": prefabToUse = timeSig3_4Prefab; break;
+            case "4/4": prefabToUse = timeSig4_4Prefab; break;
+            case "3/8": prefabToUse = timeSig3_8Prefab; break;
+            case "4/8": prefabToUse = timeSig4_8Prefab; break;
+            case "6/8": prefabToUse = timeSig6_8Prefab; break;
+            default:
+                Debug.LogWarning($"지원하지 않는 박자표 프리팹 키: {tsKey}. 기본(4/4) 프리팹을 시도합니다.");
+                prefabToUse = timeSig4_4Prefab; // 기본값 또는 null 처리 후 생성 안 함
+                break;
+        }
+
+        if (prefabToUse == null)
+        {
+            Debug.LogError($"박자표 프리팹을 찾을 수 없습니다: {tsKey}");
+            return initialX; // 박자표 없이 원래 X 위치 반환
+        }
+
+        GameObject timeSigInstance = Instantiate(prefabToUse, staffPanel);
+        RectTransform tsRT = timeSigInstance.GetComponent<RectTransform>();
+
+        // 크기 설정: 박자표의 전체 높이가 오선 4칸을 차지하도록 설정 (MusicLayoutConfig의 상수 활용)
+        float desiredTotalHeight = staffSpacing * MusicLayoutConfig.TimeSignatureVerticalCoverage;
+
+        // 프리팹의 원래 비율 유지를 위한 계산 (프리팹의 Pivot과 내부 구성에 따라 미세 조정 필요)
+        // 간단히는, 프리팹 자체가 숫자 2개를 위아래로 포함하고, 그 전체의 RectTransform이라고 가정합니다.
+        // 그리고 프리팹의 숫자 이미지는 부모 RectTransform 크기에 맞춰 늘어나도록 설정되어 있다고 가정합니다. (예: Stretch 모드)
+        float originalPrefabWidth = tsRT.rect.width; // 또는 tsRT.sizeDelta.x (프리팹 설정에 따라)
+        float originalPrefabHeight = tsRT.rect.height; // 또는 tsRT.sizeDelta.y
+
+        float scaleFactor = 1f;
+        if (originalPrefabHeight > 0) // 0으로 나누기 방지
+        {
+            scaleFactor = desiredTotalHeight / originalPrefabHeight;
+        }
+
+        float desiredTotalWidth = originalPrefabWidth * scaleFactor;
+        tsRT.sizeDelta = new Vector2(desiredTotalWidth, desiredTotalHeight); // 크기 설정
+
+        // 위치 설정
+        // Y 위치: 오선 중앙. 박자표의 Pivot이 (0.5, 0.5)이고, 오선 중앙이 Y=0이라고 가정.
+        float timeSigPosY = 0f;
+
+        // X 위치: 약간의 왼쪽 여백 후 박자표 너비의 절반만큼 이동하여 중심 배치
+        float leftPadding = staffSpacing * 1.5f; // 예: 오선 1.5칸 정도의 왼쪽 여백
+        tsRT.anchoredPosition = new Vector2(initialX + leftPadding + desiredTotalWidth * 0.5f, timeSigPosY);
+
+        // 다음 요소가 시작될 X 위치 반환 (박자표 오른쪽 약간의 여백 포함)
+        return initialX + leftPadding + desiredTotalWidth + staffSpacing; // 오른쪽 여백으로 staffSpacing 하나 추가
+    }
+
+
+    // timeSignature 문자열을 파싱하는 헬퍼 함수 (예시)
+    private MusicLayoutConfig.TimeSignature ParseTimeSignatureFromString(string tsString)
+    {
+        if (string.IsNullOrEmpty(tsString) || !tsString.Contains("/"))
+        {
+            Debug.LogWarning($"잘못된 박자표 문자열입니다: {tsString}. 기본값(4/4)을 사용합니다.");
+            return new MusicLayoutConfig.TimeSignature(4, 4);
+        }
+        string[] parts = tsString.Split('/');
+        if (parts.Length == 2 && int.TryParse(parts[0], out int beats) && int.TryParse(parts[1], out int unitType))
+        {
+            return new MusicLayoutConfig.TimeSignature(beats, unitType);
+        }
+        Debug.LogWarning($"박자표 문자열 파싱에 실패했습니다: {tsString}. 기본값(4/4)을 사용합니다.");
+        return new MusicLayoutConfig.TimeSignature(4, 4);
+    }
+
 }
 
