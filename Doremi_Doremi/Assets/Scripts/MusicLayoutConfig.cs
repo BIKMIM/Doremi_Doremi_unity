@@ -67,27 +67,21 @@ public static class MusicLayoutConfig
     }
 
 
-    // MusicLayoutConfig.cs (개선된 버전 예시)
+    // MusicLayoutConfig.cs (개선된 버전 - 음표 간격을 더 적절하게 조정)
     public static float GetNoteVisualWidth(float measureVisualWidth, TimeSignature timeSignature, int noteDataDuration, bool isDotted)
     {
+        // 기본 음표 간격을 화면 크기에 맞게 조정
+        float baseNoteSpacing = measureVisualWidth / 12f; // 한 마디에 12개 정도의 4분음표가 들어갈 수 있도록
+        
         // noteDataDuration: 1(온), 2(2분), 4(4분), 8(8분), 16(16분)
-        // 음표가 온음표(whole note)를 기준으로 얼마나 짧은지를 나타내는 값
-        float noteValueRelativeToWhole = 1.0f / noteDataDuration;
+        float noteValueRelativeToQuarter = 4f / noteDataDuration; // 4분음표 기준으로 계산
         if (isDotted)
         {
-            noteValueRelativeToWhole *= 1.5f;
+            noteValueRelativeToQuarter *= 1.5f;
         }
 
-        // 박자표에서 한 마디가 온음표 기준으로 얼마만큼의 길이를 가지는지 계산
-        // 예: 4/4 -> 1.0 (온음표 1개), 3/4 -> 0.75 (온음표의 3/4), 6/8 -> 0.75 (온음표의 6/8)
-        float measureValueRelativeToWhole = (float)timeSignature.beatsPerMeasure / timeSignature.beatUnitType;
-
-        if (measureValueRelativeToWhole == 0) return 0; // 0으로 나누기 방지
-
-        // 해당 음표가 현재 마디에서 차지하는 비율
-        float proportionOfMeasure = noteValueRelativeToWhole / measureValueRelativeToWhole;
-
-        return measureVisualWidth * proportionOfMeasure;
+        // 4분음표를 기준으로 간격 조정
+        return baseNoteSpacing * noteValueRelativeToQuarter;
     }
 
     // TimeSignature 클래스 또는 구조체 (박자표 정보를 담기 위함)

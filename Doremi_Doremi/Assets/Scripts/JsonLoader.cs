@@ -12,15 +12,16 @@ public class JsonLoader : MonoBehaviour
 
 
     [System.Serializable] // JSON 데이터같은 연속된 DATA 구조를 정의하는 클래스
-    public class SongData 
+    public class SongData
     {
         public string title;
-        public string timeSignature; // <-- 🎵 이 줄을 추가해주세요! (곡의 박자 정보를 담을 변수)
-        public List<string> notes; 
+        public string clef; // 🎼 음자리표 정보 추가 (treble, bass)
+        public string timeSignature; // 곡의 박자 정보를 담을 변수
+        public List<string> notes;
     }
 
     [System.Serializable]
-    public class SongList 
+    public class SongList
     {
         public List<SongData> songs;
     }
@@ -43,6 +44,14 @@ public class JsonLoader : MonoBehaviour
         }
 
         Debug.Log($"✅ 총 {parsed.songs.Count}곡 로딩 완료");
+
+        // 🎼 각 곡의 음자리표 정보 로그 출력
+        foreach (var song in parsed.songs)
+        {
+            string clefType = string.IsNullOrEmpty(song.clef) ? "treble (기본값)" : song.clef;
+            Debug.Log($"🎵 {song.title}: {clefType} clef, {song.timeSignature}, {song.notes.Count}개 음표");
+        }
+
         return parsed;
     }
 }
