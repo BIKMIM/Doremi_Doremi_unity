@@ -175,6 +175,7 @@ public class NoteSpawner : MonoBehaviour
         float panelHeight = staffPanel.rect.height;
         float desiredHeight = panelHeight * 0.7f; // 패널 높이의 40%
         float desiredWidth;
+        float yOffset = 0f; // ← 이 변수 선언이 중요!
 
         // 음자리표별 비율
         if (clefType.ToLower() == "treble")
@@ -188,6 +189,7 @@ public class NoteSpawner : MonoBehaviour
             // Bass: 작고 넓게  
             desiredHeight = panelHeight * 0.35f;  // 낮은음자리표 높이
             desiredWidth = desiredHeight * 0.55f;  // 낮은음자리표 넓이
+            yOffset = panelHeight * 0.05f; // ← 이 부분이 추가됨
         }
         else
         {
@@ -204,7 +206,7 @@ public class NoteSpawner : MonoBehaviour
 
         // 위치 설정 (음자리표의 중심이 해당 X 좌표에 오도록)
         float posX = initialX + desiredWidth * 0.5f;
-        clefRT.anchoredPosition = new Vector2(posX, 0f);
+        clefRT.anchoredPosition = new Vector2(posX, yOffset);
 
         Debug.Log($"🎼 {clefType} 음자리표 (패널기준): 크기={desiredWidth:F1}x{desiredHeight:F1}, 위치=({posX:F1}, 0)");
 
