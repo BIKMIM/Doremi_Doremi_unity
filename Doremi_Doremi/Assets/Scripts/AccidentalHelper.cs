@@ -17,7 +17,7 @@ public static class AccidentalHelper
         public float doubleFlatWidthRatio = 1.2f;
         public float doubleFlatHeightRatio = 1.5f;
         public float doubleFlatYOffsetRatio = 0.1f;
-        public float accidentalXOffsetRatio = 1.2f;
+        public float accidentalXOffsetRatio = 1.8f; // 임시표 ✅ 1.2f에서 1.8f로 증가 (더 왼쪽으로)
     }
 
     private static AccidentalSizeConfig defaultConfig = new AccidentalSizeConfig();

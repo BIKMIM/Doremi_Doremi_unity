@@ -1,9 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
-
 // NoteAssembler.cs - 음표 조립(head, stem, flag, dot) 파일
-
 public class NoteAssembler : MonoBehaviour
 {
     [Header("오선 패널 (Canvas 내부)")]
@@ -31,7 +29,6 @@ public class NoteAssembler : MonoBehaviour
     public GameObject rest8Prefab; // 8분 쉼표 프리팹 
     public GameObject rest16Prefab; // 16분 쉼표 프리팹
 
-
     // 쉼표 별로 위치 조정
     private Vector2 GetRestVisualOffset(int duration, float spacing)
     {
@@ -45,7 +42,6 @@ public class NoteAssembler : MonoBehaviour
             _ => new Vector2(0f, spacing * 1.5f)    // 그 외는 오선 중앙보다 위
         };
     }
-
 
     // 쉼표별 크기 조정
     private Vector2 GetRestSizeByDuration(int duration, float spacing)
@@ -87,7 +83,6 @@ public class NoteAssembler : MonoBehaviour
         Vector2 restSize = GetRestSizeByDuration(duration, spacing);
         rt.sizeDelta = restSize;
 
-
         rt.localScale = Vector3.one;
 
         if (isDotted)
@@ -96,24 +91,19 @@ public class NoteAssembler : MonoBehaviour
         }
     }
 
-
-    
-
-
-
     // 🎵 1. 머리 생성 함수
     public GameObject SpawnNoteHead(GameObject prefab, Vector2 anchoredPos)
     {
         GameObject head = Instantiate(prefab, staffPanel); // staffPanel에 붙여서 생성
-        RectTransform rt = head.GetComponent<RectTransform>();  
+        RectTransform rt = head.GetComponent<RectTransform>();
 
-        rt.anchorMin = new Vector2(0.5f, 0.5f); 
+        rt.anchorMin = new Vector2(0.5f, 0.5f);
         rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
         rt.anchoredPosition = anchoredPos;
 
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel); // 줄 간격 계산
-        float noteHeadWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio; 
+        float noteHeadWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio;
         float noteHeadHeight = spacing * MusicLayoutConfig.NoteHeadHeightRatio;
         rt.sizeDelta = new Vector2(noteHeadWidth, noteHeadHeight);
         rt.localScale = Vector3.one;
@@ -121,31 +111,52 @@ public class NoteAssembler : MonoBehaviour
         return head;
     }
 
-    // 🦴 2. 스템 붙이기 함수 (머리를 받아서 붙임)
-    public GameObject AttachStem(GameObject head)
+    // 🦴 2. 스템 붙이기 함수 (머리와 음높이를 받아서 붙임)
+    public GameObject AttachStem(GameObject head, float noteIndex)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel); // 줄 간격 계산
         float headWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio;
         float stemWidth = spacing * 0.2f; // 스템 너비 비율
         float stemHeight = spacing * 3f; // 스템 높이 비율
 
-        GameObject stem = Instantiate(stemPrefab, head.transform); 
+        GameObject stem = Instantiate(stemPrefab, head.transform);
         RectTransform stemRT = stem.GetComponent<RectTransform>();
 
-        stemRT.anchorMin = new Vector2(0.5f, 0.5f); 
+        stemRT.anchorMin = new Vector2(0.5f, 0.5f);
         stemRT.anchorMax = new Vector2(0.5f, 0.5f);
-        stemRT.pivot = new Vector2(0f, 0f); // 좌측 중앙 기준
 
-        stemRT.anchoredPosition = new Vector2(headWidth / 3f, 0f); // 머리 오른쪽에 붙게
-        stemRT.sizeDelta = new Vector2(stemWidth, stemHeight); 
-        stemRT.localScale = Vector3.one; 
+        // ✅ B4(0) 이상의 음표는 꼬리가 아래로 향함
+        bool stemDown = noteIndex >= 0f; // B4 이상
+
+        if (stemDown)
+        {
+            // 꼬리가 아래로: 머리 왼쪽에서 아래로
+            stemRT.pivot = new Vector2(1f, 1f); // 우상단 기준
+            // ✅ 머리 왼쪽에서 시작해서 적절한 거리만큼 아래로
+            float xOffset = headWidth * 0.35f; // 머리 폭의 35% 왼쪽
+            float yOffset = spacing * 0.1f;    // 머리에서 살짝 아래서 시작
+            stemRT.anchoredPosition = new Vector2(-xOffset, -yOffset);
+            stemRT.sizeDelta = new Vector2(stemWidth, stemHeight);
+            stemRT.localScale = Vector3.one;
+        }
+        else
+        {
+            // 꼬리가 위로: 머리 오른쪽에서 위로 (기존 방식)
+            stemRT.pivot = new Vector2(0f, 0f); // 좌하단 기준
+            float xOffset = headWidth * 0.35f; // 머리 폭의 35% 오른쪽
+            float yOffset = spacing * 0.1f;    // 머리에서 살짝 위에서 시작
+            stemRT.anchoredPosition = new Vector2(xOffset, yOffset);
+            stemRT.sizeDelta = new Vector2(stemWidth, stemHeight);
+            stemRT.localScale = Vector3.one;
+        }
+
+        Debug.Log($"🦴 Stem 생성: noteIndex={noteIndex}, stemDown={stemDown}, position={stemRT.anchoredPosition}, size={stemRT.sizeDelta}");
 
         return stem;
     }
 
-
-    // 🎏 3. 플래그 붙이기 함수 (스템을 받아서 붙임)
-    public void AttachFlag(GameObject stem, int duration)
+    // 🎏 3. 플래그 붙이기 함수 (스템과 음높이를 받아서 붙임)
+    public void AttachFlag(GameObject stem, int duration, float noteIndex)
     {
         GameObject flagPrefab = duration switch
         {
@@ -166,14 +177,34 @@ public class NoteAssembler : MonoBehaviour
         GameObject flag = Instantiate(flagPrefab, stem.transform);
         RectTransform flagRT = flag.GetComponent<RectTransform>();
 
-        flagRT.anchorMin = flagRT.anchorMax = new Vector2(0f, 1f);
-        flagRT.pivot = new Vector2(0f, 1f);
-        flagRT.anchoredPosition = new Vector2(0f, spacing * MusicLayoutConfig.FlagOffsetRatio * -0.1f);
+        // ✅ B4(0) 이상의 음표는 꼬리가 아래로 향함
+        bool stemDown = noteIndex >= 0f; // B4 이상
+
+        if (stemDown)
+        {
+            // 꼬리가 아래로: 플래그를 stem의 아래쪽 끝에 배치
+            flagRT.anchorMin = flagRT.anchorMax = new Vector2(1f, 0f); // ✅ 우하단으로 변경
+            flagRT.pivot = new Vector2(0f, 1f); // 좌상단 기준
+            float flagXOffset = spacing * 0.0f;  // stem 오른쪽으로 살짝
+            float flagYOffset = spacing * 0.1f;  // 이제 이 값이 제대로 작동할 것입니다
+            flagRT.anchoredPosition = new Vector2(flagXOffset, flagYOffset);
+            flagRT.localScale = new Vector3(1f, -1f, 1f);
+        }
+        else
+        {
+            // 꼬리가 위로: 플래그를 stem의 위쪽 끝에 배치 (기존 방식)
+            flagRT.anchorMin = flagRT.anchorMax = new Vector2(0f, 1f); // 좌상단
+            flagRT.pivot = new Vector2(0f, 1f); // 좌상단 기준
+            float flagXOffset = spacing * 0.05f; // spacing의 5%만큼 오른쪽
+            float flagYOffset = spacing * -0.1f; // spacing의 10%만큼 아래로 조정
+            flagRT.anchoredPosition = new Vector2(flagXOffset, flagYOffset);
+            flagRT.localScale = Vector3.one;
+        }
+
         flagRT.sizeDelta = new Vector2(spacing * MusicLayoutConfig.FlagSizeXRatio, spacing * MusicLayoutConfig.FlagSizeYRatio);
-        flagRT.localScale = Vector3.one;
+        
+        Debug.Log($"🎏 Flag 생성: noteIndex={noteIndex}, stemDown={stemDown}, position={flagRT.anchoredPosition}, scale={flagRT.localScale}");
     }
-
-
 
     // 4. 점 붙이기 함수 (머리를 받아서 붙임)
     public GameObject AttachDot(GameObject headOrRest, bool isOnLine)
@@ -210,7 +241,6 @@ public class NoteAssembler : MonoBehaviour
         return dot;
     }
 
-
     // ✅ 최종 조립 함수: 머리 → 스템 → 플래그
     // 🎵 음표 조립: 일반 음표
     public void SpawnNoteFull(Vector2 anchoredPos, float noteIndex, int duration)
@@ -219,15 +249,14 @@ public class NoteAssembler : MonoBehaviour
 
         if (duration >= 2)
         {
-            GameObject stem = AttachStem(head); // ✅ stem 선언이 필요함
+            GameObject stem = AttachStem(head, noteIndex); // ✅ noteIndex 전달
 
             if (duration >= 8)
             {
-                AttachFlag(stem, duration); // ✅ duration 인자 넘겨줘야 함
+                AttachFlag(stem, duration, noteIndex); // ✅ noteIndex 전달
             }
         }
     }
-
 
     // 🎵 점음표 조립
     public void SpawnDottedNoteFull(Vector2 anchoredPos, float noteIndex, bool isOnLine, int duration)
@@ -236,17 +265,16 @@ public class NoteAssembler : MonoBehaviour
 
         if (duration >= 2)
         {
-            GameObject stem = AttachStem(head); // ✅ stem 선언
+            GameObject stem = AttachStem(head, noteIndex); // ✅ noteIndex 전달
 
             if (duration >= 8)
             {
-                AttachFlag(stem, duration); // ✅ duration 전달
+                AttachFlag(stem, duration, noteIndex); // ✅ noteIndex 전달
             }
         }
 
         AttachDot(head, isOnLine);
     }
-
 
     // 🎵 머리 프리팹 선택
     private GameObject GetHeadPrefab(int duration)
@@ -260,8 +288,6 @@ public class NoteAssembler : MonoBehaviour
         };
     }
 
-
-
     private GameObject GetRestPrefab(int duration)
     {
         return duration switch
@@ -274,6 +300,4 @@ public class NoteAssembler : MonoBehaviour
             _ => null
         };
     }
-
-
 }

@@ -11,9 +11,36 @@ public class StaffLineDrawer : MonoBehaviour
     [Header("줄 프리팹")]  // 헤더는 제목. 헤더 아래에 변수 선언.
     public GameObject linePrefab;  // 프리팹 변수 선언.
 
+    [Header("✅ 오선지 위치 조정")]
+    [Range(-0.3f, 0.3f)]
+    public float staffVerticalOffsetRatio = -0.1f; // ✅ 패널 높이 기준으로 아래로 10% 이동
+
 private void Start()
     {
+        AdjustStaffPosition(); // ✅ 오선지 위치 조정 먼저
         DrawStafflLines();  // 시작할 때 한 줄 그리기.
+    }
+
+    // ✅ 오선지 위치 조정 함수 (비율 기반)
+    private void AdjustStaffPosition()
+    {
+        if (staffPanel == null) return;
+
+        // 현재 위치 가져오기
+        Vector2 currentPosition = staffPanel.anchoredPosition;
+        
+        // 패널의 부모 높이 기준으로 오프셋 계산 (비율 기반)
+        RectTransform parentRT = staffPanel.parent as RectTransform;
+        if (parentRT != null)
+        {
+            float parentHeight = parentRT.rect.height;
+            float verticalOffset = parentHeight * staffVerticalOffsetRatio;
+            
+            // Y 위치만 조정 (X는 그대로)
+            staffPanel.anchoredPosition = new Vector2(currentPosition.x, currentPosition.y + verticalOffset);
+            
+            Debug.Log($"🎼 오선지 위치 조정: Y오프셋 = {verticalOffset:F1} (부모높이 {parentHeight:F1}의 {staffVerticalOffsetRatio:P0})");
+        }
     }
 
  private void DrawStafflLines()  // 한 줄 그리기.
