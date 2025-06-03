@@ -36,8 +36,8 @@ public class NotePlacementHandler : MonoBehaviour
 
         Vector2 pos = new Vector2(x + noteSpacing * 0.5f, y);
 
-        // 🎼 덧줄 먼저 생성 (음표 아래 레이어에 표시되도록)
-        SpawnLedgerLines(pos, note.noteName, spacing);
+        // 🎼 덧줄 생성 (NoteLayoutHelper의 static 함수 호출)
+        SpawnLedgerLines(pos.x, note.noteName, spacing);
 
         bool isOnLine = NotePositioningData.lineNotes.Contains(note.noteName);
 
@@ -53,6 +53,10 @@ public class NotePlacementHandler : MonoBehaviour
         }
     }
 
+
+
+    // 🎵 쉼표 생성 함수
+
     public void SpawnRestAtPosition(float x, float noteSpacing, float spacing, NoteData note)
     {
         float restY = spacing * 0.0f;
@@ -63,8 +67,10 @@ public class NotePlacementHandler : MonoBehaviour
         assembler.SpawnRestNote(restPos, note.duration, note.isDotted);
     }
 
-    // 🎼 해상도 독립적 덧줄 생성 함수
-    public void SpawnLedgerLines(Vector2 notePosition, string noteName, float staffSpacing)
+
+
+    // 🎼 해상도 독립적 덧줄 생성 함수 (NoteLayoutHelper를 사용하도록 변경)
+    public void SpawnLedgerLines(float notePosX, string noteName, float staffSpacing)
     {
         if (!NotePositioningData.noteIndexTable.ContainsKey(noteName))
         {
@@ -73,81 +79,27 @@ public class NotePlacementHandler : MonoBehaviour
         }
 
         if (ledgerLinePrefab == null)
-        {
+        { // 이 경고가 콘솔에 뜨는지 확인
             Debug.LogWarning("⚠️ 덧줄 프리팹이 설정되지 않았습니다.");
             return;
         }
 
         float noteIndex = NotePositioningData.noteIndexTable[noteName];
 
-        Debug.Log($"🎼 {noteName} 음표: 인덱스={noteIndex}, Y위치={notePosition.y:F1}");
-
-        // 🎯 덧줄이 필요한 음표인지 확인 (오선 범위: E4(-4) ~ F5(4), 즉 -4 ~ 4 사이는 덧줄 불필요)
-        if (noteIndex >= -4f && noteIndex <= 4f)
+        if (!NoteLayoutHelper.NeedsLedgerLines(noteIndex))
         {
             Debug.Log($"🎼 {noteName}: 오선 내부 음표, 덧줄 불필요");
             return;
         }
 
-        List<float> ledgerPositions = new List<float>();
-
-        if (noteIndex < -4f) // 오선 아래
-        {
-            Debug.Log($"🎼 {noteName}: 오선 아래 음표");
-            // 음표가 짝수 인덱스(덧줄 위)인지 홀수 인덱스(덧줄 사이)인지 확인
-            bool isOnLedgerLine = (Mathf.RoundToInt(noteIndex) % 2 == 0);
-
-            if (isOnLedgerLine)
-            {
-                // 음표가 덧줄 위에 있는 경우: 해당 덧줄부터 위쪽 모든 덧줄
-                Debug.Log($"🎼 {noteName}: 덧줄 위에 위치 (인덱스={noteIndex})");
-                for (float ledgerPos = noteIndex; ledgerPos <= -6f; ledgerPos += 2f)
-                {
-                    ledgerPositions.Add(ledgerPos);
-                }
-            }
-            else
-            {
-                // 음표가 덧줄 사이에 있는 경우: 위쪽 덧줄만
-                float upperLedger = Mathf.Ceil(noteIndex / 2f) * 2f;
-                Debug.Log($"🎼 {noteName}: 덧줄 사이에 위치 (인덱스={noteIndex}), 위쪽 덧줄={upperLedger}");
-                for (float ledgerPos = upperLedger; ledgerPos <= -6f; ledgerPos += 2f)
-                {
-                    ledgerPositions.Add(ledgerPos);
-                }
-            }
-        }
-        else if (noteIndex > 4f) // 오선 위
-        {
-            Debug.Log($"🎼 {noteName}: 오선 위 음표");
-            bool isOnLedgerLine = (Mathf.RoundToInt(noteIndex) % 2 == 0);
-
-            if (isOnLedgerLine)
-            {
-                // 음표가 덧줄 위에 있는 경우: 6부터 해당 덧줄까지
-                Debug.Log($"🎼 {noteName}: 덧줄 위에 위치 (인덱스={noteIndex})");
-                for (float ledgerPos = 6f; ledgerPos <= noteIndex; ledgerPos += 2f)
-                {
-                    ledgerPositions.Add(ledgerPos);
-                }
-            }
-            else
-            {
-                // 음표가 덧줄 사이에 있는 경우: 아래쪽 덧줄부터
-                float lowerLedger = Mathf.Floor(noteIndex / 2f) * 2f;
-                Debug.Log($"🎼 {noteName}: 덧줄 사이에 위치 (인덱스={noteIndex}), 아래쪽 덧줄={lowerLedger}");
-                for (float ledgerPos = 6f; ledgerPos <= lowerLedger; ledgerPos += 2f)
-                {
-                    ledgerPositions.Add(ledgerPos);
-                }
-            }
-        }
+        List<float> ledgerPositions = NoteLayoutHelper.GetLedgerPositions(noteIndex);
 
         Debug.Log($"🎼 {noteName}에 대해 {ledgerPositions.Count}개 덧줄 생성: [{string.Join(", ", ledgerPositions)}]");
 
         foreach (float ledgerIndex in ledgerPositions)
         {
-            CreateSingleLedgerLine(notePosition.x, ledgerIndex, staffSpacing);
+            // 이 호출이 핵심입니다. staffPanel과 ledgerLinePrefab이 정확히 전달되는지 확인.
+            NoteLayoutHelper.CreateSingleLedgerLine(notePosX, ledgerIndex, staffSpacing, staffPanel, ledgerLinePrefab);
         }
     }
 
