@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions; // 정규 표현식 사용
+
 
 
 // 문자열 "C4:4." → NoteData 객체로 변환

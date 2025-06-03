@@ -14,6 +14,12 @@ public class NotePlacementHandler : MonoBehaviour
     [Header("🎼 덧줄 프리팹")]
     public GameObject ledgerLinePrefab;
 
+    public GameObject naturalPrefab; // 추가
+    public GameObject doubleSharpPrefab; // 추가
+    public GameObject doubleFlatPrefab; // 추가
+
+
+
     // 음표 배치 대상 패널 (Initialize에서 받음)
     private RectTransform staffPanel;
 
