@@ -10,6 +10,7 @@ public class NoteData
     public int duration;      // 예: 1, 2, 4, 8, 16
     public bool isDotted;     // 점음표 여부
     public bool isRest;       // 쉼표 여부
+    public AccidentalType accidental; // ← 임시표 추가
 
     public override string ToString() // 음표 정보를 문자열로 변환하는 메서드
     {
