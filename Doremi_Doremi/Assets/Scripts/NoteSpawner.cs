@@ -35,6 +35,9 @@ public class NoteSpawner : MonoBehaviour
     public GameObject timeSig4_8Prefab;
     public GameObject timeSig6_8Prefab;
 
+    [Header("🎼 덧줄 프리팹")]
+    public GameObject ledgerLinePrefab; // LedgerLine 프리팹 연결
+
     // 곡 로딩 후 파싱된 TimeSignature 객체
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
 
@@ -176,11 +179,15 @@ public class NoteSpawner : MonoBehaviour
         // 음자리표별 비율
         if (clefType.ToLower() == "treble")
         {
-            desiredWidth = desiredHeight * 0.35f; // 세로로 긴 형태
+            // Treble: 크고 좁게
+            desiredHeight = panelHeight * 0.7f;  // 높은음자리표 높이
+            desiredWidth = desiredHeight * 0.3f;  // 높은음자리표 넓이
         }
         else if (clefType.ToLower() == "bass")
         {
-            desiredWidth = desiredHeight * 0.4f; // 조금 더 넓음
+            // Bass: 작고 넓게  
+            desiredHeight = panelHeight * 0.35f;  // 낮은음자리표 높이
+            desiredWidth = desiredHeight * 0.55f;  // 낮은음자리표 넓이
         }
         else
         {
@@ -206,36 +213,7 @@ public class NoteSpawner : MonoBehaviour
 
 
 
-    private void SpawnNoteAtPosition(float x, float noteSpacing, float spacing, NoteData note, int order)
-    {
-        if (!noteIndexTable.ContainsKey(note.noteName))
-        {
-            Debug.LogWarning($"🎵 알 수 없는 음표 이름: {note.noteName}");
-            return;
-        }
-
-        float noteIndex = noteIndexTable[note.noteName];
-        float y = noteIndex * spacing * 0.5f;
-
-        // 음표를 할당된 공간의 중앙에 배치
-        Vector2 pos = new Vector2(x + noteSpacing * 0.5f, y);
-
-        bool isOnLine = lineNotes.Contains(note.noteName);
-
-        Debug.Log($"🎵 음표 생성: {note.noteName} at X={pos.x:F1}, Y={pos.y:F1}");
-
-        if (note.isDotted)
-        {
-            assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration);
-        }
-        else
-        {
-            assembler.SpawnNoteFull(pos, noteIndex, note.duration);
-        }
-    }
-
-
-
+    
     private void SpawnRestAtPosition(float x, float noteSpacing, float spacing, NoteData note)
     {
         float restY = spacing * 0.0f;
@@ -284,6 +262,189 @@ public class NoteSpawner : MonoBehaviour
         return desiredWidth + staffSpacing * 0.5f;
     }
 
+
+
+    // 덧줄이 필요한 음표들과 덧줄 위치 정의
+    // NoteSpawner.cs의 C3~B6 완전한 덧줄 시스템
+
+    // 🎼 음표 인덱스 참조 (B4 = 0 기준)
+    // C3(-13), D3(-12), E3(-11), F3(-10), G3(-9), A3(-8), B3(-7)
+    // C4(-6), D4(-5), E4(-4), F4(-3), G4(-2), A4(-1), B4(0)
+    // C5(1), D5(2), E5(3), F5(4), G5(5), A5(6), B5(7)  
+    // C6(8), D6(9), E6(10), F6(11), G6(12), A6(13), B6(14)
+
+    // 🎼 오선 위치 (덧줄이 필요하지 않은 음표들)
+    // E4(-4=-2*2), G4(-2=-1*2), B4(0=0*2), D5(2=1*2), F5(4=2*2)
+
+    // 🎼 덧줄 위치 (오선 바깥 음표들)
+    // 아래 덧줄: -6(-3*2), -10(-5*2), -14(-7*2), -18(-9*2), -22(-11*2), -26(-13*2)
+    // 위 덧줄: 6(3*2), 10(5*2), 14(7*2), 18(9*2), 22(11*2), 26(13*2)
+
+
+
+    // 🎼 해상도 독립적 덧줄 생성 함수
+    // 🎼 정확한 덧줄 규칙이 적용된 SpawnLedgerLines 함수
+    private void SpawnLedgerLines(Vector2 notePosition, string noteName, float staffSpacing)
+    {
+        if (!noteIndexTable.ContainsKey(noteName))
+        {
+            Debug.LogWarning($"⚠️ 알 수 없는 음표: {noteName}");
+            return;
+        }
+
+        if (ledgerLinePrefab == null)
+        {
+            Debug.LogWarning("⚠️ 덧줄 프리팹이 설정되지 않았습니다.");
+            return;
+        }
+
+        float noteIndex = noteIndexTable[noteName];
+
+        Debug.Log($"🎼 {noteName} 음표: 인덱스={noteIndex}, Y위치={notePosition.y:F1}");
+
+        // 🎯 덧줄이 필요한 음표인지 확인
+        // 오선 범위: E4(-4) ~ F5(4), 즉 -4 ~ 4 사이는 덧줄 불필요
+        if (noteIndex >= -4f && noteIndex <= 4f)
+        {
+            Debug.Log($"🎼 {noteName}: 오선 내부 음표, 덧줄 불필요");
+            return;
+        }
+
+        // 🎯 정확한 악보 덧줄 규칙 적용
+        List<float> ledgerPositions = new List<float>();
+
+        if (noteIndex < -4f) // 오선 아래
+        {
+            Debug.Log($"🎼 {noteName}: 오선 아래 음표");
+
+            // 🎯 음표가 짝수 인덱스(덧줄 위)인지 홀수 인덱스(덧줄 사이)인지 확인
+            bool isOnLedgerLine = (Mathf.RoundToInt(noteIndex) % 2 == 0);
+
+            if (isOnLedgerLine)
+            {
+                // 음표가 덧줄 위에 있는 경우: 해당 덧줄부터 위쪽 모든 덧줄
+                Debug.Log($"🎼 {noteName}: 덧줄 위에 위치 (인덱스={noteIndex})");
+                for (float ledgerPos = noteIndex; ledgerPos <= -6f; ledgerPos += 2f)
+                {
+                    ledgerPositions.Add(ledgerPos);
+                }
+            }
+            else
+            {
+                // 음표가 덧줄 사이에 있는 경우: 위쪽 덧줄만
+                float upperLedger = Mathf.Ceil(noteIndex / 2f) * 2f; // 위쪽 가장 가까운 짝수
+                Debug.Log($"🎼 {noteName}: 덧줄 사이에 위치 (인덱스={noteIndex}), 위쪽 덧줄={upperLedger}");
+                for (float ledgerPos = upperLedger; ledgerPos <= -6f; ledgerPos += 2f)
+                {
+                    ledgerPositions.Add(ledgerPos);
+                }
+            }
+        }
+        else if (noteIndex > 4f) // 오선 위
+        {
+            Debug.Log($"🎼 {noteName}: 오선 위 음표");
+
+            bool isOnLedgerLine = (Mathf.RoundToInt(noteIndex) % 2 == 0);
+
+            if (isOnLedgerLine)
+            {
+                // 음표가 덧줄 위에 있는 경우: 6부터 해당 덧줄까지
+                Debug.Log($"🎼 {noteName}: 덧줄 위에 위치 (인덱스={noteIndex})");
+                for (float ledgerPos = 6f; ledgerPos <= noteIndex; ledgerPos += 2f)
+                {
+                    ledgerPositions.Add(ledgerPos);
+                }
+            }
+            else
+            {
+                // 음표가 덧줄 사이에 있는 경우: 아래쪽 덧줄부터
+                float lowerLedger = Mathf.Floor(noteIndex / 2f) * 2f; // 아래쪽 가장 가까운 짝수
+                Debug.Log($"🎼 {noteName}: 덧줄 사이에 위치 (인덱스={noteIndex}), 아래쪽 덧줄={lowerLedger}");
+                for (float ledgerPos = 6f; ledgerPos <= lowerLedger; ledgerPos += 2f)
+                {
+                    ledgerPositions.Add(ledgerPos);
+                }
+            }
+        }
+
+        Debug.Log($"🎼 {noteName}에 대해 {ledgerPositions.Count}개 덧줄 생성: [{string.Join(", ", ledgerPositions)}]");
+
+        // 🎯 덧줄 생성
+        foreach (float ledgerIndex in ledgerPositions)
+        {
+            CreateSingleLedgerLine(notePosition.x, ledgerIndex, staffSpacing);
+        }
+    }
+
+
+
+    // 🎼 개별 덧줄 생성 함수 (해상도 독립적)
+    private void CreateSingleLedgerLine(float x, float ledgerIndex, float staffSpacing)
+    {
+        GameObject ledgerLine = Instantiate(ledgerLinePrefab, staffPanel);
+        RectTransform ledgerRT = ledgerLine.GetComponent<RectTransform>();
+
+        // 🎯 완전히 해상도 독립적 크기 설정 (패널 기준 비율)
+        float panelHeight = staffPanel.rect.height;
+        float ledgerWidth = staffSpacing * 1.6f;  // 오선 간격의 1.6배 (적절한 크기)
+        float ledgerThickness = MusicLayoutConfig.GetLineThickness(staffPanel); // 오선과 동일한 두께
+
+        ledgerRT.sizeDelta = new Vector2(ledgerWidth, ledgerThickness);
+
+        // 🎯 해상도 독립적 앵커와 피벗 설정
+        ledgerRT.anchorMin = new Vector2(0.5f, 0.5f);
+        ledgerRT.anchorMax = new Vector2(0.5f, 0.5f);
+        ledgerRT.pivot = new Vector2(0.5f, 0.5f);
+
+        // 🎯 위치 설정 (ledgerIndex에 따른 Y 좌표)
+        float ledgerY = ledgerIndex * staffSpacing * 0.5f;
+        ledgerRT.anchoredPosition = new Vector2(x, ledgerY);
+
+        // 🎨 덧줄 스타일 설정 (오선과 동일하게)
+        UnityEngine.UI.Image ledgerImage = ledgerLine.GetComponent<UnityEngine.UI.Image>();
+        if (ledgerImage != null)
+        {
+            ledgerImage.color = Color.black;
+        }
+
+        Debug.Log($"   → 덧줄: 인덱스={ledgerIndex}, Y={ledgerY:F1}, 크기={ledgerWidth:F1}x{ledgerThickness:F1}");
+    }
+
+
+
+
+    // SpawnNoteAtPosition 함수 수정 (덧줄 추가)
+    private void SpawnNoteAtPosition(float x, float noteSpacing, float spacing, NoteData note, int order)
+    {
+        if (!noteIndexTable.ContainsKey(note.noteName))
+        {
+            Debug.LogWarning($"🎵 알 수 없는 음표 이름: {note.noteName}");
+            return;
+        }
+
+        float noteIndex = noteIndexTable[note.noteName];
+        float y = noteIndex * spacing * 0.5f;
+
+        // 음표를 할당된 공간의 중앙에 배치
+        Vector2 pos = new Vector2(x + noteSpacing * 0.5f, y);
+
+        // 🎼 덧줄 먼저 생성 (음표 아래 레이어에 표시되도록)
+        SpawnLedgerLines(pos, note.noteName, spacing);
+
+        bool isOnLine = lineNotes.Contains(note.noteName);
+
+        Debug.Log($"🎵 음표 생성: {note.noteName} at X={pos.x:F1}, Y={pos.y:F1}");
+
+        // 음표 생성 (덧줄 위에 표시됨)
+        if (note.isDotted)
+        {
+            assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration);
+        }
+        else
+        {
+            assembler.SpawnNoteFull(pos, noteIndex, note.duration);
+        }
+    }
 
 
 
