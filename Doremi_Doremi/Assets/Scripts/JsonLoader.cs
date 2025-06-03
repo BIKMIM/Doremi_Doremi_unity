@@ -17,6 +17,7 @@ public class JsonLoader : MonoBehaviour
         public string title;
         public string clef; // 🎼 음자리표 정보 추가 (treble, bass)
         public string timeSignature; // 곡의 박자 정보를 담을 변수
+        public string keySignature;  // ← 이 줄 추가
         public List<string> notes;
     }
 

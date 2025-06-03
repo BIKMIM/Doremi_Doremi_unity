@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 // NoteSpawner.cs - 해상도 독립적 음표 생성 시스템
 // 모든 크기와 위치를 비율 기반으로 계산하여 어떤 해상도에서도 동일한 비율로 표시
@@ -20,6 +21,9 @@ public class NoteSpawner : MonoBehaviour
     public GameObject trebleClefPrefab; // Clef-Treble 프리팹 연결
     public GameObject bassClefPrefab;   // Clef-Bass 프리팹 연결 (필요시)
 
+    [Header("🎼 조표 프리팹")]
+    public GameObject sharpPrefab;      // Sharp 프리팹 연결
+    public GameObject flatPrefab;       // Flat 프리팹 연결
 
     [Header("음표 머리 프리팹")]
     public GameObject noteHeadPrefab;
@@ -42,19 +46,158 @@ public class NoteSpawner : MonoBehaviour
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
 
     private Dictionary<string, float> noteIndexTable = new Dictionary<string, float>
+{
+    // 🎼 C3 옥타브 (인덱스 -13 ~ -7)
+    { "C3", -13f},   { "C#3", -13f},   { "Db3", -13f},   // C3 = Db3
+    { "D3", -12f},   { "D#3", -12f},   { "Eb3", -12f},   // D3
+    { "E3", -11f},   { "E#3", -11f},   { "Fb3", -11f},   // E3 = Fb3
+    { "F3", -10f},   { "F#3", -10f},   { "Gb3", -10f},   // F3
+    { "G3", -9f},    { "G#3", -9f},    { "Ab3", -9f},    // G3
+    { "A3", -8f},    { "A#3", -8f},    { "Bb3", -8f},    // A3
+    { "B3", -7f},    { "B#3", -7f},    { "Cb3", -7f},    // B3 = Cb4
+
+    // 🎼 C4 옥타브 (인덱스 -6 ~ 0)
+    { "C4", -6f},    { "C#4", -6f},    { "Db4", -6f},    // C4
+    { "D4", -5f},    { "D#4", -5f},    { "Eb4", -5f},    // D4
+    { "E4", -4f},    { "E#4", -4f},    { "Fb4", -4f},    // E4
+    { "F4", -3f},    { "F#4", -3f},    { "Gb4", -3f},    // F4
+    { "G4", -2f},    { "G#4", -2f},    { "Ab4", -2f},    // G4
+    { "A4", -1f},    { "A#4", -1f},    { "Bb4", -1f},    // A4
+    { "B4", 0f},     { "B#4", 0f},     { "Cb4", 0f},     // B4 = Cb5
+
+    // 🎼 C5 옥타브 (인덱스 1 ~ 7)
+    { "C5", 1f},     { "C#5", 1f},     { "Db5", 1f},     // C5
+    { "D5", 2f},     { "D#5", 2f},     { "Eb5", 2f},     // D5
+    { "E5", 3f},     { "E#5", 3f},     { "Fb5", 3f},     // E5
+    { "F5", 4f},     { "F#5", 4f},     { "Gb5", 4f},     // F5
+    { "G5", 5f},     { "G#5", 5f},     { "Ab5", 5f},     // G5
+    { "A5", 6f},     { "A#5", 6f},     { "Bb5", 6f},     // A5
+    { "B5", 7f},     { "B#5", 7f},     { "Cb5", 7f},     // B5 = Cb6
+
+    // 🎼 C6 옥타브 (인덱스 8 ~ 14)
+    { "C6", 8f},     { "C#6", 8f},     { "Db6", 8f},     // C6
+    { "D6", 9f},     { "D#6", 9f},     { "Eb6", 9f},     // D6
+    { "E6", 10f},    { "E#6", 10f},    { "Fb6", 10f},    // E6
+    { "F6", 11f},    { "F#6", 11f},    { "Gb6", 11f},    // F6
+    { "G6", 12f},    { "G#6", 12f},    { "Ab6", 12f},    // G6
+    { "A6", 13f},    { "A#6", 13f},    { "Bb6", 13f},    // A6
+    { "B6", 14f},    { "B#6", 14f},    { "Cb6", 14f},    // B6 = Cb7
+
+    // 🎼 추가 옥타브 (필요시 확장 가능)
+    // C2 옥타브 (인덱스 -20 ~ -14)
+    { "C2", -20f},   { "C#2", -20f},   { "Db2", -20f},   // C2
+    { "D2", -19f},   { "D#2", -19f},   { "Eb2", -19f},   // D2
+    { "E2", -18f},   { "E#2", -18f},   { "Fb2", -18f},   // E2
+    { "F2", -17f},   { "F#2", -17f},   { "Gb2", -17f},   // F2
+    { "G2", -16f},   { "G#2", -16f},   { "Ab2", -16f},   // G2
+    { "A2", -15f},   { "A#2", -15f},   { "Bb2", -15f},   // A2
+    { "B2", -14f},   { "B#2", -14f},   { "Cb2", -14f},   // B2 = Cb3
+
+    // C7 옥타브 (인덱스 15 ~ 21)
+    { "C7", 15f},    { "C#7", 15f},    { "Db7", 15f},    // C7
+    { "D7", 16f},    { "D#7", 16f},    { "Eb7", 16f},    // D7
+    { "E7", 17f},    { "E#7", 17f},    { "Fb7", 17f},    // E7
+    { "F7", 18f},    { "F#7", 18f},    { "Gb7", 18f},    // F7
+    { "G7", 19f},    { "G#7", 19f},    { "Ab7", 19f},    // G7
+    { "A7", 20f},    { "A#7", 20f},    { "Bb7", 20f},    // A7
+    { "B7", 21f},    { "B#7", 21f},    { "Cb7", 21f}     // B7 = Cb8
+};
+
+    // 🎼 조표 위치 정의 (높은음자리표 기준)
+    private Dictionary<string, float> trebleKeySignaturePositions = new Dictionary<string, float>
     {
-        { "C3", -13f}, { "D3", -12f}, { "E3", -11f}, { "F3", -10f }, { "G3", -9f }, { "A3", -8f }, { "B3", -7f },
-        { "C4", -6f }, { "D4", -5f }, { "E4", -4f }, { "F4", -3f  }, { "G4", -2f }, { "A4", -1f }, { "B4",  0f },
-        { "C5",  1f }, { "D5",  2f }, { "E5",  3f }, { "F5",  4f  }, { "G5",  5f }, { "A5",  6f }, { "B5",  7f },
-        { "C6",  8f }, { "D6",  9f }, { "E6", 10f }, { "F6", 11f  }, { "G6", 12f }, { "A6", 13f }, { "B6", 14f }
+        // 샵 순서: F# C# G# D# A# E# B#
+        { "F#", 4f },   // F5 위치
+        { "C#", 1f },   // C5 위치  
+        { "G#", 5f },   // G5 위치
+        { "D#", 2f },   // D5 위치
+        { "A#", -1f },   // A4 위치
+        { "E#", 3f },   // E5 위치
+        { "B#", 0f },   // B4 위치
+        
+        // 플랫 순서: Bb Eb Ab Db Gb Cb Fb
+        { "Bb", 0f },   // B4 위치
+        { "Eb", 3f },   // E5 위치
+        { "Ab", -1f },   // A5 위치 
+        { "Db", 2f },   // D5 위치
+        { "Gb", -2f },   // G5 위치
+        { "Cb", 1f },   // C5 위치
+        { "Fb", -3f }    // F5 위치
     };
 
-    private HashSet<string> lineNotes = new HashSet<string>
+    // 🎼 조표 위치 정의 (낮은음자리표 기준) 
+    private Dictionary<string, float> bassKeySignaturePositions = new Dictionary<string, float>
     {
-        "E4", "G4", "B4", "D5", "F5", // 오선 5줄
-        "C4", "A3", "G3", "E3",       // 오선 아래 덧줄
-        "A5", "C6", "E6", "G6"        // 오선 위 덧줄
+        // 샵 순서: F# C# G# D# A# E# B# (낮은음자리표는 2도 아래)
+        { "F#", 2f },   // D5 위치
+        { "C#", -1f },  // A4 위치
+        { "G#", 3f },   // E5 위치
+        { "D#", 0f },   // B4 위치
+        { "A#", 4f },   // F5 위치
+        { "E#", 1f },   // C5 위치
+        { "B#", -2f },  // G4 위치
+        
+        // 플랫 순서: Bb Eb Ab Db Gb Cb Fb (낮은음자리표는 2도 아래)
+        { "Bb", -2f },  // G4 위치
+        { "Eb", 1f },   // C5 위치
+        { "Ab", 4f },   // F5 위치
+        { "Db", 0f },   // B4 위치
+        { "Gb", 3f },   // E5 위치
+        { "Cb", -1f },  // A4 위치
+        { "Fb", 2f }    // D5 위치
     };
+
+
+
+    private HashSet<string> lineNotes = new HashSet<string>
+{
+    // 🎼 오선 5줄 (위에서부터)
+    // F5 줄 (최상단 줄)
+    "F5", "F#5", "Gb5", "E#5",
+    // D5 줄 (4번째 줄)  
+    "D5", "D#5", "Eb5",
+    // B4 줄 (3번째 줄, 중앙)
+    "B4", "B#4", "Cb5",
+    // G4 줄 (2번째 줄)
+    "G4", "G#4", "Ab4",
+    // E4 줄 (최하단 줄)
+    "E4", "E#4", "Fb4",
+
+    // 🎼 오선 아래 덧줄들
+    // C4 덧줄 (오선 바로 아래 첫 번째 덧줄)
+    "C4", "C#4", "Db4", "B#3",
+    // A3 덧줄 (두 번째 덧줄)  
+    "A3", "A#3", "Bb3",
+    // G3 덧줄 (세 번째 덧줄)
+    "G3", "G#3", "Ab3",
+    // E3 덧줄 (네 번째 덧줄)
+    "E3", "E#3", "Fb3",
+    // C3 덧줄 (다섯 번째 덧줄)
+    "C3", "C#3", "Db3", "B#2",
+    
+    // 🎼 더 아래 덧줄들 (필요시)
+    "A2", "A#2", "Bb2",  // 여섯 번째 덧줄
+    "G2", "G#2", "Ab2",  // 일곱 번째 덧줄
+    "E2", "E#2", "Fb2",  // 여덟 번째 덧줄
+    "C2", "C#2", "Db2",  // 아홉 번째 덧줄
+
+    // 🎼 오선 위 덧줄들
+    // A5 덧줄 (오선 바로 위 첫 번째 덧줄)
+    "A5", "A#5", "Bb5",
+    // C6 덧줄 (두 번째 덧줄)
+    "C6", "C#6", "Db6", "B#5",
+    // E6 덧줄 (세 번째 덧줄)
+    "E6", "E#6", "Fb6",
+    // G6 덧줄 (네 번째 덧줄)
+    "G6", "G#6", "Ab6",
+    // B6 덧줄 (다섯 번째 덧줄)
+    "B6", "B#6", "Cb7",
+    
+    // 🎼 더 위 덧줄들 (필요시)
+    "D7", "D#7", "Eb7",  // 여섯 번째 덧줄
+    "F7", "F#7", "Gb7",  // 일곱 번째 덧줄
+    "A7", "A#7", "Bb7"   // 여덟 번째 덧줄
+};
 
     void Start()
     {
@@ -65,8 +208,6 @@ public class NoteSpawner : MonoBehaviour
             Debug.LogError("❌ 유효한 곡이 없습니다.");
             return;
         }
-
-        
         
 
 
@@ -79,10 +220,126 @@ public class NoteSpawner : MonoBehaviour
         LayoutCompleteScore(song);
     }
 
+ 
+
+
+    // 🎼 조표 생성 함수 (해상도 독립적)
+    private float SpawnKeySignature(float initialX, float staffSpacing, string keySignature, string clef)
+    {
+        if (string.IsNullOrEmpty(keySignature))
+        {
+            Debug.Log("🎼 조표 없음");
+            return 0f;
+        }
+
+        // 조표 문자열 파싱 (예: \"F#,C#\" 또는 \"Bb,Eb\")
+        string[] keySignatures = keySignature.Split(',')
+            .Select(k => k.Trim())
+            .Where(k => !string.IsNullOrEmpty(k))
+            .ToArray();
+
+        if (keySignatures.Length == 0)
+        {
+            Debug.Log("🎼 유효한 조표 없음");
+            return 0f;
+        }
+
+        float currentX = initialX;
+        float totalWidth = 0f;
+
+        // 조표별 위치 맵 선택
+        Dictionary<string, float> positions = clef.ToLower() == "bass" ? 
+            bassKeySignaturePositions: trebleKeySignaturePositions;
+
+        Debug.Log("🎼 조표 생성 시작: {keySignature} ({clef} 음자리표)");
+
+        foreach (string key in keySignatures)
+        {
+            if (!positions.ContainsKey(key))
+            {
+                Debug.LogWarning("⚠️ 알 수 없는 조표: {key}");
+                continue;
+            }
+
+            float noteIndex = positions[key];
+            float width = SpawnSingleKeySignature(currentX, staffSpacing, key, noteIndex);
+
+            currentX += width;
+            totalWidth += width;
+        }
+
+        Debug.Log("🎼 조표 생성 완료: 총 너비={totalWidth:F1}");
+        return totalWidth + staffSpacing * 0.3f; // 조표 후 약간의 여백
+    }
+
+    // 🎼 개별 조표 생성 함수 (해상도 독립적)
+    private float SpawnSingleKeySignature(float x, float staffSpacing, string keySignature, float noteIndex)
+    {
+        bool isSharp = keySignature.Contains("#");
+        bool isFlat = keySignature.Contains("b");
+
+        GameObject prefabToUse = null;
+        float symbolWidth = 0f;
+        float symbolHeight = 0f;
+
+        // 1. 먼저 크기 설정
+        if (isSharp && sharpPrefab != null)
+        {
+            prefabToUse = sharpPrefab;
+            symbolWidth = staffSpacing * 0.8f;  // 샵 가로
+            symbolHeight = staffSpacing * 1.8f; // 샵 세로
+        }
+        else if (isFlat && flatPrefab != null)
+        {
+            prefabToUse = flatPrefab;
+            symbolWidth = staffSpacing * 0.8f; // 플랫 가로
+            symbolHeight = staffSpacing * 1.5f; // 플랫 세로
+        }
+
+        if (prefabToUse == null)
+        {
+            Debug.LogWarning($"⚠️ {keySignature} 조표 프리팹이 설정되지 않았습니다.");
+            return staffSpacing * 0.5f; // 기본 너비 반환
+        }
+
+        // 2. 객체 생성
+        GameObject keySignatureInstance = Instantiate(prefabToUse, staffPanel);
+        RectTransform keyRT = keySignatureInstance.GetComponent<RectTransform>();
+
+        // 3. 크기 설정
+        keyRT.sizeDelta = new Vector2(symbolWidth, symbolHeight);
+
+        // 4. 앵커와 피벗 설정
+        keyRT.anchorMin = new Vector2(0.5f, 0.5f);
+        keyRT.anchorMax = new Vector2(0.5f, 0.5f);
+        keyRT.pivot = new Vector2(0.5f, 0.5f);
+
+        // 5. 위치 계산 (크기 계산 후에)
+        float posX = x + symbolWidth * 0.5f;
+        float posY = noteIndex * staffSpacing * 0.5f;
+
+        // 6. 플랫 Y 오프셋 적용
+        if (isFlat)
+        {
+            posY += staffSpacing * 0.3f; // 오선 간격의 10%만큼 위로 이동
+        }
+
+        // 7. 최종 위치 설정
+        keyRT.anchoredPosition = new Vector2(posX, posY);
+
+        Debug.Log($"   → {keySignature}: 크기={symbolWidth:F1}x{symbolHeight:F1}, 위치=({posX:F1}, {posY:F1})");
+
+        return symbolWidth + staffSpacing * -0.2f; // 조표 간 간격
+    }
+
+
+
+
     // NoteSpawner.cs의 LayoutCompleteScore 함수 완전 수정
     private void LayoutCompleteScore(JsonLoader.SongData song)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
+        
 
         // 🎯 StaffPanel 기준 해상도 독립적 레이아웃
         float panelWidth = staffPanel.rect.width;
@@ -97,7 +354,7 @@ public class NoteSpawner : MonoBehaviour
 
         // 음자리표를 패널 맨 왼쪽에서 시작
         float startX = leftEdge + leftMargin;
-        float currentX = startX;
+        float currentX = startX;  // ← currentX를 여기서 먼저 선언
 
         Debug.Log($"🎯 패널 기준 레이아웃: 패널너비={panelWidth:F1}, 왼쪽끝={leftEdge:F1}, 시작X={startX:F1}");
 
@@ -105,11 +362,15 @@ public class NoteSpawner : MonoBehaviour
         float clefWidth = SpawnClef(currentX, spacing, song.clef);
         currentX += clefWidth;
 
-        // 2. 🎵 박자표 생성 (음자리표 바로 옆)
+        // 2. 🎼 조표 생성 (음자리표 바로 옆)
+        float keySignatureWidth = SpawnKeySignature(currentX, spacing, song.keySignature, song.clef);
+        currentX += keySignatureWidth;
+
+        // 3. 🎵 박자표 생성 (음자리표 바로 옆)
         float timeSignatureWidth = SpawnTimeSignatureSymbol(currentX, spacing);
         currentX += timeSignatureWidth;
 
-        // 3. 🎶 음표들 배치 (남은 공간에 균등 배치)
+        // 4. 🎶 음표들 배치 (남은 공간에 균등 배치)
         float usedWidth = clefWidth + timeSignatureWidth;
         float remainingWidth = usableWidth - usedWidth - (startX - leftEdge); // 실제 남은 공간
         float noteSpacing = remainingWidth / song.notes.Count;
@@ -188,7 +449,7 @@ public class NoteSpawner : MonoBehaviour
         {
             // Bass: 작고 넓게  
             desiredHeight = panelHeight * 0.35f;  // 낮은음자리표 높이
-            desiredWidth = desiredHeight * 0.55f;  // 낮은음자리표 넓이
+            desiredWidth = desiredHeight * 0.6f;  // 낮은음자리표 넓이
             yOffset = panelHeight * 0.05f; // ← 이 부분이 추가됨
         }
         else
