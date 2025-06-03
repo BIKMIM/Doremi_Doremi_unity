@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ÇÏ³ªÀÇ À½Ç¥ Á¤º¸ ÀúÀå Å¬·¡½º
+// í•˜ë‚˜ì˜ ìŒí‘œ ì •ë³´ ì €ì¥ í´ë˜ìŠ¤
 
 public class NoteData
 {
-    public string noteName;   // ¿¹: "C4"
-    public int duration;      // ¿¹: 1, 2, 4, 8, 16
-    public bool isDotted;     // Á¡À½Ç¥ ¿©ºÎ
-    public bool isRest;       // ½°Ç¥ ¿©ºÎ
-    public AccidentalType accidental; // ÀÓ½ÃÇ¥ Å¸ÀÔ (Sharp, Flat, Natural µî)
+    public string noteName;   // ì˜ˆ: "C4"
+    public int duration;      // ì˜ˆ: 1, 2, 4, 8, 16
+    public bool isDotted;     // ì ìŒí‘œ ì—¬ë¶€
+    public bool isRest;       // ì‰¼í‘œ ì—¬ë¶€
+    public AccidentalType accidental; // ì„ì‹œí‘œ íƒ€ì… (Sharp, Flat, Natural ë“±)
+    public bool isBarLine;    // âœ… ë§ˆë””êµ¬ë¶„ì„  ì—¬ë¶€ ì¶”ê°€
 
 
-    public override string ToString() // À½Ç¥ Á¤º¸¸¦ ¹®ÀÚ¿­·Î º¯È¯ÇÏ´Â ¸Ş¼­µå
+    public override string ToString() // ìŒí‘œ ì •ë³´ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ëŠ” ë©”ì„œë“œ
     {
-        return $"{noteName} | {duration}ºĞÀ½Ç¥ | Á¡À½Ç¥: {isDotted} | ½°Ç¥: {isRest}"; 
+        if (isBarLine) return "ë§ˆë””êµ¬ë¶„ì„  |";
+        return $"{noteName} | {duration}ë¶„ìŒí‘œ | ì ìŒí‘œ: {isDotted} | ì‰¼í‘œ: {isRest} | ì„ì‹œí‘œ: {accidental}"; 
     }
 }
-

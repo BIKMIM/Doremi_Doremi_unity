@@ -26,6 +26,21 @@ public class NotePlacementHandler : MonoBehaviour
 
     public void SpawnNoteAtPosition(float x, float noteSpacing, float spacing, NoteData note)
     {
+        // ✅ 마디구분선 처리 - 건너뛰기
+        if (note.isBarLine)
+        {
+            Debug.Log("마디구분선 건너뛰기");
+            return;
+        }
+
+        // ✅ 쉼표 처리 개선
+        if (note.isRest)
+        {
+            SpawnRestAtPosition(x, noteSpacing, spacing, note);
+            return;
+        }
+
+        // 일반 음표 처리
         if (!NotePositioningData.noteIndexTable.ContainsKey(note.noteName))
         {
             Debug.LogWarning($"알 수 없는 음표 이름: {note.noteName}");
@@ -51,20 +66,13 @@ public class NotePlacementHandler : MonoBehaviour
         Debug.Log($"음표 생성: {note.noteName} at X={pos.x:F1}, Y={pos.y:F1}, 임시표:{note.accidental}");
 
         // 음표 생성
-        if (note.isRest)
+        if (note.isDotted)
         {
-            SpawnRestAtPosition(x, noteSpacing, spacing, note);
+            assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration);
         }
         else
         {
-            if (note.isDotted)
-            {
-                assembler.SpawnDottedNoteFull(pos, noteIndex, isOnLine, note.duration);
-            }
-            else
-            {
-                assembler.SpawnNoteFull(pos, noteIndex, note.duration);
-            }
+            assembler.SpawnNoteFull(pos, noteIndex, note.duration);
         }
     }
 

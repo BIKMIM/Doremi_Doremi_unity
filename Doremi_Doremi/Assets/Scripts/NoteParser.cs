@@ -15,11 +15,75 @@ public static class NoteParser
         { "n", AccidentalType.Natural }
     };
 
+    // ✅ 마디구분선 확인 함수 추가
+    public static bool IsBarLine(string noteString)
+    {
+        return noteString.Trim() == "|";
+    }
+
+    // ✅ 쉼표 확인 함수 수정 (REST: 포맷 지원)
+    public static bool IsRest(string noteString)
+    {
+        string trimmed = noteString.Trim();
+        return trimmed.StartsWith("REST:") || trimmed.StartsWith("R") || trimmed.StartsWith("r");
+    }
+
+    // ✅ REST:4 형식에서 쉼표 길이 추출
+    public static int GetRestDuration(string restString)
+    {
+        string trimmed = restString.Trim();
+        if (trimmed.StartsWith("REST:"))
+        {
+            string[] restParts = trimmed.Split(':'); // ✅ 변수명 변경: parts → restParts
+            if (restParts.Length > 1 && int.TryParse(restParts[1], out int duration))
+            {
+                return duration;
+            }
+        }
+        return 4; // 기본값: 4분 쉼표
+    }
+
     public static NoteData Parse(string raw)   
     {
         var data = new NoteData(); 
 
-        data.isRest = raw.StartsWith("R") || raw.StartsWith("r");
+        // ✅ 마디구분선 처리
+        if (IsBarLine(raw))
+        {
+            data.isBarLine = true;
+            return data;
+        }
+
+        // ✅ 쉼표 처리 개선
+        if (IsRest(raw))
+        {
+            data.isRest = true;
+            if (raw.StartsWith("REST:"))
+            {
+                data.duration = GetRestDuration(raw);
+                // 점음표 쉼표 지원 (REST:4.)
+                data.isDotted = raw.EndsWith(".");
+            }
+            else
+            {
+                // 기존 R:4, r:4 형식 처리
+                string[] restParts = raw.Split(':'); // ✅ 변수명 변경: parts → restParts
+                if (restParts.Length > 1)
+                {
+                    string durPart = restParts[1];
+                    data.isDotted = durPart.EndsWith(".");
+                    string durVal = data.isDotted ? durPart.TrimEnd('.') : durPart;
+                    if (int.TryParse(durVal, out int result))
+                        data.duration = result;
+                }
+                else
+                {
+                    data.duration = 4; // 기본값
+                }
+            }
+            data.noteName = "REST"; // 쉼표는 noteName을 REST로 설정
+            return data;
+        }
         
         string[] parts = raw.Split(':'); 
         string noteNamePart = parts[0];
@@ -39,7 +103,7 @@ public static class NoteParser
                 data.duration = result; 
         }
 
-        Debug.Log($"파싱 결과: {data.noteName} | 길이:{data.duration} | 점음표:{data.isDotted} | 쉼표:{data.isRest} | 임시표:{data.accidental}");
+        Debug.Log($"파싱 결과: {data.noteName} | 길이:{data.duration} | 점음표:{data.isDotted} | 쉼표:{data.isRest} | 임시표:{data.accidental} | 마디선:{data.isBarLine}");
         
         return data;
     }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +32,6 @@ public class NoteSpawner : MonoBehaviour
 
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
 
-    // 기존 noteIndexTable, trebleKeySignaturePositions, bassKeySignaturePositions, lineNotes는 NotePositioningData.cs로 이동했으므로 삭제
-
-
     void Start()
     {
         JsonLoader.SongList songList = jLoader.LoadSongs();
@@ -51,7 +48,7 @@ public class NoteSpawner : MonoBehaviour
         this.currentSongTimeSignature = ParseTimeSignatureFromString(song.timeSignature);
 
         // 분리된 스크립트 초기화
-        if (scoreSymbolSpawner == null || notePlacementHandler == null || staffLinePrefabForBarLine == null) // 마디선 프리팹 추가
+        if (scoreSymbolSpawner == null || notePlacementHandler == null || staffLinePrefabForBarLine == null)
         {
             Debug.LogError("필요한 스크립트 또는 프리팹이 할당되지 않았습니다!");
             return;
@@ -64,9 +61,7 @@ public class NoteSpawner : MonoBehaviour
         LayoutCompleteScore(song);
     }
 
-
-    // 기존 LayoutCompleteScore 함수는 NoteLayoutHelper.cs로 이동했으므로 삭제
-    // NoteSpawner.cs의 LayoutCompleteScore 함수 수정
+    // ✅ 마디별 레이아웃 새로운 방식
     private void LayoutCompleteScore(JsonLoader.SongData song)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
@@ -94,55 +89,103 @@ public class NoteSpawner : MonoBehaviour
         float timeSignatureWidth = scoreSymbolSpawner.SpawnTimeSignatureSymbol(currentX, spacing);
         currentX += timeSignatureWidth;
 
-        // 4. 🎶 음표들 배치를 위한 공간 계산 및 마디선 추가
+        // ✅ 4. 마디별로 음표 분할
+        List<List<NoteData>> measures = SplitIntoMeasures(song.notes);
+        
+        if (measures.Count == 0)
+        {
+            Debug.LogWarning("음표가 없습니다.");
+            return;
+        }
+
+        // 5. 🎶 마디별 레이아웃 (최대 2마디)
         float initialSymbolsWidth = currentX - startX;
         float remainingLayoutWidth = usableWidth - initialSymbolsWidth;
+        
+        int maxMeasures = Mathf.Min(measures.Count, 2); // 최대 2마디
+        float measureWidth = remainingLayoutWidth / maxMeasures;
 
-        // 2마디로 나누므로, 남은 공간의 중앙에 마디선 배치
-        float barLineXPosition = startX + initialSymbolsWidth + remainingLayoutWidth * 0.5f;
-        // 🎯 NoteLayoutHelper.CreateBarLine 호출 시 staffSpacing 전달
-        NoteLayoutHelper.CreateBarLine(barLineXPosition, staffPanel, staffLinePrefabForBarLine, spacing); // spacing 인자 추가
-
-        // ... (이후 음표 배치 로직은 동일) ...
-
-        int totalNotes = song.notes.Count;
-        int notesInFirstMeasure = Mathf.CeilToInt(totalNotes / 2f);
-        int notesInSecondMeasure = totalNotes - notesInFirstMeasure;
-
-        float firstMeasureUsableWidth = remainingLayoutWidth * 0.5f;
-        float firstMeasureNoteSpacing = notesInFirstMeasure > 0 ? firstMeasureUsableWidth / notesInFirstMeasure : 0;
-
-        Debug.Log($"🎯 첫 번째 마디: 사용가능너비={firstMeasureUsableWidth:F1}, 음표수={notesInFirstMeasure}, 음표간격={firstMeasureNoteSpacing:F1}");
-
-        for (int i = 0; i < notesInFirstMeasure; i++)
+        for (int measureIndex = 0; measureIndex < maxMeasures; measureIndex++)
         {
-            NoteData note = NoteParser.Parse(song.notes[i]);
-            notePlacementHandler.SpawnNoteAtPosition(currentX, firstMeasureNoteSpacing, spacing, note);
-            currentX += firstMeasureNoteSpacing;
+            // 마디 시작 위치
+            float measureStartX = currentX;
+            
+            // 마디선 생성 (첫 번째 마디가 아닌 경우)
+            if (measureIndex > 0)
+            {
+                NoteLayoutHelper.CreateBarLine(measureStartX, staffPanel, staffLinePrefabForBarLine, spacing);
+            }
+
+            // 마디 내 음표들 배치
+            LayoutMeasure(measures[measureIndex], measureStartX, measureWidth, spacing);
+            
+            // 다음 마디 위치로 이동
+            currentX += measureWidth;
         }
 
-        currentX = barLineXPosition;
-
-        float secondMeasureUsableWidth = remainingLayoutWidth * 0.5f;
-        float secondMeasureNoteSpacing = notesInSecondMeasure > 0 ? secondMeasureUsableWidth / notesInSecondMeasure : 0;
-
-        Debug.Log($"🎯 두 번째 마디: 사용가능너비={secondMeasureUsableWidth:F1}, 음표수={notesInSecondMeasure}, 음표간격={secondMeasureNoteSpacing:F1}");
-
-        for (int i = notesInFirstMeasure; i < totalNotes; i++)
+        // 마지막 마디선 생성
+        if (maxMeasures > 0)
         {
-            NoteData note = NoteParser.Parse(song.notes[i]);
-            notePlacementHandler.SpawnNoteAtPosition(currentX, secondMeasureNoteSpacing, spacing, note);
-            currentX += secondMeasureNoteSpacing;
+            NoteLayoutHelper.CreateBarLine(currentX, staffPanel, staffLinePrefabForBarLine, spacing);
         }
 
-        Debug.Log($"✅ 패널 기준 악보 완료: {song.clef} 음자리표 + 박자표 + {totalNotes}개 음표, 2마디 분할");
+        Debug.Log($"✅ 마디별 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
     }
 
+    // ✅ 음표를 마디별로 분할하는 함수
+    private List<List<NoteData>> SplitIntoMeasures(List<string> noteStrings)
+    {
+        List<List<NoteData>> measures = new List<List<NoteData>>();
+        List<NoteData> currentMeasure = new List<NoteData>();
 
+        foreach (string noteString in noteStrings)
+        {
+            NoteData note = NoteParser.Parse(noteString);
+            
+            if (note.isBarLine) // 마디구분선
+            {
+                if (currentMeasure.Count > 0)
+                {
+                    measures.Add(new List<NoteData>(currentMeasure));
+                    currentMeasure.Clear();
+                    Debug.Log($"마디 {measures.Count} 완료: {currentMeasure.Count}개 음표");
+                }
+            }
+            else
+            {
+                currentMeasure.Add(note);
+            }
+        }
 
+        // 마지막 마디 추가 (마디구분선이 없는 경우)
+        if (currentMeasure.Count > 0)
+        {
+            measures.Add(currentMeasure);
+            Debug.Log($"마지막 마디 {measures.Count} 완료: {currentMeasure.Count}개 음표");
+        }
+
+        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료");
+        return measures;
+    }
+
+    // ✅ 개별 마디 레이아웃 함수
+    private void LayoutMeasure(List<NoteData> notes, float measureStartX, float measureWidth, float spacing)
+    {
+        if (notes.Count == 0) return;
+
+        float noteSpacing = measureWidth / notes.Count;
+        float currentX = measureStartX;
+
+        Debug.Log($"🎵 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 음표수={notes.Count}, 간격={noteSpacing:F1}");
+
+        foreach (NoteData note in notes)
+        {
+            notePlacementHandler.SpawnNoteAtPosition(currentX, noteSpacing, spacing, note);
+            currentX += noteSpacing;
+        }
+    }
 
     // 🎼 박자표 문자열을 파싱하여 MusicLayoutConfig.TimeSignature 객체로 변환
-    // ParseTimeSignatureFromString 함수 유지
     private MusicLayoutConfig.TimeSignature ParseTimeSignatureFromString(string tsString)
     {
         if (string.IsNullOrEmpty(tsString) || !tsString.Contains("/"))
