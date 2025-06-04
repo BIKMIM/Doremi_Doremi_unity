@@ -15,7 +15,7 @@ D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-54040
+54547
 Successfully changed project path to: D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
 D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,12 +49,12 @@ D:/Programming_Works/Unity_flutter/Doremi_Doremi/Doremi_Doremi
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [11988] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 1034234844 [EditorId] 1034234844 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [19464] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 503610602 [EditorId] 503610602 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [11988] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 1034234844 [EditorId] 1034234844 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [19464] Host "[IP] 172.30.1.42 [Port] 0 [Flags] 2 [Guid] 503610602 [EditorId] 503610602 [Version] 1048832 [Id] WindowsEditor(7,BIK-GAME) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 11 workers.
-Refreshing native plugins compatible for Editor in 28.74 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 29.52 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.22f1 (887be4894c44)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Resources/UnitySubsystems
@@ -70,47 +70,56 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56608
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56224
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005573 seconds.
-- Loaded All Assemblies, in  0.210 seconds
+Registered in 0.005646 seconds.
+- Loaded All Assemblies, in  0.212 seconds
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 2144 ms
+CommandWithNoStdoutInvokationFailure: Unable to start ADB server. Please make sure the Android SDK is installed and is properly configured in the Editor. See the Console for more details.
+  at UnityEditor.Android.Command.RunWithShellExecute (System.String command, System.String args, System.String workingdir, System.String errorMsg) [0x00060] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Android.ADB.StartServer () [0x00013] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Android.ADB.Run (System.String[] command, UnityEditor.Android.Command+WaitingForProcessToExit waitingForProcessToExit, System.String errorMsg) [0x0000b] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Android.AndroidDeploymentTargetsExtension.GetKnownTargets (UnityEditor.DeploymentTargets.IDeploymentTargetsMainThreadContext context, UnityEditor.ProgressHandler progressHandler) [0x00284] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Android.TargetScanWorker.ScanSync () [0x00039] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Android.TargetExtension.OnUsbDevicesChanged (UnityEditor.Hardware.UsbDevice[] usbDevices) [0x00081] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Android.TargetExtension.OnLoad () [0x000ad] in <1a9338a70cd64c718bc2b14b3805c8e8>:0 
+  at UnityEditor.Modules.ModuleManager.InitializePlatformSupportModules () [0x0009d] in <80a8ce1980c648dca8e68f0d8aa3b930>:0 
+
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  2.348 seconds
-Domain Reload Profiling: 2557ms
-	BeginReloadAssembly (65ms)
+- Finished resetting the current domain, in  4.026 seconds
+Domain Reload Profiling: 4237ms
+	BeginReloadAssembly (62ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (1ms)
+		CreateAndSetChildDomain (0ms)
 	RebuildCommonClasses (21ms)
 	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (35ms)
-	LoadAllAssembliesAndSetupDomain (81ms)
-		LoadAssemblies (65ms)
+	initialDomainReloadingComplete (36ms)
+	LoadAllAssembliesAndSetupDomain (86ms)
+		LoadAssemblies (61ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (79ms)
-			TypeCache.Refresh (79ms)
-				TypeCache.ScanAssembly (71ms)
+		AnalyzeDomain (84ms)
+			TypeCache.Refresh (83ms)
+				TypeCache.ScanAssembly (75ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (2348ms)
+	FinalizeReload (4026ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (2313ms)
+		SetupLoadedEditorAssemblies (3991ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (2209ms)
-			SetLoadedEditorAssemblies (2ms)
+			InitializePlatformSupportModulesInManaged (3892ms)
+			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (1ms)
-			ProcessInitializeOnLoadAttributes (70ms)
-			ProcessInitializeOnLoadMethodAttributes (31ms)
+			ProcessInitializeOnLoadAttributes (69ms)
+			ProcessInitializeOnLoadMethodAttributes (26ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -119,8 +128,8 @@ Domain Reload Profiling: 2557ms
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.704 seconds
-Refreshing native plugins compatible for Editor in 9.90 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.646 seconds
+Refreshing native plugins compatible for Editor in 7.93 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Port 6400 is already in use. Ensure no other instances are running or change the port.
@@ -155,238 +164,48 @@ UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
 (Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
 
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.466 seconds
-Domain Reload Profiling: 2169ms
-	BeginReloadAssembly (106ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (20ms)
-	RebuildCommonClasses (19ms)
-	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (56ms)
-	LoadAllAssembliesAndSetupDomain (514ms)
-		LoadAssemblies (362ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (212ms)
-			TypeCache.Refresh (195ms)
-				TypeCache.ScanAssembly (180ms)
-			ScanForSourceGeneratedMonoScriptInfo (13ms)
-			ResolveRequiredComponents (3ms)
-	FinalizeReload (1466ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1369ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
-			SetLoadedEditorAssemblies (4ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (47ms)
-			ProcessInitializeOnLoadAttributes (1280ms)
-			ProcessInitializeOnLoadMethodAttributes (16ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (5ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 10.04 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3696 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 143 unused Assets / (103.3 KB). Loaded Objects now: 4079.
-Memory consumption went from 150.5 MB to 150.4 MB.
-Total: 4.028700 ms (FindLiveObjects: 0.207700 ms CreateObjectMapping: 0.067900 ms MarkObjects: 3.581400 ms  DeleteObjects: 0.171100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.558 seconds
-Refreshing native plugins compatible for Editor in 9.64 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Port 6400 is already in use. Ensure no other instances are running or change the port.
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object)
-UnityEngine.Debug:LogError (object)
-UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
-UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
-System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
-UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
-
-(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
-
-[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object)
-UnityEngine.Debug:Log (object)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
-com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
-Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
-com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
-com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
-System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
-UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
-
-(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
-
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.630 seconds
-Domain Reload Profiling: 2187ms
-	BeginReloadAssembly (144ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (61ms)
-	RebuildCommonClasses (21ms)
-	RebuildNativeTypeToScriptingClass (9ms)
-	initialDomainReloadingComplete (55ms)
-	LoadAllAssembliesAndSetupDomain (327ms)
-		LoadAssemblies (369ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (11ms)
-			TypeCache.Refresh (6ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (1631ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1345ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
-			SetLoadedEditorAssemblies (2ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (46ms)
-			ProcessInitializeOnLoadAttributes (1260ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (4ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 9.49 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3667 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 119 unused Assets / (76.0 KB). Loaded Objects now: 4082.
-Memory consumption went from 145.4 MB to 145.4 MB.
-Total: 4.296600 ms (FindLiveObjects: 0.221900 ms CreateObjectMapping: 0.122300 ms MarkObjects: 3.841200 ms  DeleteObjects: 0.110500 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.508 seconds
-Refreshing native plugins compatible for Editor in 8.09 ms, found 3 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Port 6400 is already in use. Ensure no other instances are running or change the port.
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object)
-UnityEngine.Debug:LogError (object)
-UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
-UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
-System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
-UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
-
-(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
-
-[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object)
-UnityEngine.Debug:Log (object)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
-com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
-Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
-com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
-com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
-com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
-System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
-UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
-
-(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
-
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.645 seconds
-Domain Reload Profiling: 2151ms
-	BeginReloadAssembly (126ms)
+- Finished resetting the current domain, in  1.210 seconds
+Domain Reload Profiling: 1855ms
+	BeginReloadAssembly (86ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (53ms)
-	RebuildCommonClasses (22ms)
-	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (41ms)
-	LoadAllAssembliesAndSetupDomain (311ms)
-		LoadAssemblies (348ms)
+		CreateAndSetChildDomain (16ms)
+	RebuildCommonClasses (21ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (49ms)
+	LoadAllAssembliesAndSetupDomain (482ms)
+		LoadAssemblies (328ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (10ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (1646ms)
+		AnalyzeDomain (201ms)
+			TypeCache.Refresh (185ms)
+				TypeCache.ScanAssembly (170ms)
+			ScanForSourceGeneratedMonoScriptInfo (11ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (1210ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1357ms)
+		SetupLoadedEditorAssemblies (1125ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (15ms)
-			SetLoadedEditorAssemblies (2ms)
+			InitializePlatformSupportModulesInManaged (26ms)
+			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (46ms)
-			ProcessInitializeOnLoadAttributes (1273ms)
-			ProcessInitializeOnLoadMethodAttributes (16ms)
-			AfterProcessingInitializeOnLoad (4ms)
+			BeforeProcessingInitializeOnLoad (40ms)
+			ProcessInitializeOnLoadAttributes (1038ms)
+			ProcessInitializeOnLoadMethodAttributes (13ms)
+			AfterProcessingInitializeOnLoad (3ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (5ms)
-Refreshing native plugins compatible for Editor in 9.08 ms, found 3 plugins.
+		AwakeInstancesAfterBackupRestoration (4ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 7.29 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3667 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 119 unused Assets / (75.9 KB). Loaded Objects now: 4085.
-Memory consumption went from 147.4 MB to 147.3 MB.
-Total: 3.308500 ms (FindLiveObjects: 0.212800 ms CreateObjectMapping: 0.055100 ms MarkObjects: 2.931200 ms  DeleteObjects: 0.108800 ms)
+Unloading 3696 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 143 unused Assets / (102.9 KB). Loaded Objects now: 4079.
+Memory consumption went from 150.5 MB to 150.4 MB.
+Total: 3.345900 ms (FindLiveObjects: 0.174400 ms CreateObjectMapping: 0.060000 ms MarkObjects: 2.951700 ms  DeleteObjects: 0.159300 ms)
 
-Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -401,11 +220,19 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
+Received Import Request.
+  Time since last request: 6722.706592 seconds.
+  path: Assets/Resources/songs.json
+  artifactKey: Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/songs.json using Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0bef1e0f72579bb29dba73350849fab4') in 0.006641 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.507 seconds
-Refreshing native plugins compatible for Editor in 9.04 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.487 seconds
+Refreshing native plugins compatible for Editor in 7.89 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Port 6400 is already in use. Ensure no other instances are running or change the port.
@@ -441,45 +268,45 @@ UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
 
 Mono: successfully reloaded assembly
 - Finished resetting the current domain, in  1.618 seconds
-Domain Reload Profiling: 2124ms
-	BeginReloadAssembly (127ms)
+Domain Reload Profiling: 2104ms
+	BeginReloadAssembly (124ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (52ms)
-	RebuildCommonClasses (19ms)
+		CreateAndSetChildDomain (54ms)
+	RebuildCommonClasses (17ms)
 	RebuildNativeTypeToScriptingClass (7ms)
-	initialDomainReloadingComplete (39ms)
-	LoadAllAssembliesAndSetupDomain (313ms)
-		LoadAssemblies (350ms)
+	initialDomainReloadingComplete (41ms)
+	LoadAllAssembliesAndSetupDomain (298ms)
+		LoadAssemblies (331ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
 		AnalyzeDomain (11ms)
-			TypeCache.Refresh (6ms)
+			TypeCache.Refresh (5ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (4ms)
-	FinalizeReload (1619ms)
+	FinalizeReload (1618ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1327ms)
+		SetupLoadedEditorAssemblies (1330ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (15ms)
-			SetLoadedEditorAssemblies (4ms)
+			InitializePlatformSupportModulesInManaged (14ms)
+			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (46ms)
-			ProcessInitializeOnLoadAttributes (1240ms)
+			BeforeProcessingInitializeOnLoad (45ms)
+			ProcessInitializeOnLoadAttributes (1246ms)
 			ProcessInitializeOnLoadMethodAttributes (17ms)
-			AfterProcessingInitializeOnLoad (5ms)
+			AfterProcessingInitializeOnLoad (4ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 8.97 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 11.67 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3667 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 119 unused Assets / (75.9 KB). Loaded Objects now: 4088.
-Memory consumption went from 149.3 MB to 149.2 MB.
-Total: 4.111600 ms (FindLiveObjects: 0.221200 ms CreateObjectMapping: 0.051300 ms MarkObjects: 3.726900 ms  DeleteObjects: 0.111700 ms)
+Unloading 3666 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (76.0 KB). Loaded Objects now: 4083.
+Memory consumption went from 145.2 MB to 145.1 MB.
+Total: 3.983000 ms (FindLiveObjects: 0.218900 ms CreateObjectMapping: 0.111900 ms MarkObjects: 3.531400 ms  DeleteObjects: 0.120100 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -495,3 +322,650 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 24.028557 seconds.
+  path: Assets/Resources/songs.json
+  artifactKey: Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/songs.json using Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fba04ef0cfc0287c5a76d1ca4007721f') in 0.007504 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.505 seconds
+Refreshing native plugins compatible for Editor in 9.35 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Port 6400 is already in use. Ensure no other instances are running or change the port.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
+UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
+
+[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
+com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
+Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
+com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
+com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.606 seconds
+Domain Reload Profiling: 2110ms
+	BeginReloadAssembly (134ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (55ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (40ms)
+	LoadAllAssembliesAndSetupDomain (304ms)
+		LoadAssemblies (344ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (12ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1607ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1323ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (14ms)
+			SetLoadedEditorAssemblies (2ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (44ms)
+			ProcessInitializeOnLoadAttributes (1238ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 12.01 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3666 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (76.0 KB). Loaded Objects now: 4086.
+Memory consumption went from 147.1 MB to 147.1 MB.
+Total: 3.998300 ms (FindLiveObjects: 0.215000 ms CreateObjectMapping: 0.063700 ms MarkObjects: 3.599500 ms  DeleteObjects: 0.119400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 50.066161 seconds.
+  path: Assets/Resources/songs.json
+  artifactKey: Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/songs.json using Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '226022c21a4f2a8ced35668cead1aef1') in 0.007659 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.493 seconds
+Refreshing native plugins compatible for Editor in 7.81 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Port 6400 is already in use. Ensure no other instances are running or change the port.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
+UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
+
+[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
+com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
+Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
+com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
+com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.634 seconds
+Domain Reload Profiling: 2125ms
+	BeginReloadAssembly (129ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (54ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (38ms)
+	LoadAllAssembliesAndSetupDomain (299ms)
+		LoadAssemblies (336ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (11ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1634ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1341ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (2ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (47ms)
+			ProcessInitializeOnLoadAttributes (1253ms)
+			ProcessInitializeOnLoadMethodAttributes (18ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 10.82 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3666 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (76.0 KB). Loaded Objects now: 4089.
+Memory consumption went from 149.1 MB to 149.0 MB.
+Total: 4.500800 ms (FindLiveObjects: 0.314300 ms CreateObjectMapping: 0.136500 ms MarkObjects: 3.939200 ms  DeleteObjects: 0.110300 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 237.454491 seconds.
+  path: Assets/Resources/difficulty_1_sample_songs.json
+  artifactKey: Guid(b994147c21deff544bcbae3def3b8f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/difficulty_1_sample_songs.json using Guid(b994147c21deff544bcbae3def3b8f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eed344a400a73e2e04d65a931618403c') in 0.007455 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 16.143686 seconds.
+  path: Assets/Resources/songs.json
+  artifactKey: Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/songs.json using Guid(af20d8caf66ee47409cb25db76dceedc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a1ab83813e0437eb2ec4be16febc570') in 0.000660 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.494 seconds
+Refreshing native plugins compatible for Editor in 9.01 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Port 6400 is already in use. Ensure no other instances are running or change the port.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
+UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
+
+[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
+com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
+Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
+com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
+com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.642 seconds
+Domain Reload Profiling: 2135ms
+	BeginReloadAssembly (130ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (54ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (39ms)
+	LoadAllAssembliesAndSetupDomain (299ms)
+		LoadAssemblies (339ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (11ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1643ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1353ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (42ms)
+			ProcessInitializeOnLoadAttributes (1268ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 11.51 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3666 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (76.0 KB). Loaded Objects now: 4092.
+Memory consumption went from 151.0 MB to 150.9 MB.
+Total: 4.502700 ms (FindLiveObjects: 0.244700 ms CreateObjectMapping: 0.098100 ms MarkObjects: 4.035900 ms  DeleteObjects: 0.123400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.485 seconds
+Refreshing native plugins compatible for Editor in 9.67 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Port 6400 is already in use. Ensure no other instances are running or change the port.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
+UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
+
+[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
+com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
+Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
+com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
+com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.609 seconds
+Domain Reload Profiling: 2093ms
+	BeginReloadAssembly (126ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (54ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (39ms)
+	LoadAllAssembliesAndSetupDomain (294ms)
+		LoadAssemblies (329ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (12ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1609ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1332ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (17ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (44ms)
+			ProcessInitializeOnLoadAttributes (1247ms)
+			ProcessInitializeOnLoadMethodAttributes (17ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 10.87 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3667 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (76.0 KB). Loaded Objects now: 4095.
+Memory consumption went from 153.2 MB to 153.1 MB.
+Total: 4.193800 ms (FindLiveObjects: 0.231100 ms CreateObjectMapping: 0.083700 ms MarkObjects: 3.763400 ms  DeleteObjects: 0.114900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.481 seconds
+Refreshing native plugins compatible for Editor in 9.62 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Port 6400 is already in use. Ensure no other instances are running or change the port.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
+UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
+
+[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
+com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
+Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
+com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
+com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.601 seconds
+Domain Reload Profiling: 2081ms
+	BeginReloadAssembly (125ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (53ms)
+	RebuildCommonClasses (18ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (38ms)
+	LoadAllAssembliesAndSetupDomain (291ms)
+		LoadAssemblies (327ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (10ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1601ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1315ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (2ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (47ms)
+			ProcessInitializeOnLoadAttributes (1230ms)
+			ProcessInitializeOnLoadMethodAttributes (16ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 11.58 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3667 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (75.9 KB). Loaded Objects now: 4098.
+Memory consumption went from 155.2 MB to 155.1 MB.
+Total: 4.239900 ms (FindLiveObjects: 0.273700 ms CreateObjectMapping: 0.112000 ms MarkObjects: 3.731300 ms  DeleteObjects: 0.122300 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.496 seconds
+Refreshing native plugins compatible for Editor in 9.00 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Port 6400 is already in use. Ensure no other instances are running or change the port.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityMcpBridge.Editor.UnityMcpBridge:Start () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:89)
+UnityMcpBridge.Editor.UnityMcpBridge:.cctor () (at ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs:53)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.justinpbarnett.unity-mcp@cbe9b3a2f0/Editor/UnityMcpBridge.cs Line: 89)
+
+[McpPluginUnity] <color=orange><b>Creating Unity-MCP-ConnectionConfig</b> file at <i>Assets/Resources/Unity-MCP-ConnectionConfig.json</i></color>
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:GetOrCreateInstance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs:39)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:Init () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:27)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_Instance () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:20)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:get_LogLevel () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.cs:37)
+com.IvanMurzak.Unity.MCP.McpPluginUnity/<>c:<BuildAndStart>b__38_1 (Microsoft.Extensions.Logging.ILoggingBuilder) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:35)
+Microsoft.Extensions.DependencyInjection.LoggingServiceCollectionExtensions:AddLogging (Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>)
+com.IvanMurzak.Unity.MCP.Common.McpPluginBuilder:AddLogging (System.Action`1<Microsoft.Extensions.Logging.ILoggingBuilder>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Server/Common/McpPlugin/Builder/McpPluginBuilder.cs:160)
+com.IvanMurzak.Unity.MCP.McpPluginUnity:BuildAndStart () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Startup.cs:22)
+com.IvanMurzak.Unity.MCP.Editor.Startup:.cctor () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Editor/Scripts/Startup.cs:12)
+System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@0.8.1/Runtime/Config/McpPluginUnity.Editor.cs Line: 39)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.592 seconds
+Domain Reload Profiling: 2087ms
+	BeginReloadAssembly (132ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (52ms)
+	RebuildCommonClasses (20ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (39ms)
+	LoadAllAssembliesAndSetupDomain (297ms)
+		LoadAssemblies (341ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (11ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1592ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1314ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (47ms)
+			ProcessInitializeOnLoadAttributes (1226ms)
+			ProcessInitializeOnLoadMethodAttributes (17ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 8.59 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3667 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (75.9 KB). Loaded Objects now: 4101.
+Memory consumption went from 157.1 MB to 157.0 MB.
+Total: 4.208900 ms (FindLiveObjects: 0.245600 ms CreateObjectMapping: 0.121400 ms MarkObjects: 3.731500 ms  DeleteObjects: 0.109700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2000.797791 seconds.
+  path: Assets/Prefab/Old/no/0.svg
+  artifactKey: Guid(196c43c748820564e8ed3b9cfc3437da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Old/no/0.svg using Guid(196c43c748820564e8ed3b9cfc3437da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c6108ac5aba1915304d46dbdb924cc8') in 0.080305 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 7
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Prefab/Old/no/7.svg
+  artifactKey: Guid(063a1593cf976014da49dd7b2934c526) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Old/no/7.svg using Guid(063a1593cf976014da49dd7b2934c526) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b3d8c1dd6c7bff9ab948b7e38815fa51') in 0.012082 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 7
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Prefab/Old/no/9.svg
+  artifactKey: Guid(b1bfe7dd2896f1a45b2e8a28fccdf2a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Old/no/9.svg using Guid(b1bfe7dd2896f1a45b2e8a28fccdf2a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31df88e39484161a6d755399d0b67903') in 0.011465 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 7
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Prefab/Old/no/3.svg
+  artifactKey: Guid(e9a4e832d6b4bee4ea232dc40bae118f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Old/no/3.svg using Guid(e9a4e832d6b4bee4ea232dc40bae118f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2d23748f6494c664c45331b3310384c') in 0.011549 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 7
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Prefab/Old/no/6.svg
+  artifactKey: Guid(ccf4d064428495e4d9eecc2e23175c01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Old/no/6.svg using Guid(ccf4d064428495e4d9eecc2e23175c01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd4f49eb5a124041a147cbe44145a673') in 0.010723 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 7
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: 스레드 종료 또는 응용 프로그램 요청 때문에 I/O 작업이 취소되었습니다.
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

@@ -3,9 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
-// NoteSpawner.cs - 해상도 독립적 음표 생성 시스템
+// NoteSpawner.cs - 해상도 독립적 음표 생성 시스템 + 잇단음표 지원
 // 모든 크기와 위치를 비율 기반으로 계산하여 어떤 해상도에서도 동일한 비율로 표시
-
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -29,6 +28,9 @@ public class NoteSpawner : MonoBehaviour
     // StaffLineDrawer에 있는 linePrefab을 마디선용으로도 재활용
     [Header("오선 프리팹 (마디선용)")]
     public GameObject staffLinePrefabForBarLine; // StaffLineDrawer의 linePrefab을 여기에 연결
+
+    [Header("✨ 잇단음표 지원")]
+    public bool enableTupletSupport = true; // 잇단음표 기능 활성화
 
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
 
@@ -61,7 +63,7 @@ public class NoteSpawner : MonoBehaviour
         LayoutCompleteScore(song);
     }
 
-    // ✅ 마디별 레이아웃 새로운 방식
+    // ✅ 잇단음표 지원 마디별 레이아웃 새로운 방식
     private void LayoutCompleteScore(JsonLoader.SongData song)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
@@ -89,8 +91,8 @@ public class NoteSpawner : MonoBehaviour
         float timeSignatureWidth = scoreSymbolSpawner.SpawnTimeSignatureSymbol(currentX, spacing);
         currentX += timeSignatureWidth;
 
-        // ✅ 4. 마디별로 음표 분할
-        List<List<NoteData>> measures = SplitIntoMeasures(song.notes);
+        // ✅ 4. 잇단음표 지원 마디별 분할
+        List<List<object>> measures = SplitIntoMeasuresWithTuplets(song.notes);
         
         if (measures.Count == 0)
         {
@@ -116,8 +118,8 @@ public class NoteSpawner : MonoBehaviour
                 NoteLayoutHelper.CreateBarLine(measureStartX, staffPanel, staffLinePrefabForBarLine, spacing);
             }
 
-            // 마디 내 음표들 배치
-            LayoutMeasure(measures[measureIndex], measureStartX, measureWidth, spacing);
+            // ✅ 잇단음표 지원 마디 배치
+            LayoutMeasureWithTuplets(measures[measureIndex], measureStartX, measureWidth, spacing);
             
             // 다음 마디 위치로 이동
             currentX += measureWidth;
@@ -129,59 +131,116 @@ public class NoteSpawner : MonoBehaviour
             NoteLayoutHelper.CreateBarLine(currentX, staffPanel, staffLinePrefabForBarLine, spacing);
         }
 
-        Debug.Log($"✅ 마디별 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
+        Debug.Log($"✅ 잇단음표 지원 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
     }
 
-    // ✅ 음표를 마디별로 분할하는 함수
-    private List<List<NoteData>> SplitIntoMeasures(List<string> noteStrings)
+    // ✅ 잇단음표 지원 마디별 분할 함수
+    private List<List<object>> SplitIntoMeasuresWithTuplets(List<string> noteStrings)
     {
-        List<List<NoteData>> measures = new List<List<NoteData>>();
-        List<NoteData> currentMeasure = new List<NoteData>();
-
-        foreach (string noteString in noteStrings)
+        List<List<object>> measures = new List<List<object>>();
+        
+        // 1. 먼저 잇단음표 파싱
+        List<object> parsedElements;
+        
+        if (enableTupletSupport)
         {
-            NoteData note = NoteParser.Parse(noteString);
-            
-            if (note.isBarLine) // 마디구분선
+            parsedElements = TupletParser.ParseWithTuplets(noteStrings);
+            Debug.Log($"🎼 잇단음표 파싱 완료: {parsedElements.Count}개 요소");
+        }
+        else
+        {
+            // 잇단음표 비활성화 시 기존 방식
+            parsedElements = new List<object>();
+            foreach (string noteString in noteStrings)
             {
+                parsedElements.Add(NoteParser.Parse(noteString));
+            }
+            Debug.Log($"🎵 일반 파싱 완료: {parsedElements.Count}개 요소");
+        }
+
+        // 2. 마디별로 분할
+        List<object> currentMeasure = new List<object>();
+
+        foreach (object element in parsedElements)
+        {
+            if (element is NoteData note && note.isBarLine)
+            {
+                // 마디구분선 발견
                 if (currentMeasure.Count > 0)
                 {
-                    measures.Add(new List<NoteData>(currentMeasure));
+                    measures.Add(new List<object>(currentMeasure));
                     currentMeasure.Clear();
-                    Debug.Log($"마디 {measures.Count} 완료: {currentMeasure.Count}개 음표");
+                    Debug.Log($"마디 {measures.Count} 완료: {currentMeasure.Count}개 요소");
                 }
             }
             else
             {
-                currentMeasure.Add(note);
+                currentMeasure.Add(element);
             }
         }
 
-        // 마지막 마디 추가 (마디구분선이 없는 경우)
+        // 마지막 마디 추가
         if (currentMeasure.Count > 0)
         {
             measures.Add(currentMeasure);
-            Debug.Log($"마지막 마디 {measures.Count} 완료: {currentMeasure.Count}개 음표");
+            Debug.Log($"마지막 마디 {measures.Count} 완료: {currentMeasure.Count}개 요소");
         }
 
-        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료");
+        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료 (잣단음표 지원)");
         return measures;
     }
 
-    // ✅ 개별 마디 레이아웃 함수
-    private void LayoutMeasure(List<NoteData> notes, float measureStartX, float measureWidth, float spacing)
+    // ✅ 잇단음표 지원 개별 마디 레이아웃 함수
+    private void LayoutMeasureWithTuplets(List<object> elements, float measureStartX, float measureWidth, float spacing)
     {
-        if (notes.Count == 0) return;
+        if (elements.Count == 0) return;
 
-        float noteSpacing = measureWidth / notes.Count;
+        Debug.Log($"🎵 잇단음표 지원 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 요소수={elements.Count}");
+
         float currentX = measureStartX;
+        float remainingWidth = measureWidth;
 
-        Debug.Log($"🎵 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 음표수={notes.Count}, 간격={noteSpacing:F1}");
-
-        foreach (NoteData note in notes)
+        // 요소별 폭 계산 및 배치
+        for (int i = 0; i < elements.Count; i++)
         {
-            notePlacementHandler.SpawnNoteAtPosition(currentX, noteSpacing, spacing, note);
-            currentX += noteSpacing;
+            object element = elements[i];
+            
+            if (element is NoteData note)
+            {
+                // 일반 음표 처리
+                float noteWidth = remainingWidth / (elements.Count - i); // 남은 폭을 남은 요소 수로 분배
+                notePlacementHandler.SpawnNoteAtPosition(currentX, noteWidth, spacing, note);
+                currentX += noteWidth;
+                remainingWidth -= noteWidth;
+                
+                Debug.Log($"   일반음표: {note.noteName}, 폭={noteWidth:F1}");
+            }
+            else if (element is TupletData tuplet)
+            {
+                // 잇단음표 그룹 처리
+                float tupletWidth = remainingWidth / (elements.Count - i); // 임시 폭 할당
+                
+                TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, currentX, tupletWidth, spacing);
+                
+                if (visualGroup != null)
+                {
+                    float actualWidth = tuplet.totalWidth;
+                    currentX += actualWidth;
+                    remainingWidth -= actualWidth;
+                    
+                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()}, 폭={actualWidth:F1}");
+                }
+                else
+                {
+                    Debug.LogError($"   ❌ 잇단음표 생성 실패: {tuplet.GetTupletTypeName()}");
+                    currentX += tupletWidth; // 실패해도 위치는 이동
+                    remainingWidth -= tupletWidth;
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"   ⚠️ 알 수 없는 요소 타입: {element?.GetType().Name}");
+            }
         }
     }
 
@@ -202,5 +261,28 @@ public class NoteSpawner : MonoBehaviour
 
         Debug.LogWarning($"박자표 문자열 파싱에 실패했습니다: {tsString}. 기본값(4/4)을 사용합니다.");
         return new MusicLayoutConfig.TimeSignature(4, 4);
+    }
+
+    // ✅ 잇단음표 기능 토글 (런타임에서 테스트용)
+    [ContextMenu("잇단음표 기능 토글")]
+    public void ToggleTupletSupport()
+    {
+        enableTupletSupport = !enableTupletSupport;
+        Debug.Log($"잇단음표 기능: {(enableTupletSupport ? "활성화" : "비활성화")}");
+        
+        // 화면 지우고 다시 생성
+        ClearStaff();
+        Start();
+    }
+
+    private void ClearStaff()
+    {
+        if (staffPanel != null)
+        {
+            for (int i = staffPanel.childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(staffPanel.GetChild(i).gameObject);
+            }
+        }
     }
 }
