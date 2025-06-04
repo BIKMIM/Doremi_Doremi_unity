@@ -57,6 +57,20 @@ public class NoteAssembler : MonoBehaviour
         };
     }
 
+    // ✅ 개선된 쉼표 점음표 위치 계산
+    private Vector2 GetRestDotOffset(int duration, float spacing)
+    {
+        return duration switch
+        {
+            1 => new Vector2(spacing * 0.8f, spacing * 0.2f),   // 1분 쉼표 점
+            2 => new Vector2(spacing * 0.8f, spacing * 0.0f),   // 2분 쉼표 점
+            4 => new Vector2(spacing * 0.6f, spacing * 1.0f),   // 4분 쉼표 점
+            8 => new Vector2(spacing * 0.6f, spacing * 0.8f),   // 8분 쉼표 점
+            16 => new Vector2(spacing * 0.6f, spacing * 0.4f),   // 16분 쉼표 점
+            _ => new Vector2(spacing * 0.8f, spacing * 0.2f)     // 기본값
+        };
+    }
+
     // 쉼표 생성 함수
     public void SpawnRestNote(Vector2 basePos, int duration, bool isDotted)
     {
@@ -87,8 +101,32 @@ public class NoteAssembler : MonoBehaviour
 
         if (isDotted)
         {
-            AttachDot(rest, isOnLine: false);
+            AttachRestDot(rest, duration, spacing);
         }
+
+        Debug.Log($"🎵 쉼표 생성: {duration}분쉼표 at {rt.anchoredPosition}, 점음표: {isDotted}");
+    }
+
+    // ✅ 새로운 쉼표 전용 점음표 함수
+    public GameObject AttachRestDot(GameObject rest, int duration, float spacing)
+    {
+        float dotSize = spacing * 0.3f;
+        
+        GameObject dot = Instantiate(dotPrefab, rest.transform);
+        RectTransform rt = dot.GetComponent<RectTransform>();
+
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+
+        // 쉼표별 맞춤형 점 위치
+        Vector2 dotOffset = GetRestDotOffset(duration, spacing);
+        rt.anchoredPosition = dotOffset;
+        rt.sizeDelta = new Vector2(dotSize, dotSize);
+        rt.localScale = Vector3.one;
+
+        Debug.Log($"🎯 쉼표 점 추가: {duration}분쉼표, 위치: {dotOffset}");
+        
+        return dot;
     }
 
     // 🎵 1. 머리 생성 함수
@@ -206,11 +244,11 @@ public class NoteAssembler : MonoBehaviour
         Debug.Log($"🎏 Flag 생성: noteIndex={noteIndex}, stemDown={stemDown}, position={flagRT.anchoredPosition}, scale={flagRT.localScale}");
     }
 
-    // 4. 점 붙이기 함수 (머리를 받아서 붙임)
+    // ✅ 개선된 음표 점 붙이기 함수
     public GameObject AttachDot(GameObject headOrRest, bool isOnLine)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
-        float dotSize = spacing * 0.3f;
+        float dotSize = spacing * 0.35f; // 점 크기를 약간 키움
         float headWidth = spacing * MusicLayoutConfig.NoteHeadWidthRatio;
 
         GameObject dot = Instantiate(dotPrefab, headOrRest.transform);
@@ -219,24 +257,26 @@ public class NoteAssembler : MonoBehaviour
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0f, 0.5f);
 
-        // 🎯 위치 계산
-        float x = headWidth + spacing * -0.4f; // 점음표 위치 지정.
+        // 🎯 개선된 위치 계산
+        float x = headWidth * 0.6f + spacing * 0.2f; // 음표 오른쪽으로 적절한 거리
         float y;
 
         if (isOnLine)
         {
             // 음표가 줄에 걸쳐 있을 때는 도트 위치를 위로 살짝
-            y = spacing * 0.3f;
+            y = spacing * 0.25f;
         }
         else
         {
-            // 음표가 칸에 있을 때 또는 쉼표일 때는 동일하게 살짝 아래
-            y = spacing * -0.1f;
+            // 음표가 칸에 있을 때는 중앙에 배치
+            y = 0f;
         }
 
         rt.anchoredPosition = new Vector2(x, y);
         rt.sizeDelta = new Vector2(dotSize, dotSize);
         rt.localScale = Vector3.one;
+
+        Debug.Log($"🎯 음표 점 추가: 위치=({x:F1}, {y:F1}), 줄위음표={isOnLine}");
 
         return dot;
     }

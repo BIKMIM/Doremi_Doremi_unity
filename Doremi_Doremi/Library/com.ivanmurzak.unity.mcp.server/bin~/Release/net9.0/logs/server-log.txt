@@ -29170,3 +29170,860 @@ com.IvanMurzak.Unity.MCP.Common.Data.RequestCallTool
 2025-06-03 23:07:00.8372 | DEBUG | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for read task for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
 2025-06-03 23:07:00.8372 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport read task cleaned up for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
 2025-06-03 23:07:00.8372 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport cleaned up for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:25.0940 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Ctor. 
+2025-06-04 00:30:25.0940 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered tools [0]: 
+2025-06-04 00:30:25.1062 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered resources [0]: 
+2025-06-04 00:30:25.1062 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpPlugin | McpPlugin Ctor. Version: 0.7.0 
+2025-06-04 00:30:26.5707 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport entering read messages loop for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:26.5707 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:26.5935 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Ctor. 
+2025-06-04 00:30:26.5935 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered tools [0]: 
+2025-06-04 00:30:26.5935 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered resources [0]: 
+2025-06-04 00:30:26.5935 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | RemoteToolRunner Ctor. 
+2025-06-04 00:30:26.5935 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Ctor. 
+2025-06-04 00:30:26.5935 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService Ctor. 
+2025-06-04 00:30:26.6202 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService StartAsync. 
+2025-06-04 00:30:26.6570 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"claude-ai","version":"0.1.0"}},"jsonrpc":"2.0","id":0} 
+2025-06-04 00:30:26.6570 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22696E697469616C697A65222C22706172616D73223A7B2270726F746F636F6C56657273696F6E223A22323032342D31312D3035222C226361706162696C6974696573223A7B7D2C22636C69656E74496E666F223A7B226E616D65223A22636C617564652D6169222C2276657273696F6E223A22302E312E30227D7D2C226A736F6E727063223A22322E30222C226964223A307D 
+2025-06-04 00:30:26.7261 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 0 
+2025-06-04 00:30:26.7261 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 0, Method = initialize, Params = {
+  "protocolVersion": "2024-11-05",
+  "capabilities": {},
+  "clientInfo": {
+    "name": "claude-ai",
+    "version": "0.1.0"
+  }
+} } 
+2025-06-04 00:30:26.7261 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:26.7261 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 0 
+2025-06-04 00:30:26.7261 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:26.7261 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0) with type JsonRpcRequest 
+2025-06-04 00:30:26.7407 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0) with method initialize 
+2025-06-04 00:30:26.7407 | INFO  | ModelContextProtocol.Server.McpServer | Request handler completed for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method initialize 
+2025-06-04 00:30:26.7569 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 0, JSON (null) 
+2025-06-04 00:30:26.8840 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 0 
+2025-06-04 00:30:27.7276 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"notifications/initialized","jsonrpc":"2.0"} 
+2025-06-04 00:30:27.7276 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A226E6F74696669636174696F6E732F696E697469616C697A6564222C226A736F6E727063223A22322E30227D 
+2025-06-04 00:30:27.7276 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 00:30:27.7276 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/initialized, Params =  } 
+2025-06-04 00:30:27.7276 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:27.7276 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 00:30:27.7276 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":1} 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A317D 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 1 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 1, Method = tools/list, Params = {} } 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 1 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":2} 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A327D 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 2 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 2, Method = tools/list, Params = {} } 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 2 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":3} 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A337D 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 3 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 3, Method = resources/list, Params = {} } 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 3 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:27.7315 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:27.7315 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 00:30:27.7315 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 00:30:27.7476 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 00:30:27.7315 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 00:30:27.7476 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 00:30:27.7476 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 00:30:27.7476 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 00:30:27.7476 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 00:30:27.7476 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 00:30:27.7476 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 00:30:27.7638 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 00:30:27.7638 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 3, JSON (null) 
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 3 
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":4} 
+2025-06-04 00:30:27.7781 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A347D 
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 4 
+2025-06-04 00:30:27.7781 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 4, Method = prompts/list, Params = {} } 
+2025-06-04 00:30:27.7781 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 4 
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:27.7781 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:27.7781 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 00:30:27.7781 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 4, JSON (null) 
+2025-06-04 00:30:27.7781 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 4 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":5} 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A357D 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 5 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 5, Method = tools/list, Params = {} } 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 5 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":6} 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A367D 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 6 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 6, Method = tools/list, Params = {} } 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 6 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":7} 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A377D 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 7 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 7, Method = resources/list, Params = {} } 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 7 
+2025-06-04 00:30:28.1978 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:28.1978 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:28.1978 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 00:30:28.1978 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 00:30:28.1978 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 00:30:28.1978 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 00:30:28.1978 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 00:30:28.1978 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 00:30:28.1978 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 00:30:28.1978 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 00:30:28.2001 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 00:30:28.2001 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 00:30:28.2001 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 7, JSON (null) 
+2025-06-04 00:30:28.2001 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 7 
+2025-06-04 00:30:28.3610 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":8} 
+2025-06-04 00:30:28.3610 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A387D 
+2025-06-04 00:30:28.3610 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 8 
+2025-06-04 00:30:28.3610 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 8, Method = prompts/list, Params = {} } 
+2025-06-04 00:30:28.3610 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:28.3610 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 8 
+2025-06-04 00:30:28.3610 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:28.3610 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 00:30:28.3610 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 00:30:28.3610 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 00:30:28.3610 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 8, JSON (null) 
+2025-06-04 00:30:28.3610 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 8 
+2025-06-04 00:30:28.7630 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 00:30:28.7630 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 00:30:29.2025 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 00:30:29.2025 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 00:30:29.7668 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 00:30:29.7668 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 00:30:30.2063 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 00:30:30.2063 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 00:30:30.7793 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 00:30:30.7793 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 00:30:31.2112 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 00:30:31.2112 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 00:30:31.7806 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 00:30:31.7806 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 00:30:32.2173 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 00:30:32.2173 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 00:30:32.7878 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 00:30:32.7878 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 00:30:33.1367 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":1,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 00:30:33.1367 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A312C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 00:30:33.1367 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 1,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":2,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A322C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 2,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 00:30:33.1373 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Server.McpServer | Request '2' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 00:30:33.1373 | INFO  | ModelContextProtocol.Server.McpServer | Request '1' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 00:30:33.1373 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 00:30:33.1373 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 00:30:33.2314 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 00:30:33.2314 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":5,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A352C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 5,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":6,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A362C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 6,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 00:30:34.1355 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Server.McpServer | Request '5' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 00:30:34.1355 | INFO  | ModelContextProtocol.Server.McpServer | Request '6' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 00:30:34.1355 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 00:30:34.1355 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 18:44:18.9789 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Ctor. 
+2025-06-04 18:44:18.9912 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered tools [0]: 
+2025-06-04 18:44:18.9912 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered resources [0]: 
+2025-06-04 18:44:18.9912 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpPlugin | McpPlugin Ctor. Version: 0.7.0 
+2025-06-04 18:44:19.5542 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport entering read messages loop for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.5542 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.5644 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"claude-ai","version":"0.1.0"}},"jsonrpc":"2.0","id":0} 
+2025-06-04 18:44:19.5644 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22696E697469616C697A65222C22706172616D73223A7B2270726F746F636F6C56657273696F6E223A22323032342D31312D3035222C226361706162696C6974696573223A7B7D2C22636C69656E74496E666F223A7B226E616D65223A22636C617564652D6169222C2276657273696F6E223A22302E312E30227D7D2C226A736F6E727063223A22322E30222C226964223A307D 
+2025-06-04 18:44:19.5644 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 0 
+2025-06-04 18:44:19.5644 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 0, Method = initialize, Params = {
+  "protocolVersion": "2024-11-05",
+  "capabilities": {},
+  "clientInfo": {
+    "name": "claude-ai",
+    "version": "0.1.0"
+  }
+} } 
+2025-06-04 18:44:19.5770 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:19.5770 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 0 
+2025-06-04 18:44:19.5770 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.5770 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Ctor. 
+2025-06-04 18:44:19.5770 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered tools [0]: 
+2025-06-04 18:44:19.5770 | TRACE | com.IvanMurzak.Unity.MCP.Common.McpRunner | Registered resources [0]: 
+2025-06-04 18:44:19.5770 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | RemoteToolRunner Ctor. 
+2025-06-04 18:44:19.5770 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Ctor. 
+2025-06-04 18:44:19.5770 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService Ctor. 
+2025-06-04 18:44:19.5976 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0) with type JsonRpcRequest 
+2025-06-04 18:44:19.5976 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService StartAsync. 
+2025-06-04 18:44:19.6069 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0) with method initialize 
+2025-06-04 18:44:19.6069 | INFO  | ModelContextProtocol.Server.McpServer | Request handler completed for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method initialize 
+2025-06-04 18:44:19.6069 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 0, JSON (null) 
+2025-06-04 18:44:19.6069 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 0 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"notifications/initialized","jsonrpc":"2.0"} 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A226E6F74696669636174696F6E732F696E697469616C697A6564222C226A736F6E727063223A22322E30227D 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/initialized, Params =  } 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":1} 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A317D 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 1 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 1, Method = tools/list, Params = {} } 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 1 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":2} 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A327D 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 2 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 2, Method = tools/list, Params = {} } 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 2 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":3} 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A337D 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 3 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 3, Method = resources/list, Params = {} } 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 3 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:19.6457 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:19.6457 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 18:44:19.6546 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 18:44:19.6546 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 18:44:19.6546 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 18:44:19.6546 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 18:44:19.6546 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 18:44:19.6546 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 18:44:19.6546 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 18:44:19.6546 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 18:44:19.6546 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 18:44:19.6546 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 18:44:19.6546 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 3, JSON (null) 
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 3 
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":4} 
+2025-06-04 18:44:19.6723 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A347D 
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 4 
+2025-06-04 18:44:19.6723 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 4, Method = prompts/list, Params = {} } 
+2025-06-04 18:44:19.6723 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 4 
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:19.6723 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:19.6723 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 18:44:19.6723 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 4, JSON (null) 
+2025-06-04 18:44:19.6723 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 4 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":5} 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A357D 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 5 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 5, Method = tools/list, Params = {} } 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 5 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"tools/list","params":{},"jsonrpc":"2.0","id":6} 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A22746F6F6C732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A367D 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 6 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 6, Method = tools/list, Params = {} } 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 6 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":7} 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A377D 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 7 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 7, Method = resources/list, Params = {} } 
+2025-06-04 18:44:20.3726 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 18:44:20.3726 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 7 
+2025-06-04 18:44:20.3726 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:20.3726 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Server.McpServer | Request handler called for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method tools/list 
+2025-06-04 18:44:20.3726 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | ToolRouter.ListAll 
+2025-06-04 18:44:20.3726 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 18:44:20.3726 | TRACE | com.IvanMurzak.Unity.MCP.Server.ToolRouter | Using ToolRunner: RemoteToolRunner 
+2025-06-04 18:44:20.3726 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Invoke '/mcp/run-list-tool': com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool
+Available connections:  
+2025-06-04 18:44:20.3726 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 18:44:20.3726 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [1/10]... 
+2025-06-04 18:44:20.3726 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 7, JSON (null) 
+2025-06-04 18:44:20.3726 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 7 
+2025-06-04 18:44:20.4494 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":8} 
+2025-06-04 18:44:20.4494 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A387D 
+2025-06-04 18:44:20.4494 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 8 
+2025-06-04 18:44:20.4494 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 8, Method = prompts/list, Params = {} } 
+2025-06-04 18:44:20.4494 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:20.4494 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 8 
+2025-06-04 18:44:20.4498 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:20.4498 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:44:20.4498 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 18:44:20.4498 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 18:44:20.4498 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 8, JSON (null) 
+2025-06-04 18:44:20.4498 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 8 
+2025-06-04 18:44:20.7322 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 18:44:20.7322 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 18:44:21.3843 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 18:44:21.3843 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [2/10]... 
+2025-06-04 18:44:21.7516 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 18:44:21.7516 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 18:44:22.3972 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 18:44:22.3972 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [3/10]... 
+2025-06-04 18:44:22.7633 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 18:44:22.7633 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 18:44:23.4001 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 18:44:23.4001 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [4/10]... 
+2025-06-04 18:44:23.7646 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 18:44:23.7646 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 18:44:24.4117 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 18:44:24.4117 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [5/10]... 
+2025-06-04 18:44:24.7699 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 18:44:24.7699 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":1,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A312C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 1,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":2,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A322C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 2,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:25.1436 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Server.McpServer | Request '1' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 18:44:25.1436 | INFO  | ModelContextProtocol.Server.McpServer | Request '2' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 18:44:25.1596 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 18:44:25.1596 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 18:44:25.4265 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 18:44:25.4265 | WARN  | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | No connected clients. Retrying [6/10]... 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":5,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A352C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 5,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":6,"reason":"Error: MCP error -32001: Request timed out"}} 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226A736F6E727063223A22322E30222C226D6574686F64223A226E6F74696669636174696F6E732F63616E63656C6C6564222C22706172616D73223A7B22726571756573744964223A362C22726561736F6E223A224572726F723A204D4350206572726F72202D33323030313A20526571756573742074696D6564206F7574227D7D 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): (no id) 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcNotification { JsonRpc = 2.0, Method = notifications/cancelled, Params = {
+  "requestId": 6,
+  "reason": "Error: MCP error -32001: Request timed out"
+} } 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:44:26.1490 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcNotification 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Server.McpServer | Request '5' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 18:44:26.1490 | INFO  | ModelContextProtocol.Server.McpServer | Request '6' canceled via client notification with reason 'Error: MCP error -32001: Request timed out'. 
+2025-06-04 18:44:26.1490 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 18:44:26.1490 | ERROR | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":9} 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A397D 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 9 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 9, Method = resources/list, Params = {} } 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 9 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:54:21.1432 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 18:54:21.1432 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 9, JSON (null) 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 9 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":10} 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31307D 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 10 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 10, Method = prompts/list, Params = {} } 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 10 
+2025-06-04 18:54:21.1432 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 18:54:21.1432 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 18:54:21.1432 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 10, JSON (null) 
+2025-06-04 18:54:21.1432 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 10 
+2025-06-04 19:04:21.1378 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":11} 
+2025-06-04 19:04:21.1378 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31317D 
+2025-06-04 19:04:21.1378 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 11 
+2025-06-04 19:04:21.1378 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 11, Method = resources/list, Params = {} } 
+2025-06-04 19:04:21.1378 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:04:21.1378 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 11 
+2025-06-04 19:04:21.1378 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:04:21.1378 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:04:21.1378 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:04:21.1378 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:04:21.1378 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 11, JSON (null) 
+2025-06-04 19:04:21.1378 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 11 
+2025-06-04 19:04:21.1428 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":12} 
+2025-06-04 19:04:21.1428 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31327D 
+2025-06-04 19:04:21.1428 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 12 
+2025-06-04 19:04:21.1428 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 12, Method = prompts/list, Params = {} } 
+2025-06-04 19:04:21.1428 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:04:21.1428 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 12 
+2025-06-04 19:04:21.1428 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:04:21.1428 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:04:21.1428 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:04:21.1428 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:04:21.1428 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 12, JSON (null) 
+2025-06-04 19:04:21.1428 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 12 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":13} 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31337D 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 13 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 13, Method = resources/list, Params = {} } 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 13 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:14:21.1728 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:14:21.1728 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 13, JSON (null) 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 13 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":14} 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31347D 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 14 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 14, Method = prompts/list, Params = {} } 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 14 
+2025-06-04 19:14:21.1728 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:14:21.1728 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:14:21.1728 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 14, JSON (null) 
+2025-06-04 19:14:21.1728 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 14 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":15} 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31357D 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 15 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 15, Method = resources/list, Params = {} } 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 15 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:24:21.1989 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:24:21.1989 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 15, JSON (null) 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 15 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":16} 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31367D 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 16 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 16, Method = prompts/list, Params = {} } 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 16 
+2025-06-04 19:24:21.1989 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:24:21.1989 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:24:21.1989 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 16, JSON (null) 
+2025-06-04 19:24:21.1989 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 16 
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":17} 
+2025-06-04 19:34:21.2217 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31377D 
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 17 
+2025-06-04 19:34:21.2217 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 17, Method = resources/list, Params = {} } 
+2025-06-04 19:34:21.2217 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 17 
+2025-06-04 19:34:21.2217 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:34:21.2217 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:34:21.2217 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 17, JSON (null) 
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 17 
+2025-06-04 19:34:21.2217 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":18} 
+2025-06-04 19:34:21.2217 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31387D 
+2025-06-04 19:34:21.2271 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 18 
+2025-06-04 19:34:21.2271 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 18, Method = prompts/list, Params = {} } 
+2025-06-04 19:34:21.2271 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:34:21.2271 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 18 
+2025-06-04 19:34:21.2271 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:34:21.2271 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:34:21.2271 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:34:21.2271 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:34:21.2271 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 18, JSON (null) 
+2025-06-04 19:34:21.2271 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 18 
+2025-06-04 19:40:36.2189 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 19:40:36.2247 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 19:40:36.2476 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 19:40:36.2964 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 4fa09e00-632d-44bc-bbe5-1558549ddecc Ctor. 
+2025-06-04 19:40:36.2964 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'XKZHwH9lsaFg_wpuTE9nrg' connected to RemoteApp. Total connected clients: 1 
+2025-06-04 19:40:40.2117 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 300d5844-d79c-4374-935c-f6c82ec637fb Ctor. 
+2025-06-04 19:40:40.2117 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | RemoteApp OnListToolsUpdated. 300d5844-d79c-4374-935c-f6c82ec637fb. Data:  
+2025-06-04 19:40:40.2117 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService OnListToolUpdated 
+2025-06-04 19:40:40.2117 | DEBUG | ModelContextProtocol.Server.McpServer | Sending message to Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0): {"jsonrpc":"2.0","method":"notifications/tools/list_changed"} 
+2025-06-04 19:40:40.2117 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id), JSON (null) 
+2025-06-04 19:40:40.2117 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 19:41:03.4955 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 251edbc4-7f0f-4ba4-ae34-df3fd69d1d02 Ctor. 
+2025-06-04 19:41:03.4955 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'XKZHwH9lsaFg_wpuTE9nrg' disconnected from RemoteApp. Total connected clients: 0 
+2025-06-04 19:41:03.4955 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 19:41:05.2177 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 19:41:05.2177 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 19:41:05.2380 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 19:41:05.2738 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 18f97607-3b0d-4a64-bf65-87825588aa97 Ctor. 
+2025-06-04 19:41:05.2738 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client '0ozOjpFdYj5HWm8x3-cTMw' connected to RemoteApp. Total connected clients: 1 
+2025-06-04 19:41:05.8242 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 8871952f-51ce-4f07-ac6f-c372b6ed46b8 Ctor. 
+2025-06-04 19:41:05.8242 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | RemoteApp OnListToolsUpdated. 8871952f-51ce-4f07-ac6f-c372b6ed46b8. Data:  
+2025-06-04 19:41:05.8242 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService OnListToolUpdated 
+2025-06-04 19:41:05.8242 | DEBUG | ModelContextProtocol.Server.McpServer | Sending message to Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0): {"jsonrpc":"2.0","method":"notifications/tools/list_changed"} 
+2025-06-04 19:41:05.8242 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id), JSON (null) 
+2025-06-04 19:41:05.8242 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":19} 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A31397D 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 19 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 19, Method = resources/list, Params = {} } 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 19 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:44:43.2300 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:44:43.2300 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 19, JSON (null) 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 19 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":20} 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32307D 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 20 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 20, Method = prompts/list, Params = {} } 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 20 
+2025-06-04 19:44:43.2300 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:44:43.2300 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:44:43.2300 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 20, JSON (null) 
+2025-06-04 19:44:43.2300 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 20 
+2025-06-04 19:54:43.2514 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":21} 
+2025-06-04 19:54:43.2514 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32317D 
+2025-06-04 19:54:43.2514 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 21 
+2025-06-04 19:54:43.2514 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 21, Method = resources/list, Params = {} } 
+2025-06-04 19:54:43.2514 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:54:43.2514 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 21 
+2025-06-04 19:54:43.2514 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:54:43.2514 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:54:43.2514 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:54:43.2514 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:54:43.2514 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 21, JSON (null) 
+2025-06-04 19:54:43.2514 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 21 
+2025-06-04 19:54:43.2593 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":22} 
+2025-06-04 19:54:43.2593 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32327D 
+2025-06-04 19:54:43.2593 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 22 
+2025-06-04 19:54:43.2593 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 22, Method = prompts/list, Params = {} } 
+2025-06-04 19:54:43.2593 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 19:54:43.2593 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 22 
+2025-06-04 19:54:43.2593 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 19:54:43.2593 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 19:54:43.2593 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 19:54:43.2593 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 19:54:43.2593 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 22, JSON (null) 
+2025-06-04 19:54:43.2593 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 22 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":23} 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32337D 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 23 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 23, Method = resources/list, Params = {} } 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 23 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:04:43.2535 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 20:04:43.2535 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 23, JSON (null) 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 23 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":24} 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32347D 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 24 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 24, Method = prompts/list, Params = {} } 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 24 
+2025-06-04 20:04:43.2535 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:04:43.2535 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 20:04:43.2535 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 24, JSON (null) 
+2025-06-04 20:04:43.2535 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 24 
+2025-06-04 20:14:43.2577 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"resources/list","params":{},"jsonrpc":"2.0","id":25} 
+2025-06-04 20:14:43.2577 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A227265736F75726365732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32357D 
+2025-06-04 20:14:43.2577 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 25 
+2025-06-04 20:14:43.2577 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 25, Method = resources/list, Params = {} } 
+2025-06-04 20:14:43.2577 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 20:14:43.2577 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 25 
+2025-06-04 20:14:43.2577 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 20:14:43.2577 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:14:43.2577 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request resources/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 20:14:43.2577 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 20:14:43.2577 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 25, JSON (null) 
+2025-06-04 20:14:43.2577 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 25 
+2025-06-04 20:14:43.2639 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message for Server (stream) (com.IvanMurzak.Unity.MCP.Server): {"method":"prompts/list","params":{},"jsonrpc":"2.0","id":26} 
+2025-06-04 20:14:43.2639 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport Server (stream) (com.IvanMurzak.Unity.MCP.Server): Message bytes (UTF-8): 7B226D6574686F64223A2270726F6D7074732F6C697374222C22706172616D73223A7B7D2C226A736F6E727063223A22322E30222C226964223A32367D 
+2025-06-04 20:14:43.2639 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport received message parsed for Server (stream) (com.IvanMurzak.Unity.MCP.Server): 26 
+2025-06-04 20:14:43.2639 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Writing message to channel: JsonRpcRequest { JsonRpc = 2.0, Id = 26, Method = prompts/list, Params = {} } 
+2025-06-04 20:14:43.2639 | TRACE | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Message written to channel 
+2025-06-04 20:14:43.2639 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message written for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 26 
+2025-06-04 20:14:43.2639 | TRACE | ModelContextProtocol.Server.McpServer | Message read from channel for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with type JsonRpcRequest 
+2025-06-04 20:14:43.2639 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:14:43.2639 | WARN  | ModelContextProtocol.Server.McpServer | No handler found for request prompts/list for server Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 20:14:43.2639 | ERROR | ModelContextProtocol.Server.McpServer | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-04 20:14:43.2639 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 26, JSON (null) 
+2025-06-04 20:14:43.2639 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID 26 
+2025-06-04 20:18:24.4103 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:18:24.4103 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:18:24.4103 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:18:24.4103 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:18:24.4380 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:18:24.4380 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:18:24.4797 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 09371213-270a-4ae2-9492-835fb32e03bb Ctor. 
+2025-06-04 20:18:24.4797 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'haJ15wgX4f0hj26CLOdKag' connected to RemoteApp. Total connected clients: 2 
+2025-06-04 20:18:24.4797 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | cd69394b-96c5-44bf-a897-005196c9143d Ctor. 
+2025-06-04 20:18:24.4797 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 's6srC_IWKGWXXWKRXpND2A' connected to RemoteApp. Total connected clients: 3 
+2025-06-04 20:18:47.7475 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 005f6c28-12b6-4425-9eff-cfeafbd6fa47 Ctor. 
+2025-06-04 20:18:47.7475 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client '0ozOjpFdYj5HWm8x3-cTMw' disconnected from RemoteApp. Total connected clients: 2 
+2025-06-04 20:18:47.7475 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:18:49.2971 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:18:49.2971 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:18:49.3194 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:18:49.3515 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 6f895061-e51f-4534-85da-220c0d9e196e Ctor. 
+2025-06-04 20:18:49.3515 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'NCX2hLPGv69SQOzelYasxA' connected to RemoteApp. Total connected clients: 3 
+2025-06-04 20:18:49.8894 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | dd12d491-4fbe-404f-ae21-5a7e9fd6f514 Ctor. 
+2025-06-04 20:18:49.8894 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | RemoteApp OnListToolsUpdated. dd12d491-4fbe-404f-ae21-5a7e9fd6f514. Data:  
+2025-06-04 20:18:49.8894 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService OnListToolUpdated 
+2025-06-04 20:18:49.8894 | DEBUG | ModelContextProtocol.Server.McpServer | Sending message to Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0): {"jsonrpc":"2.0","method":"notifications/tools/list_changed"} 
+2025-06-04 20:18:49.8894 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id), JSON (null) 
+2025-06-04 20:18:49.8894 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 20:18:49.9195 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | f94cc434-a6fb-4ff6-bcca-56577d0602d8 Ctor. 
+2025-06-04 20:18:49.9195 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 77c2403d-2cb7-4321-bc50-6debec7db058 Ctor. 
+2025-06-04 20:18:49.9195 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 's6srC_IWKGWXXWKRXpND2A' disconnected from RemoteApp. Total connected clients: 2 
+2025-06-04 20:18:49.9195 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'haJ15wgX4f0hj26CLOdKag' disconnected from RemoteApp. Total connected clients: 1 
+2025-06-04 20:18:49.9195 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:18:49.9195 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:18:51.8738 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:18:51.8738 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:18:51.8738 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:18:51.8738 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:18:51.8977 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:18:51.8977 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:18:51.9343 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | a5b3b204-1e0b-4b9d-a531-19a30bf9db3a Ctor. 
+2025-06-04 20:18:51.9343 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'hPBxeJWyzE7Zf7GYy0WHlg' connected to RemoteApp. Total connected clients: 2 
+2025-06-04 20:18:51.9363 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | abb293e4-74f5-4703-b3cb-a46272d0940d Ctor. 
+2025-06-04 20:18:51.9363 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'spj1wsrPDqgfFuWP7udbGA' connected to RemoteApp. Total connected clients: 3 
+2025-06-04 20:19:08.0030 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 886120a7-d266-4376-96e8-65a4b65e90ee Ctor. 
+2025-06-04 20:19:08.0030 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'NCX2hLPGv69SQOzelYasxA' disconnected from RemoteApp. Total connected clients: 2 
+2025-06-04 20:19:08.0030 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:19:09.5325 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:19:09.5325 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:19:09.5544 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:19:09.5873 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | b90fdd1d-ebd1-4532-8e9b-305002486986 Ctor. 
+2025-06-04 20:19:09.5873 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'RTPGZxFPpdNJnrNnrwgcew' connected to RemoteApp. Total connected clients: 3 
+2025-06-04 20:19:10.0958 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 94471282-7cfe-4d07-a036-00307d314a9a Ctor. 
+2025-06-04 20:19:10.0958 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | RemoteApp OnListToolsUpdated. 94471282-7cfe-4d07-a036-00307d314a9a. Data:  
+2025-06-04 20:19:10.0958 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService OnListToolUpdated 
+2025-06-04 20:19:10.0958 | DEBUG | ModelContextProtocol.Server.McpServer | Sending message to Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0): {"jsonrpc":"2.0","method":"notifications/tools/list_changed"} 
+2025-06-04 20:19:10.0958 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport sending message for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id), JSON (null) 
+2025-06-04 20:19:10.0958 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport message sent for Server (stream) (com.IvanMurzak.Unity.MCP.Server) with ID (no id) 
+2025-06-04 20:19:10.1287 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | b508abb3-540a-45af-a345-98c196afbe95 Ctor. 
+2025-06-04 20:19:10.1287 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'spj1wsrPDqgfFuWP7udbGA' disconnected from RemoteApp. Total connected clients: 2 
+2025-06-04 20:19:10.1287 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:19:10.1287 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 94c6b2ce-a69c-46e6-9340-894c599f3dd7 Ctor. 
+2025-06-04 20:19:10.1287 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'hPBxeJWyzE7Zf7GYy0WHlg' disconnected from RemoteApp. Total connected clients: 1 
+2025-06-04 20:19:10.1287 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:19:12.1249 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:19:12.1249 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:19:12.1249 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: POST /mcp/remote-app/negotiate 
+2025-06-04 20:19:12.1249 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 200 
+2025-06-04 20:19:12.1526 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:19:12.1648 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Request: GET /mcp/remote-app 
+2025-06-04 20:19:12.1947 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 75df2868-0358-4559-a661-645b0a48b700 Ctor. 
+2025-06-04 20:19:12.1947 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'vVGYWjJo2ril2getnhXf3A' connected to RemoteApp. Total connected clients: 2 
+2025-06-04 20:19:12.2047 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | 52aa9d3b-dd38-4d32-84e3-ed20ef5b90c4 Ctor. 
+2025-06-04 20:19:12.2047 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'R0Z6KpF9q0Lvfac9cEfs3w' connected to RemoteApp. Total connected clients: 3 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport end of stream for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport exiting read messages loop for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Server.McpServer | Cleaning up endpoint Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Server.McpServer | Endpoint cleaned up for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) 
+2025-06-04 20:23:52.5332 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | b791a779-4452-4464-9d33-cd0d5634ae48 Ctor. 
+2025-06-04 20:23:52.5332 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | c0b00ae8-f189-4476-af0b-d49ee83a6743 Ctor. 
+2025-06-04 20:23:52.5332 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteApp | aecc4d24-fa60-4675-993a-8f0b2fe40aba Ctor. 
+2025-06-04 20:23:52.5332 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'RTPGZxFPpdNJnrNnrwgcew' disconnected from RemoteApp. Total connected clients: 2 
+2025-06-04 20:23:52.5332 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'vVGYWjJo2ril2getnhXf3A' disconnected from RemoteApp. Total connected clients: 1 
+2025-06-04 20:23:52.5332 | INFO  | com.IvanMurzak.Unity.MCP.Server.RemoteApp | Client 'R0Z6KpF9q0Lvfac9cEfs3w' disconnected from RemoteApp. Total connected clients: 0 
+2025-06-04 20:23:52.5332 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:23:52.5332 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:23:52.5332 | DEBUG | com.IvanMurzak.Unity.MCP.Server.Program | Response: 101 
+2025-06-04 20:23:52.5332 | TRACE | com.IvanMurzak.Unity.MCP.Server.McpServerService | McpServerService StopAsync. 
+2025-06-04 20:23:52.5332 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | Dispose. 
+2025-06-04 20:23:52.5332 | TRACE | com.IvanMurzak.Unity.MCP.Server.RemoteToolRunner | RemoteToolRunner Dispose. 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport cleaning up for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:23:52.5332 | DEBUG | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport waiting for read task for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport read task cleaned up for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
+2025-06-04 20:23:52.5332 | INFO  | ModelContextProtocol.Protocol.Transport.StdioServerTransport | Transport cleaned up for Server (stream) (com.IvanMurzak.Unity.MCP.Server) 
