@@ -16,6 +16,8 @@ public class TupletVisualTest : MonoBehaviour
     public int testCaseIndex = 0;
     public bool autoStart = true;
 
+    public StaffLineDrawer staffLineDrawer; // StaffLineDrawer 컴포넌트 참조 추가
+
     void Start()
     {
         if (autoStart)
@@ -276,7 +278,12 @@ public class TupletVisualTest : MonoBehaviour
         {
             for (int i = staffPanel.childCount - 1; i >= 0; i--)
             {
-                DestroyImmediate(staffPanel.GetChild(i).gameObject);
+                GameObject child = staffPanel.GetChild(i).gameObject;
+                // "StaffLine" 태그를 가진 오브젝트는 파괴하지 않음
+                if (child.CompareTag("StaffLine") == false) //
+                {
+                    DestroyImmediate(child); //
+                }
             }
         }
     }

@@ -999,6 +999,7 @@ MonoBehaviour:
   assembler: {fileID: 2130506885}
   staffLinePrefabForBarLine: {fileID: 8462854929935212284, guid: e490cb770fcde66409584f440f9ee2a2, type: 3}
   enableTupletSupport: 1
+  staffLineDrawer: {fileID: 887055941}
 --- !u!1 &679822413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1737,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 850851901}
   m_CullTransparentMesh: 1
+--- !u!1 &887055939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 887055940}
+  - component: {fileID: 887055941}
+  m_Layer: 5
+  m_Name: StaffLineDrawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &887055940
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887055939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1334972924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &887055941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887055939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e5ad059d543c44ebda10b9b7a337cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staffPanel: {fileID: 1321722155}
+  linePrefab: {fileID: 354020193976884318, guid: 2d1395596847bc1498c243dfc2527498, type: 3}
+  staffVerticalOffsetRatio: -0.1
 --- !u!1 &905567938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,8 +2442,10 @@ MonoBehaviour:
   num8Prefab: {fileID: 5143003494702204577, guid: 559178b9f69dfe7499575bfe53c3bd5d, type: 3}
   num9Prefab: {fileID: 5143003494702204577, guid: 127e65969bf4b894cbd7a9f2ae319d8e, type: 3}
   numberSizeRatio: 0.4
-  beamThicknessRatio: 0.15
+  beamThicknessRatio: 0.6
   numberHeightOffset: 1.3
+  beamYAdjustmentRatio: -0.2
+  beamXAdjustmentRatio: 0.05
   beamColor: {r: 0, g: 0, b: 0, a: 1}
   showDebugInfo: 1
 --- !u!1 &1229922339
@@ -2723,6 +2777,7 @@ RectTransform:
   - {fileID: 1219576889}
   - {fileID: 338678604}
   - {fileID: 1391726679}
+  - {fileID: 887055940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3011,6 +3066,7 @@ MonoBehaviour:
   staffLinePrefabForBarLine: {fileID: 354020193976884318, guid: 2d1395596847bc1498c243dfc2527498, type: 3}
   testCaseIndex: 0
   autoStart: 1
+  staffLineDrawer: {fileID: 887055941}
 --- !u!1 &1412018982
 GameObject:
   m_ObjectHideFlags: 0

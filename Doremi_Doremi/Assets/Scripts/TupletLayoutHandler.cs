@@ -147,14 +147,16 @@ public class TupletLayoutHandler : MonoBehaviour
         
         Vector2 startPos = new Vector2(startX, beamY);
         Vector2 endPos = new Vector2(endX, beamY);
-        float thickness = spacing * 0.15f; // beam 두께
-        
+        float thickness = spacing * 0.5f; // beam 두께
+
         if (showDebugInfo)
         {
-            Debug.Log($"🌉 beam 위치: ({startPos.x:F1}, {startPos.y:F1}) → ({endPos.x:F1}, {endPos.y:F1})");
+            // 이 로그를 추가하여 startX와 endX가 어떻게 변하는지 확인
+            Debug.Log($"🌉 TLH: Calculated startX={startX:F1}, endX={endX:F1}");
+            Debug.Log($"🌉 TLH: startPos=({startPos.x:F1}, {startPos.y:F1}), endPos=({endPos.x:F1}, {endPos.y:F1})");
             Debug.Log($"   두께: {thickness:F2}, Y오프셋: {beamHeightOffset}");
         }
-        
+
         return (startPos, endPos, thickness);
     }
 
