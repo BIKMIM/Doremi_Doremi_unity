@@ -25,8 +25,12 @@ public class DynamicPianoMapper : MonoBehaviour
     private void InitializePianoKeys()
     {
         // 기존 건반들을 자동으로 찾아서 PianoKey 리스트에 추가
-        Transform pianoPanel = GameObject.Find("Panel_Piano")?.transform;
-        if (pianoPanel == null) return;
+        Transform pianoPanel = this.transform;
+        if (pianoPanel == null) 
+        {
+            Debug.LogError("Piano panel not found!");
+            return;
+        }
         
         pianoKeys.Clear();
         
@@ -46,10 +50,20 @@ public class DynamicPianoMapper : MonoBehaviour
                 
                 // 건반 이름에서 음정 정보 추출
                 string noteName = ExtractNoteName(keyName);
-                pianoKey.Initialize(noteName, keyTransform.GetComponent<AudioSource>(), this);
+                AudioSource audioSource = keyTransform.GetComponent<AudioSource>();
+                
+                pianoKey.Initialize(noteName, audioSource, this);
                 pianoKeys.Add(pianoKey);
+                
+                Debug.Log($"Initialized piano key: {keyName} -> {noteName}");
+            }
+            else
+            {
+                Debug.LogWarning($"Piano key not found: {keyName}");
             }
         }
+        
+        Debug.Log($"Total piano keys initialized: {pianoKeys.Count}");
     }
     
     private string ExtractNoteName(string keyName)
@@ -65,8 +79,17 @@ public class DynamicPianoMapper : MonoBehaviour
     private void SetupDefaultOctave()
     {
         // 기본 옥타브로 모든 건반 설정
+        Debug.Log($"Setting up default octave: {currentOctave}");
+        
         foreach (var key in pianoKeys)
         {
+            // AudioClipSet이 없으면 기존 AudioClip을 그대로 사용
+            if (audioClipSets == null || audioClipSets.Length == 0)
+            {
+                Debug.Log($"No AudioClipSets found, using existing clips for {key.NoteName}");
+                continue;
+            }
+            
             UpdateKeyAudioClip(key.NoteName, currentOctave);
         }
     }
@@ -107,13 +130,29 @@ public class DynamicPianoMapper : MonoBehaviour
     {
         // 해당 음정의 건반 찾기
         PianoKey targetKey = pianoKeys.Find(key => key.NoteName == noteName);
-        if (targetKey == null) return;
+        if (targetKey == null) 
+        {
+            Debug.LogWarning($"Piano key not found for note: {noteName}");
+            return;
+        }
+        
+        // AudioClipSet이 없으면 업데이트하지 않음 (기존 클립 유지)
+        if (audioClipSets == null || audioClipSets.Length == 0)
+        {
+            Debug.Log($"No AudioClipSets available, keeping existing clip for {noteName}");
+            return;
+        }
         
         // 옥타브에 맞는 AudioClip 찾기
         AudioClip newClip = GetAudioClip(noteName, octave);
         if (newClip != null)
         {
             targetKey.UpdateAudioClip(newClip);
+            Debug.Log($"Updated {noteName} to octave {octave}");
+        }
+        else
+        {
+            Debug.LogWarning($"No audio clip found for {noteName} in octave {octave}");
         }
     }
     
@@ -142,10 +181,27 @@ public class DynamicPianoMapper : MonoBehaviour
     
     /// <summary>
     /// 현재 화면의 가장 주요한 옥타브를 기반으로 전체 건반 옥타브 설정
+    /// OctaveController에서 호출됨
     /// </summary>
     public void SetGlobalOctave(int octave)
     {
         currentOctave = octave;
+        
+        Debug.Log($"Setting global octave to: {octave}");
+        
+        // AudioClipSet이 없으면 건반 이름만 업데이트
+        if (audioClipSets == null || audioClipSets.Length == 0)
+        {
+            Debug.Log("No AudioClipSets available, octave change will not affect audio clips");
+            
+            // 옥타브 표시는 업데이트하지만 실제 오디오는 변경하지 않음
+            // 대신 기존 AudioClip을 그대로 사용
+            foreach (var key in pianoKeys)
+            {
+                Debug.Log($"Keeping existing audio clip for {key.NoteName}");
+            }
+            return;
+        }
         
         // 특별히 설정된 음정이 없는 건반들은 새로운 전역 옥타브 적용
         foreach (var key in pianoKeys)
@@ -155,6 +211,16 @@ public class DynamicPianoMapper : MonoBehaviour
                 UpdateKeyAudioClip(key.NoteName, octave);
             }
         }
+        
+        Debug.Log($"Global octave set to: {octave}");
+    }
+    
+    /// <summary>
+    /// 현재 옥타브 값 반환
+    /// </summary>
+    public int GetCurrentOctave()
+    {
+        return currentOctave;
     }
     
     /// <summary>
@@ -164,10 +230,19 @@ public class DynamicPianoMapper : MonoBehaviour
     public void DebugCurrentMapping()
     {
         Debug.Log($"Current Global Octave: {currentOctave}");
+        Debug.Log($"Piano Keys Count: {pianoKeys.Count}");
+        Debug.Log($"AudioClipSets Count: {(audioClipSets != null ? audioClipSets.Length : 0)}");
+        
         Debug.Log("Current Note Octaves:");
         foreach (var kvp in currentNoteOctaves)
         {
             Debug.Log($"  {kvp.Key}: Octave {kvp.Value}");
+        }
+        
+        Debug.Log("Piano Keys:");
+        foreach (var key in pianoKeys)
+        {
+            Debug.Log($"  {key.NoteName}: {(key != null ? "OK" : "NULL")}");
         }
     }
 }

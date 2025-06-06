@@ -28,6 +28,8 @@ public class PianoKey : MonoBehaviour
         // 클릭 이벤트 연결
         keyButton.onClick.RemoveAllListeners();
         keyButton.onClick.AddListener(PlaySound);
+        
+        Debug.Log($"PianoKey {noteName} initialized with AudioSource: {(audioSource != null ? "OK" : "NULL")}");
     }
     
     public void UpdateAudioClip(AudioClip newClip)
@@ -35,6 +37,11 @@ public class PianoKey : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.clip = newClip;
+            Debug.Log($"Updated AudioClip for {noteName}: {(newClip != null ? newClip.name : "NULL")}");
+        }
+        else
+        {
+            Debug.LogWarning($"AudioSource is null for {noteName}");
         }
     }
     
@@ -45,12 +52,14 @@ public class PianoKey : MonoBehaviour
             audioSource.Stop(); // 이전 소리 정지
             audioSource.Play(); // 새 소리 재생
             
+            Debug.Log($"Playing sound for {noteName}: {audioSource.clip.name}");
+            
             // 시각적 피드백 (선택사항)
             StartCoroutine(KeyPressEffect());
         }
         else
         {
-            Debug.LogWarning($"AudioSource or AudioClip is missing for key: {noteName}");
+            Debug.LogWarning($"Cannot play sound for {noteName} - AudioSource: {(audioSource != null ? "OK" : "NULL")}, AudioClip: {(audioSource?.clip != null ? "OK" : "NULL")}");
         }
     }
     
@@ -73,5 +82,15 @@ public class PianoKey : MonoBehaviour
     public void TriggerKey()
     {
         PlaySound();
+    }
+    
+    // 디버그용 메서드
+    public void DebugKeyInfo()
+    {
+        Debug.Log($"PianoKey Debug Info:");
+        Debug.Log($"  Note Name: {noteName}");
+        Debug.Log($"  AudioSource: {(audioSource != null ? "Present" : "Missing")}");
+        Debug.Log($"  AudioClip: {(audioSource?.clip != null ? audioSource.clip.name : "Missing")}");
+        Debug.Log($"  Button: {(keyButton != null ? "Present" : "Missing")}");
     }
 }
