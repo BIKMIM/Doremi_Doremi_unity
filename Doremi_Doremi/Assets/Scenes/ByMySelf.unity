@@ -669,10 +669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8f71cac10ae6448bcc0cb5dbb95e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tupletWidthMultiplier: 0.8
+  tupletCompressionRatio: 0.7
   numberHeightOffset: 1.2
   beamHeightOffset: 2.8
-  defaultMeasureBeats: 2
+  noteSpacingMultiplier: 1
   showDebugInfo: 1
   showLayoutBounds: 0
 --- !u!1 &391145740
@@ -999,6 +999,10 @@ MonoBehaviour:
   assembler: {fileID: 2130506885}
   staffLinePrefabForBarLine: {fileID: 8462854929935212284, guid: e490cb770fcde66409584f440f9ee2a2, type: 3}
   enableTupletSupport: 1
+  screenUsageRatio: 0.9
+  measurePaddingRatio: 0.1
+  screenMarginRatio: 0.05
+  showScreenDivisionDebug: 1
   staffLineDrawer: {fileID: 887055941}
 --- !u!1 &679822413
 GameObject:
@@ -1924,6 +1928,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905567938}
   m_CullTransparentMesh: 1
+--- !u!1 &938894258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938894259}
+  - component: {fileID: 938894260}
+  m_Layer: 5
+  m_Name: TimeSignatureTestController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &938894259
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938894258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1334972924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &938894260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938894258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b293938574d60e408a60810672f7779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noteSpawner: {fileID: 499981374}
+  testTimeSignature: 0
+  globalSpacingMultiplier: 1
+  measurePadding: 0.1
+  screenUsage: 0.8
+  threeFourWidthRatio: 0.75
+  sixEightSpacingMultiplier: 1.3
+  twoFourWidthRatio: 0.5
+  autoRefreshOnChange: 1
+  updateInterval: 0.3
+  lastGlobalSpacing: 0
+  lastMeasurePadding: 0
+  lastScreenUsage: 0
+  lastThreeFourRatio: 0
+  lastSixEightMultiplier: 0
+  lastTwoFourRatio: 0
+  lastTestTimeSignature: 0
+  lastUpdateTime: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,6 +2848,7 @@ RectTransform:
   - {fileID: 338678604}
   - {fileID: 1391726679}
   - {fileID: 887055940}
+  - {fileID: 938894259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3066,6 +3137,8 @@ MonoBehaviour:
   staffLinePrefabForBarLine: {fileID: 354020193976884318, guid: 2d1395596847bc1498c243dfc2527498, type: 3}
   testCaseIndex: 0
   autoStart: 0
+  tupletCompressionRatio: 0.7
+  normalNoteExpansionRatio: 1.3
   staffLineDrawer: {fileID: 887055941}
 --- !u!1 &1412018982
 GameObject:

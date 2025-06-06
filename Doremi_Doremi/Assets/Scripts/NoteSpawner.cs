@@ -3,8 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
-// NoteSpawner.cs - 해상도 독립적 음표 생성 시스템 + 박자 기반 공간 배분
-// 모든 크기와 위치를 비율 기반으로 계산하여 어떤 해상도에서도 동일한 비율로 표시
+// NoteSpawner.cs - 단순한 균등 배치 시스템
+// 박자 계산 없이 음표 개수별로 균등하게 배치
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -27,28 +27,34 @@ public class NoteSpawner : MonoBehaviour
 
     // StaffLineDrawer에 있는 linePrefab을 마디선용으로도 재활용
     [Header("오선 프리팹 (마디선용)")]
-    public GameObject staffLinePrefabForBarLine; // StaffLineDrawer의 linePrefab을 여기에 연결
+    public GameObject staffLinePrefabForBarLine;
 
     [Header("✨ 잇단음표 지원")]
-    public bool enableTupletSupport = true; // 잇단음표 기능 활성화
+    public bool enableTupletSupport = true;
 
-    [Header("🎯 박자 기반 레이아웃 설정")]
-    [Range(0.1f, 0.5f)]
-    public float measureMarginRatio = 0.1f; // 마디 내 여백 비율 (10%)
+    [Header("📱 모바일 친화적 레이아웃")]
+    [Space(10)]
+    [Range(0.8f, 0.95f)]
+    [Tooltip("화면 사용 비율 (모바일 최적화)")]
+    public float screenUsageRatio = 0.9f;
     
-    [Range(1.0f, 3.0f)]
-    public float beatSpacingMultiplier = 1.5f; // 박자 간격 배수
+    [Range(0.05f, 0.15f)]
+    [Tooltip("마디 내부 여백 비율 (모바일 터치 고려)")]
+    public float measurePaddingRatio = 0.08f;
 
-    [Header("🎼 음표 간격 보정 설정")]
-    [Range(0.5f, 2.0f)]
-    public float tupletCompressionRatio = 0.7f; // 잇단음표 압축 비율 (70%)
-    
-    [Range(1.0f, 2.0f)]
-    public float normalNoteExpansionRatio = 1.3f; // 일반 음표 확장 비율 (130%)
+    [Range(0.02f, 0.1f)]
+    [Tooltip("화면 가장자리 여백 비율")]
+    public float screenMarginRatio = 0.05f;
+
+    [Header("🔧 디버그 설정")]
+    [Tooltip("화면 분할 정보 출력")]
+    public bool showScreenDivisionDebug = true;
 
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
+    private string currentTimeSignatureString;
+    private int barLineCount = 0; // 현재 곡의 마디선 개수
 
-    public StaffLineDrawer staffLineDrawer; // StaffLineDrawer 컴포넌트 참조 추가
+    public StaffLineDrawer staffLineDrawer;
 
     // 🔄 곡 변경 감지를 위한 변수들
     private int lastSelectedSongIndex = -1;
@@ -64,7 +70,6 @@ public class NoteSpawner : MonoBehaviour
             return;
         }
 
-        // staffLineDrawer 초기화 확인 (Start() 또는 ValidateComponents()에서)
         if (staffLineDrawer == null)
         {
             Debug.LogError("❌ StaffLineDrawer가 할당되지 않았습니다!");
@@ -72,9 +77,14 @@ public class NoteSpawner : MonoBehaviour
         }
 
         JsonLoader.SongData song = songList.songs[selectedSongIndex];
-        Debug.Log($"🎵 \"{song.title}\"의 음표 {song.notes.Count}개 생성 시작");
+        Debug.Log($"🎵 \"{song.title}\" ({song.timeSignature} 박자) 단순 균등 배치 시작");
 
+        // 박자표 정보 저장
+        this.currentTimeSignatureString = song.timeSignature;
         this.currentSongTimeSignature = ParseTimeSignatureFromString(song.timeSignature);
+
+        // 마디선 개수 계산
+        this.barLineCount = CountBarLines(song.notes);
 
         // 분리된 스크립트 초기화
         if (scoreSymbolSpawner == null || notePlacementHandler == null || staffLinePrefabForBarLine == null)
@@ -84,17 +94,16 @@ public class NoteSpawner : MonoBehaviour
         }
         scoreSymbolSpawner.Initialize(staffPanel, currentSongTimeSignature);
         notePlacementHandler.Initialize(staffPanel);
-        notePlacementHandler.assembler = this.assembler; // NoteAssembler 연결
+        notePlacementHandler.assembler = this.assembler;
 
-        // 🎯 해상도 독립적 비율 기반 레이아웃
-        ClearAllAndRedrawStaff(); // 이 함수가 악보 로드 및 레이아웃까지 담당합니다.
+        // 단순 균등 레이아웃
+        ClearAllAndRedrawStaff();
 
         // 초기화 완료 표시
         lastSelectedSongIndex = selectedSongIndex;
         isInitialized = true;
     }
 
-    // 🔄 매 프레임 곡 변경을 감지하는 Update 메서드
     void Update()
     {
         if (!isInitialized) return;
@@ -104,7 +113,6 @@ public class NoteSpawner : MonoBehaviour
         {
             Debug.Log($"🔄 곡 인덱스 변경 감지: {lastSelectedSongIndex} → {selectedSongIndex}");
             
-            // 유효한 인덱스인지 확인
             JsonLoader.SongList songList = jLoader.LoadSongs();
             if (songList != null && selectedSongIndex >= 0 && selectedSongIndex < songList.songs.Count)
             {
@@ -114,41 +122,74 @@ public class NoteSpawner : MonoBehaviour
             else
             {
                 Debug.LogError($"❌ 잘못된 곡 인덱스: {selectedSongIndex}. 유효 범위: 0-{(songList?.songs.Count ?? 0) - 1}");
-                selectedSongIndex = lastSelectedSongIndex; // 이전 값으로 복원
+                selectedSongIndex = lastSelectedSongIndex;
             }
         }
     }
 
-    // ✅ 잇단음표 지원 마디별 레이아웃 새로운 방식
+    /// <summary>
+    /// 🎯 마디선 개수 계산
+    /// </summary>
+    private int CountBarLines(List<string> noteStrings)
+    {
+        int count = 0;
+        foreach (string noteString in noteStrings)
+        {
+            if (noteString.Trim() == "|")
+            {
+                count++;
+            }
+        }
+        
+        Debug.Log($"📏 마디선 개수: {count}개");
+        return count;
+    }
+
+    // ✅ 단순한 균등 배치 악보 레이아웃
     private void LayoutCompleteScore(JsonLoader.SongData song)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
-
         float panelWidth = staffPanel.rect.width;
+
+        // 🎯 기본 화면 분할
         float leftEdge = -panelWidth * 0.5f;
-        float leftMargin = panelWidth * 0.02f;
-        float rightMargin = panelWidth * 0.02f;
-        float usableWidth = panelWidth * (1.0f - 0.02f - 0.02f);
-
-        float startX = leftEdge + leftMargin;
-        float currentX = startX;
-
-        Debug.Log($"🎯 패널 기준 레이아웃: 패널너비={panelWidth:F1}, 왼쪽끝={leftEdge:F1}, 시작X={startX:F1}");
-
-        // 1. 🎼 음자리표 생성
+        float rightEdge = panelWidth * 0.5f;
+        float leftMargin = panelWidth * screenMarginRatio;
+        float rightMargin = panelWidth * screenMarginRatio;
+        
+        // 음자리표, 조표, 박자표 생성 (화면 왼쪽 고정)
+        float symbolsStartX = leftEdge + leftMargin;
+        float currentX = symbolsStartX;
+        
+        Debug.Log($"🎼 음악 기호 배치 시작: X={symbolsStartX:F1}");
+        
         float clefWidth = scoreSymbolSpawner.SpawnClef(currentX, spacing, song.clef);
         currentX += clefWidth;
+        Debug.Log($"   음자리표: 폭={clefWidth:F1}, 다음X={currentX:F1}");
 
-        // 2. 🎼 조표 생성
         float keySignatureWidth = scoreSymbolSpawner.SpawnKeySignature(currentX, spacing, song.keySignature, song.clef);
         currentX += keySignatureWidth;
+        Debug.Log($"   조표: 폭={keySignatureWidth:F1}, 다음X={currentX:F1}");
 
-        // 3. 🎵 박자표 생성
         float timeSignatureWidth = scoreSymbolSpawner.SpawnTimeSignatureSymbol(currentX, spacing);
         currentX += timeSignatureWidth;
+        Debug.Log($"   박자표: 폭={timeSignatureWidth:F1}, 다음X={currentX:F1}");
 
-        // ✅ 4. 잇단음표 지원 마디별 분할
-        List<List<object>> measures = SplitIntoMeasuresWithTuplets(song.notes);
+        // 🔧 수정: 음악 기호 이후의 남은 공간 계산
+        float totalSymbolsWidth = currentX - symbolsStartX;
+        float noteAreaStartX = currentX + (spacing * 0.5f); // 약간의 간격 추가
+        
+        // 🔧 수정: 마지막 마디선이 화면 끝에 정확히 오도록 계산
+        float noteAreaEndX = rightEdge - rightMargin;
+        float totalNoteAreaWidth = noteAreaEndX - noteAreaStartX;
+        
+        Debug.Log($"   기호 총 폭: {totalSymbolsWidth:F1}");
+        Debug.Log($"   음표 영역 시작: X={noteAreaStartX:F1}");
+        Debug.Log($"   음표 영역 끝: X={noteAreaEndX:F1}");
+        Debug.Log($"   음표 영역 총 폭: {totalNoteAreaWidth:F1}");
+
+        // 마디별로 분할하여 배치
+        List<List<object>> measures = SplitIntoMeasures(song.notes);
 
         if (measures.Count == 0)
         {
@@ -156,46 +197,103 @@ public class NoteSpawner : MonoBehaviour
             return;
         }
 
-        // 5. 🎶 마디별 레이아웃 (최대 2마디)
-        float initialSymbolsWidth = currentX - startX;
-        float remainingLayoutWidth = usableWidth - initialSymbolsWidth;
-
-        int maxMeasures = Mathf.Min(measures.Count, 2); // 최대 2마디
-        float measureWidth = remainingLayoutWidth / maxMeasures;
-
-        for (int measureIndex = 0; measureIndex < maxMeasures; measureIndex++)
+        // ✅ 마디별 균등 배치
+        for (int measureIndex = 0; measureIndex < measures.Count; measureIndex++)
         {
-            // 마디 시작 위치
-            float measureStartX = currentX;
-
+            List<object> measureElements = measures[measureIndex];
+            
             // 마디선 생성 (첫 번째 마디가 아닌 경우)
             if (measureIndex > 0)
             {
-                NoteLayoutHelper.CreateBarLine(measureStartX, staffPanel, staffLinePrefabForBarLine, spacing);
+                // 이전 마디들이 차지한 영역 계산해서 마디선 위치 결정
+                float barLineX = CalculateMeasureStartX(measureIndex, measures, noteAreaStartX, totalNoteAreaWidth);
+                NoteLayoutHelper.CreateBarLine(barLineX, staffPanel, staffLinePrefabForBarLine, spacing);
             }
 
-            // ✅ 비율 기반 마디 배치 (개선됨 - 잇단음표 압축 적용)
-            LayoutMeasureWithProportionalSpacing(measures[measureIndex], measureStartX, measureWidth, spacing);
-
-            // 다음 마디 위치로 이동
-            currentX += measureWidth;
+            // ✅ 단순 균등 배치로 마디 내 음표들 배치
+            LayoutMeasureWithEvenSpacing(measureElements, measureIndex, measures, noteAreaStartX, totalNoteAreaWidth, spacing);
         }
 
-        // 마지막 마디선 생성
-        if (maxMeasures > 0)
+        // 🔧 수정: 마지막 마디선을 화면 오른쪽 끝에 정확히 배치
+        if (measures.Count > 0)
         {
-            NoteLayoutHelper.CreateBarLine(currentX, staffPanel, staffLinePrefabForBarLine, spacing);
+            float lastBarLineX = noteAreaEndX; // 오른쪽 여백을 고려한 정확한 위치
+            NoteLayoutHelper.CreateBarLine(lastBarLineX, staffPanel, staffLinePrefabForBarLine, spacing);
+            Debug.Log($"   마지막 마디선 위치: X={lastBarLineX:F1}");
         }
 
-        Debug.Log($"✅ 비율 기반 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
+        Debug.Log($"✅ 단순 균등 배치 악보 완료: {song.clef} + {currentTimeSignatureString} + {measures.Count}개 마디");
     }
 
-    // ✅ 잇단음표 지원 마디별 분할 함수
-    private List<List<object>> SplitIntoMeasuresWithTuplets(List<string> noteStrings)
+    /// <summary>
+    /// 🎯 마디 시작 위치 계산 (균등 분할)
+    /// </summary>
+    private float CalculateMeasureStartX(int measureIndex, List<List<object>> measures, float noteAreaStartX, float totalNoteAreaWidth)
+    {
+        // 전체 마디 개수로 나누어 균등 분할
+        float measureWidth = totalNoteAreaWidth / measures.Count;
+        return noteAreaStartX + (measureIndex * measureWidth);
+    }
+
+    /// <summary>
+    /// 🎯 단순 균등 간격으로 마디 내 음표 배치
+    /// </summary>
+    private void LayoutMeasureWithEvenSpacing(List<object> elements, int measureIndex, List<List<object>> allMeasures, 
+                                            float noteAreaStartX, float totalNoteAreaWidth, float spacing)
+    {
+        if (elements.Count == 0) return;
+
+        Debug.Log($"🎵 마디 {measureIndex + 1} 균등 배치: 요소수={elements.Count}");
+
+        // 이 마디가 차지할 영역 계산
+        float measureWidth = totalNoteAreaWidth / allMeasures.Count;
+        float measureStartX = noteAreaStartX + (measureIndex * measureWidth);
+        
+        // 마디 내부 여백 적용
+        float paddingSize = measureWidth * measurePaddingRatio;
+        float usableWidth = measureWidth - (paddingSize * 2f);
+        float contentStartX = measureStartX + paddingSize;
+
+        Debug.Log($"   마디 시작X={measureStartX:F1}, 사용가능폭={usableWidth:F1}");
+
+        // ✅ 단순 균등 배치: 요소 개수로 나누어 배치
+        float elementSpacing = usableWidth / elements.Count;
+
+        for (int i = 0; i < elements.Count; i++)
+        {
+            object element = elements[i];
+            float elementX = contentStartX + (i * elementSpacing);
+
+            if (element is NoteData note)
+            {
+                notePlacementHandler.SpawnNoteAtPosition(elementX, elementSpacing, spacing, note);
+                Debug.Log($"   음표: {note.noteName}({note.duration}분음표) X={elementX:F1}");
+            }
+            else if (element is TupletData tuplet)
+            {
+                TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, elementX, elementSpacing, spacing);
+
+                if (visualGroup != null)
+                {
+                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()} X={elementX:F1}");
+                }
+                else
+                {
+                    Debug.LogError($"   ❌ 잇단음표 생성 실패: {tuplet.GetTupletTypeName()}");
+                }
+            }
+        }
+
+        Debug.Log($"   마디 {measureIndex + 1} 완료: {elements.Count}개 요소를 {elementSpacing:F1}px 간격으로 배치");
+    }
+
+    /// <summary>
+    /// ✅ 마디별 분할 (단순 버전)
+    /// </summary>
+    private List<List<object>> SplitIntoMeasures(List<string> noteStrings)
     {
         List<List<object>> measures = new List<List<object>>();
 
-        // 1. 먼저 잇단음표 파싱
         List<object> parsedElements;
 
         if (enableTupletSupport)
@@ -205,28 +303,33 @@ public class NoteSpawner : MonoBehaviour
         }
         else
         {
-            // 잇단음표 비활성화 시 기존 방식
             parsedElements = new List<object>();
             foreach (string noteString in noteStrings)
             {
-                parsedElements.Add(NoteParser.Parse(noteString));
+                if (noteString.Trim() == "|")
+                {
+                    // 마디선을 별도 처리 (파싱하지 않고 바로 구분자로 사용)
+                    parsedElements.Add(new NoteData { isBarLine = true });
+                }
+                else
+                {
+                    parsedElements.Add(NoteParser.Parse(noteString));
+                }
             }
             Debug.Log($"🎵 일반 파싱 완료: {parsedElements.Count}개 요소");
         }
 
-        // 2. 마디별로 분할
         List<object> currentMeasure = new List<object>();
 
         foreach (object element in parsedElements)
         {
             if (element is NoteData note && note.isBarLine)
             {
-                // 마디구분선 발견
+                // 마디선을 만나면 현재 마디를 완료하고 새 마디 시작
                 if (currentMeasure.Count > 0)
                 {
                     measures.Add(new List<object>(currentMeasure));
                     currentMeasure.Clear();
-                    Debug.Log($"마디 {measures.Count} 완료: {currentMeasure.Count}개 요소");
                 }
             }
             else
@@ -239,122 +342,19 @@ public class NoteSpawner : MonoBehaviour
         if (currentMeasure.Count > 0)
         {
             measures.Add(currentMeasure);
-            Debug.Log($"마지막 마디 {measures.Count} 완료: {currentMeasure.Count}개 요소");
         }
 
-        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료 (잇단음표 지원)");
+        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료");
+
+        // 각 마디의 요소 개수 출력
+        for (int i = 0; i < measures.Count; i++)
+        {
+            Debug.Log($"   마디 {i + 1}: {measures[i].Count}개 요소");
+        }
+
         return measures;
     }
 
-    // 🎯 NEW: 비율 기반 공간 배분 마디 레이아웃 함수 (잇단음표 압축 적용)
-    private void LayoutMeasureWithProportionalSpacing(List<object> elements, float measureStartX, float measureWidth, float spacing)
-    {
-        if (elements.Count == 0) return;
-
-        Debug.Log($"🎵 비율 기반 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 요소수={elements.Count}");
-
-        // 1. 📊 총 박자 수 계산
-        float totalBeats = CalculateTotalBeats(elements);
-        
-        // 2. 🎯 여백을 고려한 사용 가능 폭 계산
-        float usableWidth = measureWidth * (1f - measureMarginRatio * 2f);
-        float leftMargin = measureWidth * measureMarginRatio;
-        
-        Debug.Log($"   총박자: {totalBeats:F2}, 사용가능폭: {usableWidth:F1}, 여백비율: {measureMarginRatio:F2}");
-
-        // 3. 🎶 요소별 배치 (비율 기반)
-        float currentX = measureStartX + leftMargin;
-
-        for (int i = 0; i < elements.Count; i++)
-        {
-            object element = elements[i];
-
-            if (element is NoteData note)
-            {
-                // 일반 음표의 박자 값 계산
-                float noteBeats = CalculateNoteBeatValue(note);
-                float beatRatio = noteBeats / totalBeats;
-                
-                // ✅ 일반 음표는 확장 비율 적용 (더 넓게)
-                float baseWidth = usableWidth * beatRatio;
-                float noteWidth = baseWidth * normalNoteExpansionRatio;
-
-                notePlacementHandler.SpawnNoteAtPosition(currentX, noteWidth, spacing, note);
-                
-                Debug.Log($"   일반음표: {note.noteName}({note.duration}분음표) = {noteBeats:F2}박자({beatRatio:P0}), 기본폭={baseWidth:F1}, 확장폭={noteWidth:F1}");
-                
-                currentX += noteWidth;
-            }
-            else if (element is TupletData tuplet)
-            {
-                // 잇단음표의 박자 값 계산 (예: 4잇단음표:2 = 2박자)
-                float tupletBeats = tuplet.beatValue * 0.25f; // 예: beatValue=8이면 2박자
-                float beatRatio = tupletBeats / totalBeats;
-                
-                // ✅ 잇단음표는 압축 비율 적용 (더 좁게)
-                float baseWidth = usableWidth * beatRatio;
-                float tupletWidth = baseWidth * tupletCompressionRatio;
-
-                TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, currentX, tupletWidth, spacing);
-
-                if (visualGroup != null)
-                {
-                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()} = {tupletBeats:F2}박자({beatRatio:P0}), 기본폭={baseWidth:F1}, 압축폭={tupletWidth:F1}");
-                    currentX += tupletWidth;
-                }
-                else
-                {
-                    Debug.LogError($"   ❌ 잇단음표 생성 실패: {tuplet.GetTupletTypeName()}");
-                    currentX += tupletWidth; // 실패해도 위치는 이동
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"   ⚠️ 알 수 없는 요소 타입: {element?.GetType().Name}");
-            }
-        }
-
-        Debug.Log($"   마디 배치 완료: 최종X={currentX:F1} (시작X={measureStartX:F1})");
-        Debug.Log($"   🎯 압축비율={tupletCompressionRatio:F1}, 확장비율={normalNoteExpansionRatio:F1}");
-    }
-
-    // 🎯 마디 내 총 박자 수 계산
-    private float CalculateTotalBeats(List<object> elements)
-    {
-        float totalBeats = 0f;
-
-        foreach (object element in elements)
-        {
-            if (element is NoteData note)
-            {
-                totalBeats += CalculateNoteBeatValue(note);
-            }
-            else if (element is TupletData tuplet)
-            {
-                // 잇단음표는 beatValue 사용 (예: TUPLET_START:4:2에서 2는 beatValue)
-                totalBeats += tuplet.beatValue * 0.25f; // 4분음표 단위로 변환
-            }
-        }
-
-        return totalBeats;
-    }
-
-    // 🎯 개별 음표의 박자 값 계산
-    private float CalculateNoteBeatValue(NoteData note)
-    {
-        // duration: 1(온음표)=4박자, 2(2분음표)=2박자, 4(4분음표)=1박자, 8(8분음표)=0.5박자
-        float beatValue = 4f / note.duration;
-        
-        // 점음표는 1.5배
-        if (note.isDotted)
-        {
-            beatValue *= 1.5f;
-        }
-        
-        return beatValue;
-    }
-
-    // 🎼 박자표 문자열을 파싱하여 MusicLayoutConfig.TimeSignature 객체로 변환
     private MusicLayoutConfig.TimeSignature ParseTimeSignatureFromString(string tsString)
     {
         if (string.IsNullOrEmpty(tsString) || !tsString.Contains("/"))
@@ -373,17 +373,72 @@ public class NoteSpawner : MonoBehaviour
         return new MusicLayoutConfig.TimeSignature(4, 4);
     }
 
-    // ✅ 잇단음표 기능 토글 (런타임에서 테스트용)
-    [ContextMenu("잇단음표 기능 토글")]
-    public void ToggleTupletSupport()
+    // 🔄 현재 선택된 곡을 새로고침하는 함수
+    public void RefreshCurrentSong()
     {
-        enableTupletSupport = !enableTupletSupport;
-        Debug.Log($"잇단음표 기능: {(enableTupletSupport ? "활성화" : "비활성화")}");
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList == null || selectedSongIndex >= songList.songs.Count)
+        {
+            Debug.LogError("❌ 유효한 곡이 없습니다.");
+            return;
+        }
 
-        RefreshCurrentSong(); // ClearAllAndRedrawStaff 대신 새 함수 사용
+        ClearMusicElements();
+
+        if (staffLineDrawer != null)
+        {
+            staffLineDrawer.RedrawStaffLines();
+        }
+
+        JsonLoader.SongData song = songList.songs[selectedSongIndex];
+        Debug.Log($"🎵 곡 새로고침: \"{song.title}\" ({song.timeSignature} 박자)");
+
+        // 박자표 및 마디선 개수 업데이트
+        this.currentTimeSignatureString = song.timeSignature;
+        this.currentSongTimeSignature = ParseTimeSignatureFromString(song.timeSignature);
+        this.barLineCount = CountBarLines(song.notes);
+        
+        if (scoreSymbolSpawner != null)
+        {
+            scoreSymbolSpawner.Initialize(staffPanel, currentSongTimeSignature);
+        }
+
+        LayoutCompleteScore(song);
     }
 
-    // 🎯 곡 변경을 위한 새로운 public 메서드
+    private void ClearMusicElements()
+    {
+        if (staffPanel != null)
+        {
+            for (int i = staffPanel.childCount - 1; i >= 0; i--)
+            {
+                GameObject child = staffPanel.GetChild(i).gameObject;
+                if (!child.CompareTag("StaffLine"))
+                {
+                    DestroyImmediate(child);
+                }
+            }
+        }
+    }
+
+    private void ClearAllAndRedrawStaff()
+    {
+        ClearMusicElements();
+
+        if (staffLineDrawer != null)
+        {
+            staffLineDrawer.RedrawStaffLines();
+        }
+
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList != null && selectedSongIndex < songList.songs.Count)
+        {
+            JsonLoader.SongData song = songList.songs[selectedSongIndex];
+            LayoutCompleteScore(song);
+        }
+    }
+
+    // 🔧 디버깅용 메서드들
     [ContextMenu("다음 곡으로 변경")]
     public void NextSong()
     {
@@ -392,7 +447,6 @@ public class NoteSpawner : MonoBehaviour
         {
             selectedSongIndex = (selectedSongIndex + 1) % songList.songs.Count;
             Debug.Log($"🎵 곡 변경: Index {selectedSongIndex} - {songList.songs[selectedSongIndex].title}");
-            // Update()에서 자동으로 RefreshCurrentSong() 호출됨
         }
     }
 
@@ -404,82 +458,9 @@ public class NoteSpawner : MonoBehaviour
         {
             selectedSongIndex = (selectedSongIndex - 1 + songList.songs.Count) % songList.songs.Count;
             Debug.Log($"🎵 곡 변경: Index {selectedSongIndex} - {songList.songs[selectedSongIndex].title}");
-            // Update()에서 자동으로 RefreshCurrentSong() 호출됨
         }
     }
 
-    // 🔄 현재 선택된 곡을 새로고침하는 함수 (무한 재귀 방지)
-    public void RefreshCurrentSong()
-    {
-        JsonLoader.SongList songList = jLoader.LoadSongs();
-        if (songList == null || selectedSongIndex >= songList.songs.Count)
-        {
-            Debug.LogError("❌ 유효한 곡이 없습니다.");
-            return;
-        }
-
-        // 기존 악보 요소들만 제거 (오선은 유지)
-        ClearMusicElements();
-
-        // 오선 다시 그리기 (StaffLineDrawer 직접 호출 - 재귀 방지)
-        if (staffLineDrawer != null)
-        {
-            staffLineDrawer.RedrawStaffLines();
-        }
-
-        // 선택된 곡 로드 및 레이아웃
-        JsonLoader.SongData song = songList.songs[selectedSongIndex];
-        Debug.Log($"🎵 곡 새로고침: \"{song.title}\" (Index: {selectedSongIndex})");
-
-        // 박자표 업데이트
-        this.currentSongTimeSignature = ParseTimeSignatureFromString(song.timeSignature);
-        if (scoreSymbolSpawner != null)
-        {
-            scoreSymbolSpawner.Initialize(staffPanel, currentSongTimeSignature);
-        }
-
-        LayoutCompleteScore(song);
-    }
-
-    // 🧹 음악 요소만 제거하는 함수 (오선은 유지)
-    private void ClearMusicElements()
-    {
-        if (staffPanel != null)
-        {
-            // 오선을 제외한 모든 자식 오브젝트 파괴
-            for (int i = staffPanel.childCount - 1; i >= 0; i--)
-            {
-                GameObject child = staffPanel.GetChild(i).gameObject;
-                if (!child.CompareTag("StaffLine")) // "StaffLine" 태그가 없는 오브젝트만 파괴
-                {
-                    DestroyImmediate(child);
-                }
-            }
-        }
-    }
-
-    // ⚠️ 기존 ClearAllAndRedrawStaff 함수는 Start()에서만 사용하도록 수정
-    private void ClearAllAndRedrawStaff()
-    {
-        // 기존 악보 요소들만 제거
-        ClearMusicElements();
-
-        // 오선 다시 그리기 (Start()에서만 호출되므로 안전)
-        if (staffLineDrawer != null)
-        {
-            staffLineDrawer.RedrawStaffLines();
-        }
-
-        // 현재 선택된 곡으로 레이아웃
-        JsonLoader.SongList songList = jLoader.LoadSongs();
-        if (songList != null && selectedSongIndex < songList.songs.Count)
-        {
-            JsonLoader.SongData song = songList.songs[selectedSongIndex];
-            LayoutCompleteScore(song);
-        }
-    }
-
-    // 🔧 디버깅용 메서드들
     [ContextMenu("현재 곡 정보 출력")]
     public void PrintCurrentSongInfo()
     {
@@ -492,64 +473,64 @@ public class NoteSpawner : MonoBehaviour
                      $"   제목: {song.title}\n" +
                      $"   박자: {song.timeSignature}\n" +
                      $"   조표: {song.keySignature}\n" +
-                     $"   음표 수: {song.notes.Count}");
-        }
-        else
-        {
-            Debug.LogError($"❌ 잘못된 곡 인덱스: {selectedSongIndex}");
+                     $"   음표 수: {song.notes.Count}\n" +
+                     $"   마디선 수: {barLineCount}개");
         }
     }
 
-    // 🎯 음표 간격 조정 메서드들 (런타임 테스트용)
-    [ContextMenu("잇단음표 압축 증가 (더 좁게)")]
-    public void IncreaseTupletCompression()
+    [ContextMenu("화면 사용 비율 증가")]
+    public void IncreaseScreenUsage()
     {
-        tupletCompressionRatio = Mathf.Max(tupletCompressionRatio - 0.1f, 0.5f);
-        Debug.Log($"🎼 잇단음표 압축비율: {tupletCompressionRatio:F1} (더 좁게)");
+        screenUsageRatio = Mathf.Min(screenUsageRatio + 0.05f, 0.95f);
+        Debug.Log($"📱 화면 사용 비율 증가: {screenUsageRatio:F2}");
         RefreshCurrentSong();
     }
 
-    [ContextMenu("잇단음표 압축 감소 (더 넓게)")]
-    public void DecreaseTupletCompression()
+    [ContextMenu("화면 사용 비율 감소")]
+    public void DecreaseScreenUsage()
     {
-        tupletCompressionRatio = Mathf.Min(tupletCompressionRatio + 0.1f, 2.0f);
-        Debug.Log($"🎼 잇단음표 압축비율: {tupletCompressionRatio:F1} (더 넓게)");
+        screenUsageRatio = Mathf.Max(screenUsageRatio - 0.05f, 0.8f);
+        Debug.Log($"📱 화면 사용 비율 감소: {screenUsageRatio:F2}");
         RefreshCurrentSong();
     }
 
-    [ContextMenu("일반음표 확장 증가 (더 넓게)")]
-    public void IncreaseNormalNoteExpansion()
+    [ContextMenu("마디 여백 증가")]
+    public void IncreaseMeasurePadding()
     {
-        normalNoteExpansionRatio = Mathf.Min(normalNoteExpansionRatio + 0.1f, 2.0f);
-        Debug.Log($"🎵 일반음표 확장비율: {normalNoteExpansionRatio:F1} (더 넓게)");
+        measurePaddingRatio = Mathf.Min(measurePaddingRatio + 0.02f, 0.15f);
+        Debug.Log($"📱 마디 여백 증가: {measurePaddingRatio:F2}");
         RefreshCurrentSong();
     }
 
-    [ContextMenu("일반음표 확장 감소 (더 좁게)")]
-    public void DecreaseNormalNoteExpansion()
+    [ContextMenu("마디 여백 감소")]
+    public void DecreaseMeasurePadding()
     {
-        normalNoteExpansionRatio = Mathf.Max(normalNoteExpansionRatio - 0.1f, 1.0f);
-        Debug.Log($"🎵 일반음표 확장비율: {normalNoteExpansionRatio:F1} (더 좁게)");
+        measurePaddingRatio = Mathf.Max(measurePaddingRatio - 0.02f, 0.05f);
+        Debug.Log($"📱 마디 여백 감소: {measurePaddingRatio:F2}");
         RefreshCurrentSong();
     }
 
-    [ContextMenu("간격 설정 리셋")]
-    public void ResetSpacingSettings()
+    [ContextMenu("설정 리셋")]
+    public void ResetSettings()
     {
-        tupletCompressionRatio = 0.7f; // 70%
-        normalNoteExpansionRatio = 1.3f; // 130%
-        measureMarginRatio = 0.1f; // 10%
-        Debug.Log("🔄 음표 간격 설정이 기본값으로 리셋되었습니다.");
+        screenUsageRatio = 0.9f;
+        measurePaddingRatio = 0.08f;
+        screenMarginRatio = 0.05f;
+        showScreenDivisionDebug = true;
+        
+        Debug.Log("🔄 설정이 기본값으로 리셋되었습니다.");
         RefreshCurrentSong();
     }
 
-    [ContextMenu("간격 설정 정보")]
-    public void PrintSpacingSettings()
+    [ContextMenu("현재 설정 정보")]
+    public void PrintCurrentSettings()
     {
-        Debug.Log($"📊 현재 음표 간격 설정:");
-        Debug.Log($"   잇단음표 압축비율: {tupletCompressionRatio:F1} (낮을수록 좁게)");
-        Debug.Log($"   일반음표 확장비율: {normalNoteExpansionRatio:F1} (높을수록 넓게)");
-        Debug.Log($"   마디 여백비율: {measureMarginRatio:F1} (마디 양쪽 여백)");
-        Debug.Log($"   박자 간격 배수: {beatSpacingMultiplier:F1} (전체적인 간격)");
+        Debug.Log($"📱 현재 설정:");
+        Debug.Log($"   박자표: {currentTimeSignatureString}");
+        Debug.Log($"   마디선 개수: {barLineCount}개");
+        Debug.Log($"   화면 사용 비율: {screenUsageRatio:F2}");
+        Debug.Log($"   마디 여백 비율: {measurePaddingRatio:F2}");
+        Debug.Log($"   화면 여백 비율: {screenMarginRatio:F2}");
+        Debug.Log($"   잇단음표 지원: {(enableTupletSupport ? "활성화" : "비활성화")}");
     }
 }
