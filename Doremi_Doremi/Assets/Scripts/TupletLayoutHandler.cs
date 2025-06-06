@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class TupletLayoutHandler : MonoBehaviour
 {
     [Header("레이아웃 설정")]
-    [Range(0.6f, 1.2f)]
-    public float tupletWidthMultiplier = 0.8f; // 잇단음표 폭 배수
+    [Range(0.6f, 2.0f)]
+    public float tupletWidthMultiplier = 1.4f; // 잇단음표 폭 배수 (증가됨)
 
     [Range(0.8f, 2.0f)] 
     public float numberHeightOffset = 1.2f; // 숫자 높이 오프셋 (spacing 배수)
@@ -15,8 +15,12 @@ public class TupletLayoutHandler : MonoBehaviour
     public float beamHeightOffset = 2.8f; // beam 높이 오프셋 (spacing 배수)
 
     [Header("박자 설정")]
-    [Range(1f, 4f)]
-    public float defaultMeasureBeats = 2.0f; // 기본 마디 박자 수
+    [Range(1f, 8f)]
+    public float defaultMeasureBeats = 3.0f; // 기본 마디 박자 수 (3박자로 설정)
+
+    [Header("음표 간격 세부 조정")]
+    [Range(0.5f, 2.0f)]
+    public float noteSpacingMultiplier = 1.2f; // 잇단음표 내부 음표 간격 추가 배수
 
     [Header("디버그 정보")]
     public bool showDebugInfo = true;
@@ -34,10 +38,12 @@ public class TupletLayoutHandler : MonoBehaviour
             Debug.Log($"   폭 배수: {tupletWidthMultiplier}");
             Debug.Log($"   숫자 높이 오프셋: {numberHeightOffset}");
             Debug.Log($"   beam 높이 오프셋: {beamHeightOffset}");
+            Debug.Log($"   마디 박자 수: {defaultMeasureBeats}");
+            Debug.Log($"   음표 간격 배수: {noteSpacingMultiplier}");
         }
     }
 
-    // 잇단음표 그룹의 전체 폭 계산
+    // 잇단음표 그룹의 전체 폭 계산 (박자 기반 개선)
     public float CalculateTupletWidth(TupletData tupletData, float normalSpacing, float measureWidth, int totalNotesInMeasure)
     {
         if (!tupletData.IsComplete())
@@ -46,37 +52,40 @@ public class TupletLayoutHandler : MonoBehaviour
             return normalSpacing * tupletData.noteCount;
         }
 
-        // 잇단음표가 차지해야 하는 시간 비율 계산
+        // 🎯 박자 기반 공간 배분 계산
         float timeRatio = tupletData.GetTimeRatio(); // beatValue / noteCount
-        
-        // 4분음표 기준으로 실제 차지하는 박자 계산
         float actualBeats = tupletData.beatValue * 0.25f; // 2박자 = 0.5, 3박자 = 0.75
         
-        // 마디 내에서 차지하는 폭 비율
-        float widthRatio = actualBeats / GetMeasureBeats();
-        float calculatedWidth = measureWidth * widthRatio;
+        // 마디 내에서 이 잇단음표가 차지해야 하는 공간 비율
+        float beatRatio = actualBeats / GetMeasureBeats();
+        
+        // 전체 마디 폭에서 박자 비율만큼 할당
+        float calculatedWidth = measureWidth * beatRatio;
         
         // 설정된 배수 적용
         calculatedWidth *= tupletWidthMultiplier;
         
-        // 최소/최대 폭 제한
-        float minWidth = normalSpacing * tupletData.noteCount * 0.5f; // 최소 50%
-        float maxWidth = normalSpacing * tupletData.noteCount * 1.5f; // 최대 150%
+        // 잇단음표 내부 음표 간격을 더 넓게
+        float minWidthForNotes = normalSpacing * tupletData.noteCount * noteSpacingMultiplier;
+        calculatedWidth = Mathf.Max(calculatedWidth, minWidthForNotes);
         
-        calculatedWidth = Mathf.Clamp(calculatedWidth, minWidth, maxWidth);
+        // 최대 폭 제한 (마디를 넘지 않게)
+        float maxWidth = measureWidth * 0.8f; // 마디의 80%까지만
+        calculatedWidth = Mathf.Min(calculatedWidth, maxWidth);
         
         if (showDebugInfo)
         {
             Debug.Log($"🎼 잇단음표 폭 계산: {tupletData.GetTupletTypeName()}");
-            Debug.Log($"   시간비율: {timeRatio:F2}, 실제박자: {actualBeats:F2}");
-            Debug.Log($"   폭배수: {tupletWidthMultiplier}, 계산폭: {calculatedWidth:F1}");
-            Debug.Log($"   범위: {minWidth:F1}~{maxWidth:F1}");
+            Debug.Log($"   실제박자: {actualBeats:F2}, 마디박자: {GetMeasureBeats():F1}");
+            Debug.Log($"   박자비율: {beatRatio:F2}, 폭배수: {tupletWidthMultiplier}");
+            Debug.Log($"   계산폭: {calculatedWidth:F1}, 최소폭: {minWidthForNotes:F1}");
+            Debug.Log($"   마디폭: {measureWidth:F1}, 최대폭: {maxWidth:F1}");
         }
         
         return calculatedWidth;
     }
 
-    // 잇단음표 내부 음표들의 위치 계산
+    // 잇단음표 내부 음표들의 위치 계산 (간격 개선)
     public void LayoutTupletNotes(TupletData tupletData, float startX, float totalWidth, float spacing)
     {
         if (!tupletData.IsComplete())
@@ -88,7 +97,24 @@ public class TupletLayoutHandler : MonoBehaviour
         // 기본 정보 설정
         tupletData.startX = startX;
         tupletData.totalWidth = totalWidth;
-        tupletData.noteSpacing = totalWidth / tupletData.noteCount;
+        
+        // 🎯 개선된 음표 간격 계산
+        // 양쪽 여백을 고려한 실제 음표 배치 공간
+        float marginRatio = 0.1f; // 10% 여백
+        float usableWidth = totalWidth * (1f - marginRatio * 2f);
+        float leftMargin = totalWidth * marginRatio;
+        
+        // 음표 간격 (첫 음표와 마지막 음표는 여백 안쪽에 배치)
+        if (tupletData.noteCount > 1)
+        {
+            tupletData.noteSpacing = usableWidth / (tupletData.noteCount - 1);
+        }
+        else
+        {
+            tupletData.noteSpacing = usableWidth;
+        }
+        
+        // 중앙 X 좌표 (숫자 배치용)
         tupletData.centerX = startX + totalWidth * 0.5f;
 
         // 음표들의 Y 위치 범위 계산 (숫자 위치 결정용) - staffPanel 참조 전달
@@ -97,8 +123,9 @@ public class TupletLayoutHandler : MonoBehaviour
         if (showDebugInfo)
         {
             Debug.Log($"🎵 잇단음표 레이아웃: {tupletData.GetTupletTypeName()}");
-            Debug.Log($"   시작X: {startX:F1}, 폭: {totalWidth:F1}, 간격: {tupletData.noteSpacing:F1}");
-            Debug.Log($"   Y범위: {tupletData.minNoteY:F1} ~ {tupletData.maxNoteY:F1}");
+            Debug.Log($"   시작X: {startX:F1}, 총폭: {totalWidth:F1}");
+            Debug.Log($"   사용가능폭: {usableWidth:F1}, 음표간격: {tupletData.noteSpacing:F1}");
+            Debug.Log($"   중앙X: {tupletData.centerX:F1}, Y범위: {tupletData.minNoteY:F1}~{tupletData.maxNoteY:F1}");
         }
     }
 
@@ -141,9 +168,13 @@ public class TupletLayoutHandler : MonoBehaviour
         // beam의 Y 위치 결정 (모든 stem의 끝점 기준)
         float beamY = CalculateBeamY(tupletData, stemObjects, spacing);
         
-        // beam의 시작과 끝 X 위치
-        float startX = tupletData.startX + tupletData.noteSpacing * 0.3f; // 첫 번째 음표에서 약간 오른쪽
-        float endX = tupletData.startX + tupletData.totalWidth - tupletData.noteSpacing * 0.3f; // 마지막 음표에서 약간 왼쪽
+        // 🎯 개선된 beam X 위치 (음표 배치 고려)
+        float marginRatio = 0.1f;
+        float leftMargin = tupletData.totalWidth * marginRatio;
+        float rightMargin = tupletData.totalWidth * marginRatio;
+        
+        float startX = tupletData.startX + leftMargin;
+        float endX = tupletData.startX + tupletData.totalWidth - rightMargin;
         
         Vector2 startPos = new Vector2(startX, beamY);
         Vector2 endPos = new Vector2(endX, beamY);
@@ -151,9 +182,9 @@ public class TupletLayoutHandler : MonoBehaviour
 
         if (showDebugInfo)
         {
-            // 이 로그를 추가하여 startX와 endX가 어떻게 변하는지 확인
-            Debug.Log($"🌉 TLH: Calculated startX={startX:F1}, endX={endX:F1}");
-            Debug.Log($"🌉 TLH: startPos=({startPos.x:F1}, {startPos.y:F1}), endPos=({endPos.x:F1}, {endPos.y:F1})");
+            Debug.Log($"🌉 TLH: 개선된 beam 위치");
+            Debug.Log($"   startX={startX:F1}, endX={endX:F1}");
+            Debug.Log($"   startPos=({startPos.x:F1}, {startPos.y:F1}), endPos=({endPos.x:F1}, {endPos.y:F1})");
             Debug.Log($"   두께: {thickness:F2}, Y오프셋: {beamHeightOffset}");
         }
 
@@ -205,6 +236,18 @@ public class TupletLayoutHandler : MonoBehaviour
         return beamY;
     }
 
+    // 박자 기반 마디 공간 배분 계산
+    public float CalculateBeatBasedSpacing(float totalBeats, float measureWidth)
+    {
+        return measureWidth / totalBeats;
+    }
+
+    // 특정 박자값에 대한 공간 계산
+    public float CalculateSpaceForBeats(float beats, float beatSpacing)
+    {
+        return beats * beatSpacing;
+    }
+
     // 현재 박자표의 한 마디 박자 수 반환
     private float GetMeasureBeats()
     {
@@ -246,19 +289,21 @@ public class TupletLayoutHandler : MonoBehaviour
     [ContextMenu("설정 리셋")]
     public void ResetSettings()
     {
-        tupletWidthMultiplier = 0.8f;
+        tupletWidthMultiplier = 1.4f;
+        noteSpacingMultiplier = 1.2f;
         numberHeightOffset = 1.2f;
         beamHeightOffset = 2.8f;
-        defaultMeasureBeats = 2.0f;
+        defaultMeasureBeats = 3.0f;
         
-        Debug.Log("✅ TupletLayoutHandler 설정 리셋 완료");
+        Debug.Log("✅ TupletLayoutHandler 설정 리셋 완료 (개선된 버전)");
     }
 
     [ContextMenu("현재 설정 출력")]
     public void PrintCurrentSettings()
     {
-        Debug.Log("📊 === TupletLayoutHandler 현재 설정 ===");
+        Debug.Log("📊 === TupletLayoutHandler 현재 설정 (개선됨) ===");
         Debug.Log($"   잇단음표 폭 배수: {tupletWidthMultiplier}");
+        Debug.Log($"   음표 간격 배수: {noteSpacingMultiplier}");
         Debug.Log($"   숫자 높이 오프셋: {numberHeightOffset}");
         Debug.Log($"   beam 높이 오프셋: {beamHeightOffset}");
         Debug.Log($"   기본 마디 박자: {defaultMeasureBeats}");

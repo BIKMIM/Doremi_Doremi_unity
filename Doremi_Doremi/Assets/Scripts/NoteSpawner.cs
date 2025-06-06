@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
-// NoteSpawner.cs - 해상도 독립적 음표 생성 시스템 + 잇단음표 지원
+// NoteSpawner.cs - 해상도 독립적 음표 생성 시스템 + 박자 기반 공간 배분
 // 모든 크기와 위치를 비율 기반으로 계산하여 어떤 해상도에서도 동일한 비율로 표시
 
 public class NoteSpawner : MonoBehaviour
@@ -31,6 +31,13 @@ public class NoteSpawner : MonoBehaviour
 
     [Header("✨ 잇단음표 지원")]
     public bool enableTupletSupport = true; // 잇단음표 기능 활성화
+
+    [Header("🎯 박자 기반 레이아웃 설정")]
+    [Range(0.1f, 0.5f)]
+    public float measureMarginRatio = 0.1f; // 마디 내 여백 비율 (10%)
+    
+    [Range(1.0f, 3.0f)]
+    public float beatSpacingMultiplier = 1.5f; // 박자 간격 배수
 
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
 
@@ -160,8 +167,8 @@ public class NoteSpawner : MonoBehaviour
                 NoteLayoutHelper.CreateBarLine(measureStartX, staffPanel, staffLinePrefabForBarLine, spacing);
             }
 
-            // ✅ 잇단음표 지원 마디 배치
-            LayoutMeasureWithTuplets(measures[measureIndex], measureStartX, measureWidth, spacing);
+            // ✅ 박자 기반 마디 배치 (개선됨)
+            LayoutMeasureWithBeatBasedSpacing(measures[measureIndex], measureStartX, measureWidth, spacing);
 
             // 다음 마디 위치로 이동
             currentX += measureWidth;
@@ -173,7 +180,7 @@ public class NoteSpawner : MonoBehaviour
             NoteLayoutHelper.CreateBarLine(currentX, staffPanel, staffLinePrefabForBarLine, spacing);
         }
 
-        Debug.Log($"✅ 잇단음표 지원 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
+        Debug.Log($"✅ 박자 기반 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
     }
 
     // ✅ 잇단음표 지원 마디별 분할 함수
@@ -232,51 +239,59 @@ public class NoteSpawner : MonoBehaviour
         return measures;
     }
 
-    // ✅ 잇단음표 지원 개별 마디 레이아웃 함수
-    private void LayoutMeasureWithTuplets(List<object> elements, float measureStartX, float measureWidth, float spacing)
+    // 🎯 NEW: 박자 기반 공간 배분 마디 레이아웃 함수
+    private void LayoutMeasureWithBeatBasedSpacing(List<object> elements, float measureStartX, float measureWidth, float spacing)
     {
         if (elements.Count == 0) return;
 
-        Debug.Log($"🎵 잇단음표 지원 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 요소수={elements.Count}");
+        Debug.Log($"🎵 박자 기반 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 요소수={elements.Count}");
 
-        float currentX = measureStartX;
-        float remainingWidth = measureWidth;
+        // 1. 📊 총 박자 수 계산
+        float totalBeats = CalculateTotalBeats(elements);
+        
+        // 2. 🎯 박자당 공간 계산 (여백 고려)
+        float usableWidth = measureWidth * (1f - measureMarginRatio * 2f);
+        float leftMargin = measureWidth * measureMarginRatio;
+        float beatSpacing = (usableWidth / totalBeats) * beatSpacingMultiplier;
+        
+        Debug.Log($"   총박자: {totalBeats:F2}, 사용가능폭: {usableWidth:F1}, 박자간격: {beatSpacing:F1}");
 
-        // 요소별 폭 계산 및 배치
+        // 3. 🎶 요소별 배치
+        float currentX = measureStartX + leftMargin;
+
         for (int i = 0; i < elements.Count; i++)
         {
             object element = elements[i];
 
             if (element is NoteData note)
             {
-                // 일반 음표 처리
-                float noteWidth = remainingWidth / (elements.Count - i); // 남은 폭을 남은 요소 수로 분배
-                notePlacementHandler.SpawnNoteAtPosition(currentX, noteWidth, spacing, note);
-                currentX += noteWidth;
-                remainingWidth -= noteWidth;
+                // 일반 음표의 박자 값 계산
+                float noteBeats = CalculateNoteBeatValue(note);
+                float noteWidth = beatSpacing * noteBeats;
 
-                Debug.Log($"   일반음표: {note.noteName}, 폭={noteWidth:F1}");
+                notePlacementHandler.SpawnNoteAtPosition(currentX, noteWidth, spacing, note);
+                
+                Debug.Log($"   일반음표: {note.noteName}({note.duration}분음표) = {noteBeats:F2}박자, 폭={noteWidth:F1}");
+                
+                currentX += noteWidth;
             }
             else if (element is TupletData tuplet)
             {
-                // 잇단음표 그룹 처리
-                float tupletWidth = remainingWidth / (elements.Count - i); // 임시 폭 할당
+                // 잇단음표의 박자 값 계산 (예: 4잇단음표:2 = 2박자)
+                float tupletBeats = tuplet.beatValue * 0.25f; // 예: beatValue=8이면 2박자
+                float tupletWidth = beatSpacing * tupletBeats;
 
                 TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, currentX, tupletWidth, spacing);
 
                 if (visualGroup != null)
                 {
-                    float actualWidth = tuplet.totalWidth;
-                    currentX += actualWidth;
-                    remainingWidth -= actualWidth;
-
-                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()}, 폭={actualWidth:F1}");
+                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()} = {tupletBeats:F2}박자, 폭={tupletWidth:F1}");
+                    currentX += tupletWidth;
                 }
                 else
                 {
                     Debug.LogError($"   ❌ 잇단음표 생성 실패: {tuplet.GetTupletTypeName()}");
                     currentX += tupletWidth; // 실패해도 위치는 이동
-                    remainingWidth -= tupletWidth;
                 }
             }
             else
@@ -284,6 +299,44 @@ public class NoteSpawner : MonoBehaviour
                 Debug.LogWarning($"   ⚠️ 알 수 없는 요소 타입: {element?.GetType().Name}");
             }
         }
+
+        Debug.Log($"   마디 배치 완료: 최종X={currentX:F1} (시작X={measureStartX:F1})");
+    }
+
+    // 🎯 마디 내 총 박자 수 계산
+    private float CalculateTotalBeats(List<object> elements)
+    {
+        float totalBeats = 0f;
+
+        foreach (object element in elements)
+        {
+            if (element is NoteData note)
+            {
+                totalBeats += CalculateNoteBeatValue(note);
+            }
+            else if (element is TupletData tuplet)
+            {
+                // 잇단음표는 beatValue 사용 (예: TUPLET_START:4:2에서 2는 beatValue)
+                totalBeats += tuplet.beatValue * 0.25f; // 4분음표 단위로 변환
+            }
+        }
+
+        return totalBeats;
+    }
+
+    // 🎯 개별 음표의 박자 값 계산
+    private float CalculateNoteBeatValue(NoteData note)
+    {
+        // duration: 1(온음표)=4박자, 2(2분음표)=2박자, 4(4분음표)=1박자, 8(8분음표)=0.5박자
+        float beatValue = 4f / note.duration;
+        
+        // 점음표는 1.5배
+        if (note.isDotted)
+        {
+            beatValue *= 1.5f;
+        }
+        
+        return beatValue;
     }
 
     // 🎼 박자표 문자열을 파싱하여 MusicLayoutConfig.TimeSignature 객체로 변환
@@ -430,5 +483,22 @@ public class NoteSpawner : MonoBehaviour
         {
             Debug.LogError($"❌ 잘못된 곡 인덱스: {selectedSongIndex}");
         }
+    }
+
+    // 🎯 박자 기반 레이아웃 설정 조정 (런타임 테스트용)
+    [ContextMenu("박자 간격 증가")]
+    public void IncreaseBeatSpacing()
+    {
+        beatSpacingMultiplier = Mathf.Min(beatSpacingMultiplier + 0.2f, 3.0f);
+        Debug.Log($"박자 간격 배수: {beatSpacingMultiplier:F1}");
+        RefreshCurrentSong();
+    }
+
+    [ContextMenu("박자 간격 감소")]
+    public void DecreaseBeatSpacing()
+    {
+        beatSpacingMultiplier = Mathf.Max(beatSpacingMultiplier - 0.2f, 1.0f);
+        Debug.Log($"박자 간격 배수: {beatSpacingMultiplier:F1}");
+        RefreshCurrentSong();
     }
 }
