@@ -246,3 +246,41 @@
    at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
    at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
    at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:11:11.4073 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:11:11.5161 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:11:17.1569 | ERROR | ResponseDataExtension.Log | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-06 11:11:17.1569 | ERROR | ResponseDataExtension.Log | [Error] Failed to invoke 'com.IvanMurzak.Unity.MCP.Common.Data.RequestListTool'. Exception: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129 System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at com.IvanMurzak.Unity.MCP.Server.ClientUtils.InvokeAsync[TRequest,TResponse,THub](ILogger logger, IHubContext`1 hubContext, String methodName, TRequest requestData, CancellationToken cancellationToken) in D:\Programming_Works\Unity_flutter\Doremi_Doremi\Doremi_Doremi\Library\com.ivanmurzak.unity.mcp.server\Server\Client\ClientUtils.cs:line 129
+2025-06-06 11:21:12.1402 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:21:12.1402 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:31:12.1449 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:31:12.1513 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:41:11.2541 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method resources/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-06 11:41:11.2541 | ERROR | Log.RequestHandlerError | Request handler error for Server (com.IvanMurzak.Unity.MCP.Server 1.0.0.0), Client (claude-ai 0.1.0) with method prompts/list ModelContextProtocol.McpException: The method does not exist or is not available.
+   at ModelContextProtocol.Shared.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.HandleMessageAsync(IJsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.Shared.McpSession.<>c__DisplayClass20_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()

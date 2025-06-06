@@ -36,6 +36,10 @@ public class NoteSpawner : MonoBehaviour
 
     public StaffLineDrawer staffLineDrawer; // StaffLineDrawer 컴포넌트 참조 추가
 
+    // 🔄 곡 변경 감지를 위한 변수들
+    private int lastSelectedSongIndex = -1;
+    private bool isInitialized = false;
+
     void Start()
     {
         JsonLoader.SongList songList = jLoader.LoadSongs();
@@ -52,7 +56,6 @@ public class NoteSpawner : MonoBehaviour
             Debug.LogError("❌ StaffLineDrawer가 할당되지 않았습니다!");
             return;
         }
-
 
         JsonLoader.SongData song = songList.songs[selectedSongIndex];
         Debug.Log($"🎵 \"{song.title}\"의 음표 {song.notes.Count}개 생성 시작");
@@ -71,6 +74,35 @@ public class NoteSpawner : MonoBehaviour
 
         // 🎯 해상도 독립적 비율 기반 레이아웃
         ClearAllAndRedrawStaff(); // 이 함수가 악보 로드 및 레이아웃까지 담당합니다.
+
+        // 초기화 완료 표시
+        lastSelectedSongIndex = selectedSongIndex;
+        isInitialized = true;
+    }
+
+    // 🔄 매 프레임 곡 변경을 감지하는 Update 메서드
+    void Update()
+    {
+        if (!isInitialized) return;
+
+        // selectedSongIndex 변경 감지
+        if (selectedSongIndex != lastSelectedSongIndex)
+        {
+            Debug.Log($"🔄 곡 인덱스 변경 감지: {lastSelectedSongIndex} → {selectedSongIndex}");
+            
+            // 유효한 인덱스인지 확인
+            JsonLoader.SongList songList = jLoader.LoadSongs();
+            if (songList != null && selectedSongIndex >= 0 && selectedSongIndex < songList.songs.Count)
+            {
+                RefreshCurrentSong();
+                lastSelectedSongIndex = selectedSongIndex;
+            }
+            else
+            {
+                Debug.LogError($"❌ 잘못된 곡 인덱스: {selectedSongIndex}. 유효 범위: 0-{(songList?.songs.Count ?? 0) - 1}");
+                selectedSongIndex = lastSelectedSongIndex; // 이전 값으로 복원
+            }
+        }
     }
 
     // ✅ 잇단음표 지원 마디별 레이아웃 새로운 방식
@@ -280,13 +312,69 @@ public class NoteSpawner : MonoBehaviour
         enableTupletSupport = !enableTupletSupport;
         Debug.Log($"잇단음표 기능: {(enableTupletSupport ? "활성화" : "비활성화")}");
 
-        ClearAllAndRedrawStaff(); // 모든 것을 지우고 오선을 다시 그림
+        RefreshCurrentSong(); // ClearAllAndRedrawStaff 대신 새 함수 사용
     }
 
+    // 🎯 곡 변경을 위한 새로운 public 메서드
+    [ContextMenu("다음 곡으로 변경")]
+    public void NextSong()
+    {
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList != null && songList.songs.Count > 0)
+        {
+            selectedSongIndex = (selectedSongIndex + 1) % songList.songs.Count;
+            Debug.Log($"🎵 곡 변경: Index {selectedSongIndex} - {songList.songs[selectedSongIndex].title}");
+            // Update()에서 자동으로 RefreshCurrentSong() 호출됨
+        }
+    }
 
+    [ContextMenu("이전 곡으로 변경")]
+    public void PreviousSong()
+    {
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList != null && songList.songs.Count > 0)
+        {
+            selectedSongIndex = (selectedSongIndex - 1 + songList.songs.Count) % songList.songs.Count;
+            Debug.Log($"🎵 곡 변경: Index {selectedSongIndex} - {songList.songs[selectedSongIndex].title}");
+            // Update()에서 자동으로 RefreshCurrentSong() 호출됨
+        }
+    }
 
-    // 모든 악보 요소를 지우고 오선을 다시 그리는 새로운 통합 함수
-    private void ClearAllAndRedrawStaff()
+    // 🔄 현재 선택된 곡을 새로고침하는 함수 (무한 재귀 방지)
+    public void RefreshCurrentSong()
+    {
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList == null || selectedSongIndex >= songList.songs.Count)
+        {
+            Debug.LogError("❌ 유효한 곡이 없습니다.");
+            return;
+        }
+
+        // 기존 악보 요소들만 제거 (오선은 유지)
+        ClearMusicElements();
+
+        // 오선 다시 그리기 (StaffLineDrawer 직접 호출 - 재귀 방지)
+        if (staffLineDrawer != null)
+        {
+            staffLineDrawer.RedrawStaffLines();
+        }
+
+        // 선택된 곡 로드 및 레이아웃
+        JsonLoader.SongData song = songList.songs[selectedSongIndex];
+        Debug.Log($"🎵 곡 새로고침: \"{song.title}\" (Index: {selectedSongIndex})");
+
+        // 박자표 업데이트
+        this.currentSongTimeSignature = ParseTimeSignatureFromString(song.timeSignature);
+        if (scoreSymbolSpawner != null)
+        {
+            scoreSymbolSpawner.Initialize(staffPanel, currentSongTimeSignature);
+        }
+
+        LayoutCompleteScore(song);
+    }
+
+    // 🧹 음악 요소만 제거하는 함수 (오선은 유지)
+    private void ClearMusicElements()
     {
         if (staffPanel != null)
         {
@@ -300,14 +388,47 @@ public class NoteSpawner : MonoBehaviour
                 }
             }
         }
-        // 오선을 다시 그림
-        staffLineDrawer.RedrawStaffLines(); // StaffLineDrawer에 추가한 public 함수 호출
-
-        // 악보를 처음부터 다시 로드하고 레이아웃
-        JsonLoader.SongData song = jLoader.LoadSongs().songs[selectedSongIndex];
-        LayoutCompleteScore(song);
     }
 
+    // ⚠️ 기존 ClearAllAndRedrawStaff 함수는 Start()에서만 사용하도록 수정
+    private void ClearAllAndRedrawStaff()
+    {
+        // 기존 악보 요소들만 제거
+        ClearMusicElements();
 
+        // 오선 다시 그리기 (Start()에서만 호출되므로 안전)
+        if (staffLineDrawer != null)
+        {
+            staffLineDrawer.RedrawStaffLines();
+        }
 
+        // 현재 선택된 곡으로 레이아웃
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList != null && selectedSongIndex < songList.songs.Count)
+        {
+            JsonLoader.SongData song = songList.songs[selectedSongIndex];
+            LayoutCompleteScore(song);
+        }
+    }
+
+    // 🔧 디버깅용 메서드들
+    [ContextMenu("현재 곡 정보 출력")]
+    public void PrintCurrentSongInfo()
+    {
+        JsonLoader.SongList songList = jLoader.LoadSongs();
+        if (songList != null && selectedSongIndex >= 0 && selectedSongIndex < songList.songs.Count)
+        {
+            JsonLoader.SongData song = songList.songs[selectedSongIndex];
+            Debug.Log($"📋 현재 곡 정보:\n" +
+                     $"   인덱스: {selectedSongIndex}\n" +
+                     $"   제목: {song.title}\n" +
+                     $"   박자: {song.timeSignature}\n" +
+                     $"   조표: {song.keySignature}\n" +
+                     $"   음표 수: {song.notes.Count}");
+        }
+        else
+        {
+            Debug.LogError($"❌ 잘못된 곡 인덱스: {selectedSongIndex}");
+        }
+    }
 }

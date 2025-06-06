@@ -23,8 +23,29 @@ public static class MusicLayoutConfig
     public const float TimeSignatureScaleRatio = 0.8f; // 예: 오선지 한 칸 높이의 80%를 각 숫자의 높이로 사용
     public const float TimeSignatureVerticalCoverage = 4.0f; // 박자표가 오선 4칸 높이를 커버하도록 (위 숫자 2칸, 아래 숫자 2칸)
 
-    
-
+    // ✅ 화면 스케일 팩터 계산 (해상도에 따른 UI 스케일 조정)
+    public static float GetScreenScaleFactor()
+    {
+        // 기준 해상도: 1920x1080
+        const float referenceWidth = 1920f;
+        const float referenceHeight = 1080f;
+        
+        // 현재 화면 해상도
+        float currentWidth = Screen.width;
+        float currentHeight = Screen.height;
+        
+        // 너비와 높이 스케일 팩터 계산
+        float widthScale = currentWidth / referenceWidth;
+        float heightScale = currentHeight / referenceHeight;
+        
+        // 둘 중 작은 값을 사용하여 UI가 화면을 벗어나지 않도록 함
+        float scaleFactor = Mathf.Min(widthScale, heightScale);
+        
+        // 최소/최대 스케일 제한
+        scaleFactor = Mathf.Clamp(scaleFactor, 0.5f, 2.0f);
+        
+        return scaleFactor;
+    }
 
     public static float GetSpacing(RectTransform staffPanel)    // 줄 간격 계산
     {

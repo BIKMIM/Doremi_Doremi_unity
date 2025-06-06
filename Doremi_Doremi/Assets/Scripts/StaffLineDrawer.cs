@@ -21,6 +21,22 @@ public class StaffLineDrawer : MonoBehaviour
         DrawStafflLines();  // 시작할 때 한 줄 그리기.
     }
 
+    // ✅ 레이아웃 재계산 (ResponsiveLayoutManager에서 호출됨)
+    public void RecalculateLayout()
+    {
+        if (staffPanel == null)
+        {
+            Debug.LogWarning("⚠️ StaffPanel이 설정되지 않아 레이아웃을 재계산할 수 없습니다.");
+            return;
+        }
+
+        // 위치 재조정 및 오선 다시 그리기
+        AdjustStaffPosition();
+        RedrawStaffLines();
+        
+        Debug.Log("🎼 StaffLineDrawer 레이아웃 재계산 완료");
+    }
+
     // 외부에서 오선을 다시 그릴 수 있도록 public 함수
     public void RedrawStaffLines()
     {
