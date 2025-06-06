@@ -39,6 +39,13 @@ public class NoteSpawner : MonoBehaviour
     [Range(1.0f, 3.0f)]
     public float beatSpacingMultiplier = 1.5f; // 박자 간격 배수
 
+    [Header("🎼 음표 간격 보정 설정")]
+    [Range(0.5f, 2.0f)]
+    public float tupletCompressionRatio = 0.7f; // 잇단음표 압축 비율 (70%)
+    
+    [Range(1.0f, 2.0f)]
+    public float normalNoteExpansionRatio = 1.3f; // 일반 음표 확장 비율 (130%)
+
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
 
     public StaffLineDrawer staffLineDrawer; // StaffLineDrawer 컴포넌트 참조 추가
@@ -167,8 +174,8 @@ public class NoteSpawner : MonoBehaviour
                 NoteLayoutHelper.CreateBarLine(measureStartX, staffPanel, staffLinePrefabForBarLine, spacing);
             }
 
-            // ✅ 박자 기반 마디 배치 (개선됨)
-            LayoutMeasureWithBeatBasedSpacing(measures[measureIndex], measureStartX, measureWidth, spacing);
+            // ✅ 비율 기반 마디 배치 (개선됨 - 잇단음표 압축 적용)
+            LayoutMeasureWithProportionalSpacing(measures[measureIndex], measureStartX, measureWidth, spacing);
 
             // 다음 마디 위치로 이동
             currentX += measureWidth;
@@ -180,7 +187,7 @@ public class NoteSpawner : MonoBehaviour
             NoteLayoutHelper.CreateBarLine(currentX, staffPanel, staffLinePrefabForBarLine, spacing);
         }
 
-        Debug.Log($"✅ 박자 기반 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
+        Debug.Log($"✅ 비율 기반 악보 완료: {song.clef} 음자리표 + 박자표 + {maxMeasures}개 마디");
     }
 
     // ✅ 잇단음표 지원 마디별 분할 함수
@@ -235,28 +242,27 @@ public class NoteSpawner : MonoBehaviour
             Debug.Log($"마지막 마디 {measures.Count} 완료: {currentMeasure.Count}개 요소");
         }
 
-        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료 (잣단음표 지원)");
+        Debug.Log($"🎼 총 {measures.Count}개 마디로 분할 완료 (잇단음표 지원)");
         return measures;
     }
 
-    // 🎯 NEW: 박자 기반 공간 배분 마디 레이아웃 함수
-    private void LayoutMeasureWithBeatBasedSpacing(List<object> elements, float measureStartX, float measureWidth, float spacing)
+    // 🎯 NEW: 비율 기반 공간 배분 마디 레이아웃 함수 (잇단음표 압축 적용)
+    private void LayoutMeasureWithProportionalSpacing(List<object> elements, float measureStartX, float measureWidth, float spacing)
     {
         if (elements.Count == 0) return;
 
-        Debug.Log($"🎵 박자 기반 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 요소수={elements.Count}");
+        Debug.Log($"🎵 비율 기반 마디 레이아웃: 시작X={measureStartX:F1}, 폭={measureWidth:F1}, 요소수={elements.Count}");
 
         // 1. 📊 총 박자 수 계산
         float totalBeats = CalculateTotalBeats(elements);
         
-        // 2. 🎯 박자당 공간 계산 (여백 고려)
+        // 2. 🎯 여백을 고려한 사용 가능 폭 계산
         float usableWidth = measureWidth * (1f - measureMarginRatio * 2f);
         float leftMargin = measureWidth * measureMarginRatio;
-        float beatSpacing = (usableWidth / totalBeats) * beatSpacingMultiplier;
         
-        Debug.Log($"   총박자: {totalBeats:F2}, 사용가능폭: {usableWidth:F1}, 박자간격: {beatSpacing:F1}");
+        Debug.Log($"   총박자: {totalBeats:F2}, 사용가능폭: {usableWidth:F1}, 여백비율: {measureMarginRatio:F2}");
 
-        // 3. 🎶 요소별 배치
+        // 3. 🎶 요소별 배치 (비율 기반)
         float currentX = measureStartX + leftMargin;
 
         for (int i = 0; i < elements.Count; i++)
@@ -267,11 +273,15 @@ public class NoteSpawner : MonoBehaviour
             {
                 // 일반 음표의 박자 값 계산
                 float noteBeats = CalculateNoteBeatValue(note);
-                float noteWidth = beatSpacing * noteBeats;
+                float beatRatio = noteBeats / totalBeats;
+                
+                // ✅ 일반 음표는 확장 비율 적용 (더 넓게)
+                float baseWidth = usableWidth * beatRatio;
+                float noteWidth = baseWidth * normalNoteExpansionRatio;
 
                 notePlacementHandler.SpawnNoteAtPosition(currentX, noteWidth, spacing, note);
                 
-                Debug.Log($"   일반음표: {note.noteName}({note.duration}분음표) = {noteBeats:F2}박자, 폭={noteWidth:F1}");
+                Debug.Log($"   일반음표: {note.noteName}({note.duration}분음표) = {noteBeats:F2}박자({beatRatio:P0}), 기본폭={baseWidth:F1}, 확장폭={noteWidth:F1}");
                 
                 currentX += noteWidth;
             }
@@ -279,13 +289,17 @@ public class NoteSpawner : MonoBehaviour
             {
                 // 잇단음표의 박자 값 계산 (예: 4잇단음표:2 = 2박자)
                 float tupletBeats = tuplet.beatValue * 0.25f; // 예: beatValue=8이면 2박자
-                float tupletWidth = beatSpacing * tupletBeats;
+                float beatRatio = tupletBeats / totalBeats;
+                
+                // ✅ 잇단음표는 압축 비율 적용 (더 좁게)
+                float baseWidth = usableWidth * beatRatio;
+                float tupletWidth = baseWidth * tupletCompressionRatio;
 
                 TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, currentX, tupletWidth, spacing);
 
                 if (visualGroup != null)
                 {
-                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()} = {tupletBeats:F2}박자, 폭={tupletWidth:F1}");
+                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()} = {tupletBeats:F2}박자({beatRatio:P0}), 기본폭={baseWidth:F1}, 압축폭={tupletWidth:F1}");
                     currentX += tupletWidth;
                 }
                 else
@@ -301,6 +315,7 @@ public class NoteSpawner : MonoBehaviour
         }
 
         Debug.Log($"   마디 배치 완료: 최종X={currentX:F1} (시작X={measureStartX:F1})");
+        Debug.Log($"   🎯 압축비율={tupletCompressionRatio:F1}, 확장비율={normalNoteExpansionRatio:F1}");
     }
 
     // 🎯 마디 내 총 박자 수 계산
@@ -485,20 +500,56 @@ public class NoteSpawner : MonoBehaviour
         }
     }
 
-    // 🎯 박자 기반 레이아웃 설정 조정 (런타임 테스트용)
-    [ContextMenu("박자 간격 증가")]
-    public void IncreaseBeatSpacing()
+    // 🎯 음표 간격 조정 메서드들 (런타임 테스트용)
+    [ContextMenu("잇단음표 압축 증가 (더 좁게)")]
+    public void IncreaseTupletCompression()
     {
-        beatSpacingMultiplier = Mathf.Min(beatSpacingMultiplier + 0.2f, 3.0f);
-        Debug.Log($"박자 간격 배수: {beatSpacingMultiplier:F1}");
+        tupletCompressionRatio = Mathf.Max(tupletCompressionRatio - 0.1f, 0.5f);
+        Debug.Log($"🎼 잇단음표 압축비율: {tupletCompressionRatio:F1} (더 좁게)");
         RefreshCurrentSong();
     }
 
-    [ContextMenu("박자 간격 감소")]
-    public void DecreaseBeatSpacing()
+    [ContextMenu("잇단음표 압축 감소 (더 넓게)")]
+    public void DecreaseTupletCompression()
     {
-        beatSpacingMultiplier = Mathf.Max(beatSpacingMultiplier - 0.2f, 1.0f);
-        Debug.Log($"박자 간격 배수: {beatSpacingMultiplier:F1}");
+        tupletCompressionRatio = Mathf.Min(tupletCompressionRatio + 0.1f, 2.0f);
+        Debug.Log($"🎼 잇단음표 압축비율: {tupletCompressionRatio:F1} (더 넓게)");
         RefreshCurrentSong();
+    }
+
+    [ContextMenu("일반음표 확장 증가 (더 넓게)")]
+    public void IncreaseNormalNoteExpansion()
+    {
+        normalNoteExpansionRatio = Mathf.Min(normalNoteExpansionRatio + 0.1f, 2.0f);
+        Debug.Log($"🎵 일반음표 확장비율: {normalNoteExpansionRatio:F1} (더 넓게)");
+        RefreshCurrentSong();
+    }
+
+    [ContextMenu("일반음표 확장 감소 (더 좁게)")]
+    public void DecreaseNormalNoteExpansion()
+    {
+        normalNoteExpansionRatio = Mathf.Max(normalNoteExpansionRatio - 0.1f, 1.0f);
+        Debug.Log($"🎵 일반음표 확장비율: {normalNoteExpansionRatio:F1} (더 좁게)");
+        RefreshCurrentSong();
+    }
+
+    [ContextMenu("간격 설정 리셋")]
+    public void ResetSpacingSettings()
+    {
+        tupletCompressionRatio = 0.7f; // 70%
+        normalNoteExpansionRatio = 1.3f; // 130%
+        measureMarginRatio = 0.1f; // 10%
+        Debug.Log("🔄 음표 간격 설정이 기본값으로 리셋되었습니다.");
+        RefreshCurrentSong();
+    }
+
+    [ContextMenu("간격 설정 정보")]
+    public void PrintSpacingSettings()
+    {
+        Debug.Log($"📊 현재 음표 간격 설정:");
+        Debug.Log($"   잇단음표 압축비율: {tupletCompressionRatio:F1} (낮을수록 좁게)");
+        Debug.Log($"   일반음표 확장비율: {normalNoteExpansionRatio:F1} (높을수록 넓게)");
+        Debug.Log($"   마디 여백비율: {measureMarginRatio:F1} (마디 양쪽 여백)");
+        Debug.Log($"   박자 간격 배수: {beatSpacingMultiplier:F1} (전체적인 간격)");
     }
 }

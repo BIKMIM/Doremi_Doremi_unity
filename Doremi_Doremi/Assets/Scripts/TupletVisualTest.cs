@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// 잇단음표 시각적 테스트 스크립트
+// 잇단음표 시각적 테스트 스크립트 - 비율 기반 간격 지원
 public class TupletVisualTest : MonoBehaviour
 {
     [Header("필수 컴포넌트")]
@@ -14,7 +14,14 @@ public class TupletVisualTest : MonoBehaviour
     [Header("테스트 설정")]
     [Range(0, 2)]
     public int testCaseIndex = 0;
-    public bool autoStart = true;
+    public bool autoStart = false; // 자동 시작 비활성화
+
+    [Header("🎯 비율 기반 간격 설정")]
+    [Range(0.5f, 1.5f)]
+    public float tupletCompressionRatio = 0.7f; // 잇단음표 압축 비율
+    
+    [Range(1.0f, 2.0f)]
+    public float normalNoteExpansionRatio = 1.3f; // 일반 음표 확장 비율
 
     public StaffLineDrawer staffLineDrawer; // StaffLineDrawer 컴포넌트 참조 추가
 
@@ -26,7 +33,7 @@ public class TupletVisualTest : MonoBehaviour
         }
     }
 
-    [ContextMenu("잇단음표 시각적 테스트")]
+    [ContextMenu("🎼 비율 기반 잇단음표 테스트")]
     public void TestTupletVisuals()
     {
         if (!ValidateComponents())
@@ -35,7 +42,7 @@ public class TupletVisualTest : MonoBehaviour
             return;
         }
 
-        Debug.Log("🎼 === 잇단음표 시각적 테스트 시작 ===");
+        Debug.Log("🎼 === 비율 기반 잇단음표 시각적 테스트 시작 ===");
 
         // 화면 지우기
         ClearStaff();
@@ -58,35 +65,41 @@ public class TupletVisualTest : MonoBehaviour
         notePlacementHandler.Initialize(staffPanel);
         notePlacementHandler.assembler = assembler;
 
-        // 악보 레이아웃
-        LayoutTestScore(testSong);
+        // TupletLayoutHandler에 압축 비율 적용
+        if (notePlacementHandler.tupletLayoutHandler != null)
+        {
+            notePlacementHandler.tupletLayoutHandler.SetCompressionRatio(tupletCompressionRatio);
+        }
+
+        // 악보 레이아웃 (비율 기반)
+        LayoutTestScoreWithProportions(testSong);
     }
 
     private List<JsonLoader.SongData> CreateTestCases()
     {
         return new List<JsonLoader.SongData>
         {
-            // 테스트 케이스 0: 기본 셋잇단음표
+            // 테스트 케이스 0: 8분음표 4개 + 4분음표 1개 (3/4박자)
             new JsonLoader.SongData
             {
-                title = "🎯 기본 셋잇단음표 테스트",
+                title = "🎯 8분음표4개(2박자) + 4분음표1개(1박자) = 3박자",
                 clef = "treble",
-                timeSignature = "2/4",
+                timeSignature = "3/4",
                 keySignature = "C",
                 notes = new List<string>
                 {
-                    "C4:4",
-                    "TUPLET_START:3:2",
-                    "D4:8", "E4:8", "F4:8",
+                    "TUPLET_START:4:2", // 4잇단음표, 2박자
+                    "C4:8", "D4:8", "E4:8", "F4:8",
                     "TUPLET_END",
+                    "C5:4", // 1박자
                     "|"
                 }
             },
 
-            // 테스트 케이스 1: 넷잇단음표
+            // 테스트 케이스 1: 넷잇단음표 + 일반 음표
             new JsonLoader.SongData
             {
-                title = "🎼 넷잇단음표 테스트",
+                title = "🎼 넷잇단음표 + 일반음표",
                 clef = "treble",
                 timeSignature = "4/4",
                 keySignature = "C",
@@ -121,7 +134,8 @@ public class TupletVisualTest : MonoBehaviour
         };
     }
 
-    private void LayoutTestScore(JsonLoader.SongData song)
+    // ✅ 비율 기반 테스트 악보 레이아웃
+    private void LayoutTestScoreWithProportions(JsonLoader.SongData song)
     {
         float spacing = MusicLayoutConfig.GetSpacing(staffPanel);
         float panelWidth = staffPanel.rect.width;
@@ -132,7 +146,8 @@ public class TupletVisualTest : MonoBehaviour
         float startX = leftEdge + leftMargin;
         float currentX = startX;
 
-        Debug.Log($"🎯 테스트 레이아웃 시작: {song.title}");
+        Debug.Log($"🎯 비율 기반 테스트 레이아웃: {song.title}");
+        Debug.Log($"   패널폭: {panelWidth:F1}, 사용가능폭: {usableWidth:F1}");
 
         // 1. 음자리표
         float clefWidth = scoreSymbolSpawner.SpawnClef(currentX, spacing, song.clef);
@@ -146,15 +161,24 @@ public class TupletVisualTest : MonoBehaviour
         float timeSignatureWidth = scoreSymbolSpawner.SpawnTimeSignatureSymbol(currentX, spacing);
         currentX += timeSignatureWidth;
 
-        // 4. 잇단음표 파싱 및 배치
+        // 4. 잇단음표 파싱 및 비율 기반 배치
         List<object> parsedElements = TupletParser.ParseWithTuplets(song.notes);
         TupletParser.DebugPrintParseResult(parsedElements);
 
-        // 5. 요소별 배치
-        float remainingWidth = usableWidth - (currentX - startX);
-        int totalElements = CountLayoutElements(parsedElements);
-        float elementSpacing = remainingWidth / totalElements;
+        // 5. 📊 총 박자 수 계산
+        float totalBeats = CalculateTotalBeats(parsedElements);
+        
+        // 6. 🎯 마디 공간 계산
+        float measureWidth = usableWidth - (currentX - startX);
+        float measureMarginRatio = 0.1f; // 10% 여백
+        float measureUsableWidth = measureWidth * (1f - measureMarginRatio * 2f);
+        float measureLeftMargin = measureWidth * measureMarginRatio;
 
+        currentX += measureLeftMargin; // 마디 여백 적용
+
+        Debug.Log($"   총박자: {totalBeats:F2}, 마디폭: {measureWidth:F1}, 마디사용폭: {measureUsableWidth:F1}");
+
+        // 7. 🎼 요소별 비율 기반 배치
         foreach (object element in parsedElements)
         {
             if (element is NoteData note)
@@ -166,44 +190,85 @@ public class TupletVisualTest : MonoBehaviour
                     continue;
                 }
 
-                // 일반 음표 생성
-                notePlacementHandler.SpawnNoteAtPosition(currentX, elementSpacing, spacing, note);
-                currentX += elementSpacing;
+                // 일반 음표의 박자 값 및 비율 계산
+                float noteBeats = CalculateNoteBeatValue(note);
+                float beatRatio = noteBeats / totalBeats;
+                
+                // ✅ 일반 음표는 확장 비율 적용
+                float baseWidth = measureUsableWidth * beatRatio;
+                float noteWidth = baseWidth * normalNoteExpansionRatio;
+
+                notePlacementHandler.SpawnNoteAtPosition(currentX, noteWidth, spacing, note);
+                
+                Debug.Log($"   일반음표: {note.noteName}({note.duration}분음표) = {noteBeats:F2}박자({beatRatio:P0}), 폭={noteWidth:F1}");
+                
+                currentX += noteWidth;
             }
             else if (element is TupletData tuplet)
             {
-                // 잇단음표 그룹 생성
-                Debug.Log($"🎵 잇단음표 그룹 처리: {tuplet.GetTupletTypeName()}");
+                // 잇단음표의 박자 값 및 비율 계산
+                float tupletBeats = tuplet.beatValue * 0.25f;
+                float beatRatio = tupletBeats / totalBeats;
                 
-                TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, currentX, elementSpacing * 2, spacing);
+                // ✅ 잇단음표는 압축 비율 적용
+                float baseWidth = measureUsableWidth * beatRatio;
+                float tupletWidth = baseWidth * tupletCompressionRatio;
+
+                Debug.Log($"   잣단음표: {tuplet.GetTupletTypeName()} = {tupletBeats:F2}박자({beatRatio:P0})");
+                Debug.Log($"   기본폭: {baseWidth:F1}, 압축폭: {tupletWidth:F1} (압축비율: {tupletCompressionRatio:F1})");
+                
+                TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, currentX, tupletWidth, spacing);
                 
                 if (visualGroup != null)
                 {
-                    currentX += tuplet.totalWidth;
-                    Debug.Log($"✅ 잇단음표 생성 성공: 폭={tuplet.totalWidth:F1}");
+                    currentX += tupletWidth;
+                    Debug.Log($"   ✅ 잇단음표 생성 성공");
                 }
                 else
                 {
-                    Debug.LogError("❌ 잇단음표 생성 실패");
-                    currentX += elementSpacing;
+                    Debug.LogError("   ❌ 잇단음표 생성 실패");
+                    currentX += tupletWidth;
                 }
             }
         }
 
-        Debug.Log($"✅ 잇단음표 테스트 완료: {song.title}");
+        Debug.Log($"✅ 비율 기반 잇단음표 테스트 완료: {song.title}");
+        Debug.Log($"   🎯 압축비율={tupletCompressionRatio:F1}, 확장비율={normalNoteExpansionRatio:F1}");
     }
 
-    private int CountLayoutElements(List<object> elements)
+    // 🎯 총 박자 수 계산
+    private float CalculateTotalBeats(List<object> elements)
     {
-        int count = 0;
+        float totalBeats = 0f;
+
         foreach (object element in elements)
         {
             if (element is NoteData note && !note.isBarLine)
-                count++;
-            else if (element is TupletData)
-                count += 2; // 잇단음표는 2배 공간 할당
+            {
+                totalBeats += CalculateNoteBeatValue(note);
+            }
+            else if (element is TupletData tuplet)
+            {
+                totalBeats += tuplet.beatValue * 0.25f; // 4분음표 단위로 변환
+            }
         }
-        return Mathf.Max(count, 1);
+
+        return totalBeats;
+    }
+
+    // 🎯 개별 음표의 박자 값 계산
+    private float CalculateNoteBeatValue(NoteData note)
+    {
+        // duration: 1(온음표)=4박자, 2(2분음표)=2박자, 4(4분음표)=1박자, 8(8분음표)=0.5박자
+        float beatValue = 4f / note.duration;
+        
+        // 점음표는 1.5배
+        if (note.isDotted)
+        {
+            beatValue *= 1.5f;
+        }
+        
+        return beatValue;
     }
 
     private MusicLayoutConfig.TimeSignature ParseTimeSignature(string tsString)
@@ -280,15 +345,15 @@ public class TupletVisualTest : MonoBehaviour
             {
                 GameObject child = staffPanel.GetChild(i).gameObject;
                 // "StaffLine" 태그를 가진 오브젝트는 파괴하지 않음
-                if (child.CompareTag("StaffLine") == false) //
+                if (child.CompareTag("StaffLine") == false)
                 {
-                    DestroyImmediate(child); //
+                    DestroyImmediate(child);
                 }
             }
         }
     }
 
-    // 테스트 케이스 변경
+    // ✅ 비율 기반 테스트 케이스 변경
     [ContextMenu("다음 테스트 케이스")]
     public void NextTestCase()
     {
@@ -303,8 +368,80 @@ public class TupletVisualTest : MonoBehaviour
         TestTupletVisuals();
     }
 
-    // 개별 요소 테스트
-    [ContextMenu("숫자 프리팹 테스트")]
+    // ✅ 비율 조정 메서드들
+    [ContextMenu("🎼 잇단음표 압축 증가 (더 좁게)")]
+    public void IncreaseTupletCompression()
+    {
+        tupletCompressionRatio = Mathf.Max(tupletCompressionRatio - 0.1f, 0.5f);
+        Debug.Log($"🎼 잇단음표 압축비율: {tupletCompressionRatio:F1} (더 좁게)");
+        
+        // TupletLayoutHandler에도 적용
+        if (notePlacementHandler?.tupletLayoutHandler != null)
+        {
+            notePlacementHandler.tupletLayoutHandler.SetCompressionRatio(tupletCompressionRatio);
+        }
+        
+        TestTupletVisuals(); // 즉시 반영
+    }
+
+    [ContextMenu("🎼 잇단음표 압축 감소 (더 넓게)")]
+    public void DecreaseTupletCompression()
+    {
+        tupletCompressionRatio = Mathf.Min(tupletCompressionRatio + 0.1f, 1.5f);
+        Debug.Log($"🎼 잇단음표 압축비율: {tupletCompressionRatio:F1} (더 넓게)");
+        
+        // TupletLayoutHandler에도 적용
+        if (notePlacementHandler?.tupletLayoutHandler != null)
+        {
+            notePlacementHandler.tupletLayoutHandler.SetCompressionRatio(tupletCompressionRatio);
+        }
+        
+        TestTupletVisuals(); // 즉시 반영
+    }
+
+    [ContextMenu("🎵 일반음표 확장 증가 (더 넓게)")]
+    public void IncreaseNormalNoteExpansion()
+    {
+        normalNoteExpansionRatio = Mathf.Min(normalNoteExpansionRatio + 0.1f, 2.0f);
+        Debug.Log($"🎵 일반음표 확장비율: {normalNoteExpansionRatio:F1} (더 넓게)");
+        TestTupletVisuals(); // 즉시 반영
+    }
+
+    [ContextMenu("🎵 일반음표 확장 감소 (더 좁게)")]
+    public void DecreaseNormalNoteExpansion()
+    {
+        normalNoteExpansionRatio = Mathf.Max(normalNoteExpansionRatio - 0.1f, 1.0f);
+        Debug.Log($"🎵 일반음표 확장비율: {normalNoteExpansionRatio:F1} (더 좁게)");
+        TestTupletVisuals(); // 즉시 반영
+    }
+
+    [ContextMenu("🔄 비율 설정 리셋")]
+    public void ResetRatioSettings()
+    {
+        tupletCompressionRatio = 0.7f; // 70%
+        normalNoteExpansionRatio = 1.3f; // 130%
+        
+        // TupletLayoutHandler에도 적용
+        if (notePlacementHandler?.tupletLayoutHandler != null)
+        {
+            notePlacementHandler.tupletLayoutHandler.SetCompressionRatio(tupletCompressionRatio);
+        }
+        
+        Debug.Log("🔄 비율 설정이 기본값으로 리셋되었습니다.");
+        TestTupletVisuals(); // 즉시 반영
+    }
+
+    [ContextMenu("📊 현재 비율 설정 출력")]
+    public void PrintRatioSettings()
+    {
+        Debug.Log($"📊 현재 비율 기반 간격 설정:");
+        Debug.Log($"   잇단음표 압축비율: {tupletCompressionRatio:F1} (낮을수록 좁게)");
+        Debug.Log($"   일반음표 확장비율: {normalNoteExpansionRatio:F1} (높을수록 넓게)");
+        Debug.Log($"   테스트 케이스: {testCaseIndex}");
+    }
+
+    // 개별 요소 테스트 (비율 기반)
+    [ContextMenu("🔢 숫자 프리팹 테스트")]
     public void TestNumberPrefabs()
     {
         Debug.Log("🔢 === 숫자 프리팹 테스트 ===");
@@ -334,7 +471,7 @@ public class TupletVisualTest : MonoBehaviour
         }
     }
 
-    [ContextMenu("Beam 프리팹 테스트")]
+    [ContextMenu("🌉 Beam 프리팹 테스트")]
     public void TestBeamPrefab()
     {
         Debug.Log("🌉 === Beam 프리팹 테스트 ===");

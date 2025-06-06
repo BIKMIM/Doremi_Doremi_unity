@@ -85,7 +85,7 @@ public class NotePlacementHandler : MonoBehaviour
         }
     }
 
-    // ✅ 새로운 잇단음표 그룹 처리 함수
+    // ✅ 새로운 비율 기반 잇단음표 그룹 처리 함수
     public TupletVisualGroup SpawnTupletGroup(TupletData tupletData, float startX, float availableWidth, float spacing)
     {
         if (!tupletData.IsComplete())
@@ -100,23 +100,30 @@ public class NotePlacementHandler : MonoBehaviour
             return null;
         }
 
-        Debug.Log($"🎼 잇단음표 그룹 생성 시작: {tupletData.GetTupletTypeName()} at X={startX:F1}");
+        Debug.Log($"🎼 비율 기반 잇단음표 그룹 생성: {tupletData.GetTupletTypeName()} at X={startX:F1}");
 
-        // 1. 잣단음표 폭 계산
+        // 1. ✅ 비율 기반 잇단음표 폭 계산 (TupletLayoutHandler의 새로운 메서드 사용)
         float tupletWidth = tupletLayoutHandler.CalculateTupletWidth(tupletData, spacing, availableWidth, tupletData.noteCount);
         
-        // 2. 레이아웃 설정
+        // 2. 레이아웃 설정 (해상도 독립적)
         tupletLayoutHandler.LayoutTupletNotes(tupletData, startX, tupletWidth, spacing);
 
         // 3. 개별 음표들 생성 (flag 없이)
         List<GameObject> noteHeads = new List<GameObject>();
         List<GameObject> stems = new List<GameObject>();
         
-        float currentX = startX;
+        // ✅ 개선된 음표 배치 (비율 기반)
+        float marginRatio = 0.1f; // 10% 여백
+        float usableWidth = tupletWidth * (1f - marginRatio * 2f);
+        float leftMargin = tupletWidth * marginRatio;
+        
         for (int i = 0; i < tupletData.notes.Count; i++)
         {
             NoteData note = tupletData.notes[i];
-            float noteX = currentX + tupletData.noteSpacing * 0.5f;
+            
+            // ✅ 비율 기반 음표 위치 계산
+            float noteRatio = (float)i / Mathf.Max(tupletData.notes.Count - 1, 1); // 0~1 비율
+            float noteX = startX + leftMargin + (usableWidth * noteRatio);
             
             // 개별 음표 생성 (잇단음표 전용)
             var (noteHead, stem) = SpawnTupletNote(note, noteX, spacing);
@@ -124,7 +131,7 @@ public class NotePlacementHandler : MonoBehaviour
             if (noteHead != null) noteHeads.Add(noteHead);
             if (stem != null) stems.Add(stem);
             
-            currentX += tupletData.noteSpacing;
+            Debug.Log($"   음표 {i}: {note.noteName} at X={noteX:F1} (비율: {noteRatio:F2})");
         }
 
         // 4. 잇단음표 시각적 요소 조립 (숫자 + beam)
@@ -132,7 +139,7 @@ public class NotePlacementHandler : MonoBehaviour
 
         if (visualGroup != null)
         {
-            Debug.Log($"✅ 잇단음표 그룹 완성: {tupletData.GetTupletTypeName()}, 폭={tupletWidth:F1}");
+            Debug.Log($"✅ 비율 기반 잇단음표 그룹 완성: {tupletData.GetTupletTypeName()}, 폭={tupletWidth:F1}");
         }
         else
         {
