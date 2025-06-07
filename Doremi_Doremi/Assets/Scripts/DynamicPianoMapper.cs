@@ -296,31 +296,53 @@ public class DynamicPianoMapper : MonoBehaviour
     
     private AudioClip GetAudioClip(string noteName, int octave)
     {
-        // audioClipSets에서 해당 옥타브의 클립 찾기
-        AudioClipSet targetSet = System.Array.Find(audioClipSets, set => set.octave == octave);
+        // ⭐ 수정된 부분: 옥타브 값을 정확히 매핑
+        AudioClipSet targetSet = null;
+        
+        // 옥타브 값으로 올바른 AudioClipSet 찾기
+        foreach (var clipSet in audioClipSets)
+        {
+            if (clipSet.octave == octave)
+            {
+                targetSet = clipSet;
+                break;
+            }
+        }
         
         if (targetSet != null)
         {
             AudioClip clip = targetSet.GetClip(noteName);
             if (clip != null)
             {
+                Debug.Log($"Found audio clip for {noteName} octave {octave}: {clip.name}");
                 return clip;
             }
+            else
+            {
+                Debug.LogWarning($"Audio clip for {noteName} not found in octave {octave} set");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"AudioClipSet for octave {octave} not found");
         }
         
         // 해당 옥타브가 없으면 기본 옥타브 사용
-        AudioClipSet defaultSet = System.Array.Find(audioClipSets, set => set.octave == currentOctave);
-        
-        if (defaultSet != null)
+        foreach (var clipSet in audioClipSets)
         {
-            AudioClip clip = defaultSet.GetClip(noteName);
-            if (clip != null)
+            if (clipSet.octave == currentOctave)
             {
-                return clip;
+                AudioClip clip = clipSet.GetClip(noteName);
+                if (clip != null)
+                {
+                    Debug.LogWarning($"Using default octave {currentOctave} for {noteName}");
+                    return clip;
+                }
+                break;
             }
         }
         
-        Debug.LogWarning($"No audio clip found for {noteName} in any octave");
+        Debug.LogError($"No audio clip found for {noteName} in any octave");
         return null;
     }
     
@@ -381,6 +403,52 @@ public class DynamicPianoMapper : MonoBehaviour
     }
     
     /// <summary>
+    /// 각 옥타브의 C 음을 연속으로 테스트 재생 (디버그용)
+    /// </summary>
+    [ContextMenu("Test Play All C Notes")]
+    public void TestPlayAllCNotes()
+    {
+        StartCoroutine(PlayAllCNotesSequentially());
+    }
+    
+    private System.Collections.IEnumerator PlayAllCNotesSequentially()
+    {
+        Debug.Log("=== Testing All C Notes ===");
+        
+        for (int i = 0; i < audioClipSets.Length; i++)
+        {
+            AudioClip clip = audioClipSets[i].C;
+            if (clip != null)
+            {
+                // 임시 AudioSource 생성해서 테스트
+                GameObject tempGO = new GameObject($"TempAudioPlayer_C{audioClipSets[i].octave}");
+                AudioSource tempAS = tempGO.AddComponent<AudioSource>();
+                tempAS.clip = clip;
+                tempAS.volume = 1.0f;
+                tempAS.pitch = 1.0f;
+                tempAS.spatialBlend = 0f;
+                tempAS.Play();
+                
+                Debug.Log($"Playing C{audioClipSets[i].octave}: {clip.name} (freq={clip.frequency}Hz)");
+                
+                // 재생 시간만큼 대기
+                yield return new WaitForSeconds(Mathf.Min(clip.length, 2f));
+                
+                Destroy(tempGO);
+            }
+            else
+            {
+                Debug.LogError($"C{audioClipSets[i].octave} clip is null!");
+            }
+            
+            // 각 노트 사이에 잠깐 대기
+            yield return new WaitForSeconds(0.5f);
+        }
+        
+        Debug.Log("=== End Testing All C Notes ===");
+    }
+    
+    /// <summary>
     /// 디버그용: 현재 매핑 상태 출력
     /// </summary>
     [ContextMenu("Debug Current Mapping")]
@@ -414,7 +482,7 @@ public class DynamicPianoMapper : MonoBehaviour
         {
             foreach (var clipSet in audioClipSets)
             {
-                Debug.Log($"  {clipSet.description}: C={clipSet.C != null}, C_Next={clipSet.C_Next != null}");
+                Debug.Log($"  Octave {clipSet.octave} ({clipSet.description}): C={clipSet.C != null}, C_Next={clipSet.C_Next != null}");
             }
         }
         Debug.Log($"=== End Debug Info ===");
