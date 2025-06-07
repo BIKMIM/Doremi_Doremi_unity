@@ -23,9 +23,11 @@ public class OctaveController : MonoBehaviour
     
     private void Start()
     {
+        Debug.Log("OctaveController Start() called");
         InitializeComponents();
         SetupButtonEvents();
         UpdateDisplay();
+        Debug.Log("OctaveController initialization completed");
     }
     
     private void InitializeComponents()
@@ -48,34 +50,56 @@ public class OctaveController : MonoBehaviour
         if (downArrowButton == null) Debug.LogError("DownArrowButton not found!");
         if (octaveDisplayText == null) Debug.LogError("OctaveDisplay not found!");
         if (pianoMapper == null) Debug.LogError("DynamicPianoMapper not found!");
+        
+        Debug.Log($"Components found - UpButton: {upArrowButton != null}, DownButton: {downArrowButton != null}, Display: {octaveDisplayText != null}, Mapper: {pianoMapper != null}");
     }
     
     private void SetupButtonEvents()
     {
         if (upArrowButton != null)
+        {
+            upArrowButton.onClick.RemoveAllListeners();
             upArrowButton.onClick.AddListener(OnUpArrowClicked);
+            Debug.Log("Up arrow button event connected");
+        }
         
         if (downArrowButton != null)
+        {
+            downArrowButton.onClick.RemoveAllListeners();
             downArrowButton.onClick.AddListener(OnDownArrowClicked);
+            Debug.Log("Down arrow button event connected");
+        }
     }
     
     private void OnUpArrowClicked()
     {
+        Debug.Log("Up arrow clicked!");
+        
         // 옥타브 올리기 (최대 C5~C6)
         if (currentOctaveIndex < octaveValues.Length - 1)
         {
             currentOctaveIndex++;
             UpdateOctave();
         }
+        else
+        {
+            Debug.Log("Already at maximum octave");
+        }
     }
     
     private void OnDownArrowClicked()
     {
+        Debug.Log("Down arrow clicked!");
+        
         // 옥타브 내리기 (최소 C2~C3)
         if (currentOctaveIndex > 0)
         {
             currentOctaveIndex--;
             UpdateOctave();
+        }
+        else
+        {
+            Debug.Log("Already at minimum octave");
         }
     }
     
@@ -83,15 +107,21 @@ public class OctaveController : MonoBehaviour
     {
         // 피아노 매퍼에 새로운 옥타브 설정
         int newOctave = octaveValues[currentOctaveIndex];
+        
+        Debug.Log($"Updating octave to: {octaveDescriptions[currentOctaveIndex]} (Octave {newOctave})");
+        
         if (pianoMapper != null)
         {
             pianoMapper.SetGlobalOctave(newOctave);
+            Debug.Log("Successfully set global octave on piano mapper");
+        }
+        else
+        {
+            Debug.LogError("PianoMapper is null! Cannot update octave.");
         }
         
         // 화면 업데이트
         UpdateDisplay();
-        
-        Debug.Log($"Octave changed to: {octaveDescriptions[currentOctaveIndex]} (Octave {newOctave})");
     }
     
     private void UpdateDisplay()
@@ -99,6 +129,11 @@ public class OctaveController : MonoBehaviour
         if (octaveDisplayText != null)
         {
             octaveDisplayText.text = octaveDescriptions[currentOctaveIndex];
+            Debug.Log($"Display updated to: {octaveDescriptions[currentOctaveIndex]}");
+        }
+        else
+        {
+            Debug.LogError("OctaveDisplayText is null! Cannot update display.");
         }
         
         // 버튼 활성화/비활성화
@@ -140,22 +175,53 @@ public class OctaveController : MonoBehaviour
             switch (keyPressed)
             {
                 case '1':
-                    currentOctaveIndex = 0; // C2~C3
-                    UpdateOctave();
+                    if (currentOctaveIndex != 0)
+                    {
+                        currentOctaveIndex = 0; // C2~C3
+                        UpdateOctave();
+                        Debug.Log("Keyboard shortcut: Set to octave 1 (C2~C3)");
+                    }
                     break;
                 case '2':
-                    currentOctaveIndex = 1; // C3~C4
-                    UpdateOctave();
+                    if (currentOctaveIndex != 1)
+                    {
+                        currentOctaveIndex = 1; // C3~C4
+                        UpdateOctave();
+                        Debug.Log("Keyboard shortcut: Set to octave 2 (C3~C4)");
+                    }
                     break;
                 case '3':
-                    currentOctaveIndex = 2; // C4~C5
-                    UpdateOctave();
+                    if (currentOctaveIndex != 2)
+                    {
+                        currentOctaveIndex = 2; // C4~C5
+                        UpdateOctave();
+                        Debug.Log("Keyboard shortcut: Set to octave 3 (C4~C5)");
+                    }
                     break;
                 case '4':
-                    currentOctaveIndex = 3; // C5~C6
-                    UpdateOctave();
+                    if (currentOctaveIndex != 3)
+                    {
+                        currentOctaveIndex = 3; // C5~C6
+                        UpdateOctave();
+                        Debug.Log("Keyboard shortcut: Set to octave 4 (C5~C6)");
+                    }
                     break;
             }
         }
+    }
+    
+    // 디버그용 메서드
+    [ContextMenu("Debug Octave Controller")]
+    public void DebugOctaveController()
+    {
+        Debug.Log($"=== OctaveController Debug Info ===");
+        Debug.Log($"Current Octave Index: {currentOctaveIndex}");
+        Debug.Log($"Current Octave Value: {octaveValues[currentOctaveIndex]}");
+        Debug.Log($"Current Description: {octaveDescriptions[currentOctaveIndex]}");
+        Debug.Log($"Up Button: {(upArrowButton != null ? "Present" : "Missing")}");
+        Debug.Log($"Down Button: {(downArrowButton != null ? "Present" : "Missing")}");
+        Debug.Log($"Display Text: {(octaveDisplayText != null ? "Present" : "Missing")}");
+        Debug.Log($"Piano Mapper: {(pianoMapper != null ? "Present" : "Missing")}");
+        Debug.Log($"=== End Debug Info ===");
     }
 }

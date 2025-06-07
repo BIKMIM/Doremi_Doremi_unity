@@ -18,28 +18,158 @@ public class DynamicPianoMapper : MonoBehaviour
     
     private void Start()
     {
+        Debug.Log("DynamicPianoMapper Start() called");
+        CheckAudioSettings();
+        LoadAudioClips();
         InitializePianoKeys();
         SetupDefaultOctave();
+        Debug.Log("DynamicPianoMapper initialization completed");
+    }
+    
+    private void CheckAudioSettings()
+    {
+        Debug.Log("=== Audio Settings Check ===");
+        
+        // AudioListener 확인
+        AudioListener listener = FindObjectOfType<AudioListener>();
+        if (listener != null)
+        {
+            Debug.Log($"AudioListener found on: {listener.gameObject.name}");
+        }
+        else
+        {
+            Debug.LogWarning("No AudioListener found in scene!");
+        }
+        
+        // 전체 볼륨 확인
+        Debug.Log($"AudioListener.volume: {AudioListener.volume}");
+        Debug.Log($"AudioListener.pause: {AudioListener.pause}");
+        
+        Debug.Log("=== End Audio Settings Check ===");
+    }
+    
+    private void LoadAudioClips()
+    {
+        Debug.Log("Loading AudioClips from Resources...");
+        
+        // AudioClipSet 4개를 초기화 (C2~C3, C3~C4, C4~C5, C5~C6)
+        audioClipSets = new AudioClipSet[4];
+        
+        // C2~C3 옥타브 (0번 인덱스) - 2oc 폴더
+        audioClipSets[0] = new AudioClipSet();
+        audioClipSets[0].octave = 2;
+        audioClipSets[0].description = "C2~C3";
+        audioClipSets[0].C = Resources.Load<AudioClip>("audio/2oc/c2");
+        audioClipSets[0].CS = Resources.Load<AudioClip>("audio/2oc/c2s");
+        audioClipSets[0].D = Resources.Load<AudioClip>("audio/2oc/d2");
+        audioClipSets[0].DS = Resources.Load<AudioClip>("audio/2oc/d2s");
+        audioClipSets[0].E = Resources.Load<AudioClip>("audio/2oc/e2");
+        audioClipSets[0].F = Resources.Load<AudioClip>("audio/2oc/f2");
+        audioClipSets[0].FS = Resources.Load<AudioClip>("audio/2oc/f2s");
+        audioClipSets[0].G = Resources.Load<AudioClip>("audio/2oc/g2");
+        audioClipSets[0].GS = Resources.Load<AudioClip>("audio/2oc/g2s");
+        audioClipSets[0].A = Resources.Load<AudioClip>("audio/2oc/a2");
+        audioClipSets[0].AS = Resources.Load<AudioClip>("audio/2oc/a2s");
+        audioClipSets[0].B = Resources.Load<AudioClip>("audio/2oc/b2");
+        audioClipSets[0].C_Next = Resources.Load<AudioClip>("audio/2oc/c3");
+        
+        // C3~C4 옥타브 (1번 인덱스) - 3oc 폴더
+        audioClipSets[1] = new AudioClipSet();
+        audioClipSets[1].octave = 3;
+        audioClipSets[1].description = "C3~C4";
+        audioClipSets[1].C = Resources.Load<AudioClip>("audio/3oc/c3");
+        audioClipSets[1].CS = Resources.Load<AudioClip>("audio/3oc/c3s");
+        audioClipSets[1].D = Resources.Load<AudioClip>("audio/3oc/d3");
+        audioClipSets[1].DS = Resources.Load<AudioClip>("audio/3oc/d3s");
+        audioClipSets[1].E = Resources.Load<AudioClip>("audio/3oc/e3");
+        audioClipSets[1].F = Resources.Load<AudioClip>("audio/3oc/f3");
+        audioClipSets[1].FS = Resources.Load<AudioClip>("audio/3oc/f3s");
+        audioClipSets[1].G = Resources.Load<AudioClip>("audio/3oc/g3");
+        audioClipSets[1].GS = Resources.Load<AudioClip>("audio/3oc/g3s");
+        audioClipSets[1].A = Resources.Load<AudioClip>("audio/3oc/a3");
+        audioClipSets[1].AS = Resources.Load<AudioClip>("audio/3oc/a3s");
+        audioClipSets[1].B = Resources.Load<AudioClip>("audio/3oc/b3");
+        audioClipSets[1].C_Next = Resources.Load<AudioClip>("audio/3oc/c4");
+        
+        // C4~C5 옥타브 (2번 인덱스) - 4oc 폴더, 기본 옥타브
+        audioClipSets[2] = new AudioClipSet();
+        audioClipSets[2].octave = 4;
+        audioClipSets[2].description = "C4~C5";
+        audioClipSets[2].C = Resources.Load<AudioClip>("audio/4oc/c4");
+        audioClipSets[2].CS = Resources.Load<AudioClip>("audio/4oc/c4s");
+        audioClipSets[2].D = Resources.Load<AudioClip>("audio/4oc/d4");
+        audioClipSets[2].DS = Resources.Load<AudioClip>("audio/4oc/d4s");
+        audioClipSets[2].E = Resources.Load<AudioClip>("audio/4oc/e4");
+        audioClipSets[2].F = Resources.Load<AudioClip>("audio/4oc/f4");
+        audioClipSets[2].FS = Resources.Load<AudioClip>("audio/4oc/f4s");
+        audioClipSets[2].G = Resources.Load<AudioClip>("audio/4oc/g4");
+        audioClipSets[2].GS = Resources.Load<AudioClip>("audio/4oc/g4s");
+        audioClipSets[2].A = Resources.Load<AudioClip>("audio/4oc/a4");
+        audioClipSets[2].AS = Resources.Load<AudioClip>("audio/4oc/a4s");
+        audioClipSets[2].B = Resources.Load<AudioClip>("audio/4oc/b4");
+        audioClipSets[2].C_Next = Resources.Load<AudioClip>("audio/4oc/c5");
+        
+        // C5~C6 옥타브 (3번 인덱스) - 5oc 폴더
+        audioClipSets[3] = new AudioClipSet();
+        audioClipSets[3].octave = 5;
+        audioClipSets[3].description = "C5~C6";
+        audioClipSets[3].C = Resources.Load<AudioClip>("audio/5oc/c5");
+        audioClipSets[3].CS = Resources.Load<AudioClip>("audio/5oc/c5s");
+        audioClipSets[3].D = Resources.Load<AudioClip>("audio/5oc/d5");
+        audioClipSets[3].DS = Resources.Load<AudioClip>("audio/5oc/d5s");
+        audioClipSets[3].E = Resources.Load<AudioClip>("audio/5oc/e5");
+        audioClipSets[3].F = Resources.Load<AudioClip>("audio/5oc/f5");
+        audioClipSets[3].FS = Resources.Load<AudioClip>("audio/5oc/f5s");
+        audioClipSets[3].G = Resources.Load<AudioClip>("audio/5oc/g5");
+        audioClipSets[3].GS = Resources.Load<AudioClip>("audio/5oc/g5s");
+        audioClipSets[3].A = Resources.Load<AudioClip>("audio/5oc/a5");
+        audioClipSets[3].AS = Resources.Load<AudioClip>("audio/5oc/a5s");
+        audioClipSets[3].B = Resources.Load<AudioClip>("audio/5oc/b5");
+        audioClipSets[3].C_Next = Resources.Load<AudioClip>("audio/5oc/c6");
+        
+        // 로딩 상태 확인 및 오디오 클립 정보 출력
+        for (int i = 0; i < audioClipSets.Length; i++)
+        {
+            int loadedCount = 0;
+            if (audioClipSets[i].C != null) loadedCount++;
+            if (audioClipSets[i].CS != null) loadedCount++;
+            if (audioClipSets[i].D != null) loadedCount++;
+            if (audioClipSets[i].DS != null) loadedCount++;
+            if (audioClipSets[i].E != null) loadedCount++;
+            if (audioClipSets[i].F != null) loadedCount++;
+            if (audioClipSets[i].FS != null) loadedCount++;
+            if (audioClipSets[i].G != null) loadedCount++;
+            if (audioClipSets[i].GS != null) loadedCount++;
+            if (audioClipSets[i].A != null) loadedCount++;
+            if (audioClipSets[i].AS != null) loadedCount++;
+            if (audioClipSets[i].B != null) loadedCount++;
+            if (audioClipSets[i].C_Next != null) loadedCount++;
+            
+            Debug.Log($"Octave {audioClipSets[i].octave} ({audioClipSets[i].description}) - {loadedCount}/13 clips loaded");
+            
+            // C 클립 정보 상세 출력
+            if (audioClipSets[i].C != null)
+            {
+                AudioClip clip = audioClipSets[i].C;
+                Debug.Log($"  C{audioClipSets[i].octave} clip info: frequency={clip.frequency}Hz, channels={clip.channels}, length={clip.length:F2}s");
+            }
+        }
+        
+        Debug.Log("AudioClips loading completed");
     }
     
     private void InitializePianoKeys()
     {
-        // 기존 건반들을 자동으로 찾아서 PianoKey 리스트에 추가
-        Transform pianoPanel = this.transform;
-        if (pianoPanel == null) 
-        {
-            Debug.LogError("Piano panel not found!");
-            return;
-        }
+        Debug.Log("Initializing Piano Keys...");
         
         pianoKeys.Clear();
         
-        // 각 건반을 찾아서 PianoKey로 설정
+        // 각 건반을 찾아서 PianoKey로 설정 
         string[] keyNames = {"C4", "C4S", "D4", "D4S", "E4", "F4", "F4S", "G4", "G4S", "A4", "A4S", "B4", "C5"};
         
         foreach (string keyName in keyNames)
         {
-            Transform keyTransform = pianoPanel.Find(keyName);
+            Transform keyTransform = transform.Find(keyName);
             if (keyTransform != null)
             {
                 PianoKey pianoKey = keyTransform.GetComponent<PianoKey>();
@@ -51,6 +181,22 @@ public class DynamicPianoMapper : MonoBehaviour
                 // 건반 이름에서 음정 정보 추출
                 string noteName = ExtractNoteName(keyName);
                 AudioSource audioSource = keyTransform.GetComponent<AudioSource>();
+                
+                // AudioSource가 없으면 추가
+                if (audioSource == null)
+                {
+                    audioSource = keyTransform.gameObject.AddComponent<AudioSource>();
+                }
+                
+                // AudioSource 설정 최적화 (pitch 확인 중요!)
+                audioSource.playOnAwake = false;
+                audioSource.volume = 0.8f;
+                audioSource.spatialBlend = 0f; // 2D 사운드로 설정
+                audioSource.pitch = 1.0f; // ⭐ 중요: Pitch를 정확히 1.0으로 설정
+                audioSource.loop = false;
+                audioSource.priority = 128;
+                
+                Debug.Log($"AudioSource settings for {keyName}: pitch={audioSource.pitch}, volume={audioSource.volume}, spatialBlend={audioSource.spatialBlend}");
                 
                 pianoKey.Initialize(noteName, audioSource, this);
                 pianoKeys.Add(pianoKey);
@@ -69,7 +215,12 @@ public class DynamicPianoMapper : MonoBehaviour
     private string ExtractNoteName(string keyName)
     {
         // "C4S" -> "C#", "D4" -> "D" 등으로 변환
-        if (keyName.Contains("S"))
+        // "C5" -> "C_High" (마지막 높은 도는 특별 처리)
+        if (keyName == "C5")
+        {
+            return "C_High"; // 마지막 높은 도는 특별한 이름으로 처리
+        }
+        else if (keyName.Contains("S"))
         {
             return keyName[0] + "#";
         }
@@ -78,20 +229,14 @@ public class DynamicPianoMapper : MonoBehaviour
     
     private void SetupDefaultOctave()
     {
-        // 기본 옥타브로 모든 건반 설정
         Debug.Log($"Setting up default octave: {currentOctave}");
         
         foreach (var key in pianoKeys)
         {
-            // AudioClipSet이 없으면 기존 AudioClip을 그대로 사용
-            if (audioClipSets == null || audioClipSets.Length == 0)
-            {
-                Debug.Log($"No AudioClipSets found, using existing clips for {key.NoteName}");
-                continue;
-            }
-            
             UpdateKeyAudioClip(key.NoteName, currentOctave);
         }
+        
+        Debug.Log("Default octave setup completed");
     }
     
     /// <summary>
@@ -136,19 +281,12 @@ public class DynamicPianoMapper : MonoBehaviour
             return;
         }
         
-        // AudioClipSet이 없으면 업데이트하지 않음 (기존 클립 유지)
-        if (audioClipSets == null || audioClipSets.Length == 0)
-        {
-            Debug.Log($"No AudioClipSets available, keeping existing clip for {noteName}");
-            return;
-        }
-        
         // 옥타브에 맞는 AudioClip 찾기
         AudioClip newClip = GetAudioClip(noteName, octave);
         if (newClip != null)
         {
             targetKey.UpdateAudioClip(newClip);
-            Debug.Log($"Updated {noteName} to octave {octave}");
+            Debug.Log($"Updated {noteName} to octave {octave} clip: {newClip.name} (freq={newClip.frequency}Hz, len={newClip.length:F2}s)");
         }
         else
         {
@@ -159,23 +297,30 @@ public class DynamicPianoMapper : MonoBehaviour
     private AudioClip GetAudioClip(string noteName, int octave)
     {
         // audioClipSets에서 해당 옥타브의 클립 찾기
-        foreach (var clipSet in audioClipSets)
+        AudioClipSet targetSet = System.Array.Find(audioClipSets, set => set.octave == octave);
+        
+        if (targetSet != null)
         {
-            if (clipSet.octave == octave)
+            AudioClip clip = targetSet.GetClip(noteName);
+            if (clip != null)
             {
-                return clipSet.GetClip(noteName);
+                return clip;
             }
         }
         
         // 해당 옥타브가 없으면 기본 옥타브 사용
-        foreach (var clipSet in audioClipSets)
+        AudioClipSet defaultSet = System.Array.Find(audioClipSets, set => set.octave == currentOctave);
+        
+        if (defaultSet != null)
         {
-            if (clipSet.octave == currentOctave)
+            AudioClip clip = defaultSet.GetClip(noteName);
+            if (clip != null)
             {
-                return clipSet.GetClip(noteName);
+                return clip;
             }
         }
         
+        Debug.LogWarning($"No audio clip found for {noteName} in any octave");
         return null;
     }
     
@@ -185,34 +330,17 @@ public class DynamicPianoMapper : MonoBehaviour
     /// </summary>
     public void SetGlobalOctave(int octave)
     {
-        currentOctave = octave;
-        
         Debug.Log($"Setting global octave to: {octave}");
         
-        // AudioClipSet이 없으면 건반 이름만 업데이트
-        if (audioClipSets == null || audioClipSets.Length == 0)
-        {
-            Debug.Log("No AudioClipSets available, octave change will not affect audio clips");
-            
-            // 옥타브 표시는 업데이트하지만 실제 오디오는 변경하지 않음
-            // 대신 기존 AudioClip을 그대로 사용
-            foreach (var key in pianoKeys)
-            {
-                Debug.Log($"Keeping existing audio clip for {key.NoteName}");
-            }
-            return;
-        }
+        currentOctave = octave;
         
-        // 특별히 설정된 음정이 없는 건반들은 새로운 전역 옥타브 적용
+        // 모든 건반에 새로운 옥타브 적용
         foreach (var key in pianoKeys)
         {
-            if (!currentNoteOctaves.ContainsKey(key.NoteName))
-            {
-                UpdateKeyAudioClip(key.NoteName, octave);
-            }
+            UpdateKeyAudioClip(key.NoteName, octave);
         }
         
-        Debug.Log($"Global octave set to: {octave}");
+        Debug.Log($"Global octave set to: {octave}. All keys updated.");
     }
     
     /// <summary>
@@ -224,14 +352,46 @@ public class DynamicPianoMapper : MonoBehaviour
     }
     
     /// <summary>
+    /// 특정 AudioClip을 직접 재생해서 테스트 (디버그용)
+    /// </summary>
+    [ContextMenu("Test Play Original C2")]
+    public void TestPlayOriginalC2()
+    {
+        AudioClip clip = Resources.Load<AudioClip>("audio/2oc/c2");
+        if (clip != null)
+        {
+            // 임시 AudioSource 생성해서 원본 테스트
+            GameObject tempGO = new GameObject("TempAudioPlayer");
+            AudioSource tempAS = tempGO.AddComponent<AudioSource>();
+            tempAS.clip = clip;
+            tempAS.volume = 1.0f;
+            tempAS.pitch = 1.0f;
+            tempAS.spatialBlend = 0f;
+            tempAS.Play();
+            
+            Debug.Log($"Playing original C2: freq={clip.frequency}Hz, len={clip.length:F2}s");
+            
+            // 3초 후 제거
+            Destroy(tempGO, 4f);
+        }
+        else
+        {
+            Debug.LogError("Could not load original C2 clip!");
+        }
+    }
+    
+    /// <summary>
     /// 디버그용: 현재 매핑 상태 출력
     /// </summary>
     [ContextMenu("Debug Current Mapping")]
     public void DebugCurrentMapping()
     {
+        Debug.Log($"=== DynamicPianoMapper Debug Info ===");
         Debug.Log($"Current Global Octave: {currentOctave}");
         Debug.Log($"Piano Keys Count: {pianoKeys.Count}");
         Debug.Log($"AudioClipSets Count: {(audioClipSets != null ? audioClipSets.Length : 0)}");
+        Debug.Log($"AudioListener.volume: {AudioListener.volume}");
+        Debug.Log($"AudioListener.pause: {AudioListener.pause}");
         
         Debug.Log("Current Note Octaves:");
         foreach (var kvp in currentNoteOctaves)
@@ -242,8 +402,22 @@ public class DynamicPianoMapper : MonoBehaviour
         Debug.Log("Piano Keys:");
         foreach (var key in pianoKeys)
         {
-            Debug.Log($"  {key.NoteName}: {(key != null ? "OK" : "NULL")}");
+            AudioSource audioSource = key.GetComponent<AudioSource>();
+            string clipInfo = audioSource?.clip != null ? 
+                $"{audioSource.clip.name} (freq={audioSource.clip.frequency}Hz, pitch={audioSource.pitch})" : 
+                "NULL";
+            Debug.Log($"  {key.NoteName}: AudioSource={audioSource != null}, Clip={clipInfo}");
         }
+        
+        Debug.Log("AudioClipSets Status:");
+        if (audioClipSets != null)
+        {
+            foreach (var clipSet in audioClipSets)
+            {
+                Debug.Log($"  {clipSet.description}: C={clipSet.C != null}, C_Next={clipSet.C_Next != null}");
+            }
+        }
+        Debug.Log($"=== End Debug Info ===");
     }
 }
 
@@ -251,7 +425,9 @@ public class DynamicPianoMapper : MonoBehaviour
 public class AudioClipSet
 {
     public int octave;
+    public string description; // "C4~C5" 같은 설명
     public AudioClip C, CS, D, DS, E, F, FS, G, GS, A, AS, B;
+    public AudioClip C_Next; // 다음 옥타브의 C (C5, C6 등)
     
     public AudioClip GetClip(string noteName)
     {
@@ -269,6 +445,7 @@ public class AudioClipSet
             case "A": return A;
             case "A#": return AS;
             case "B": return B;
+            case "C_HIGH": return C_Next; // 마지막 높은 도
             default: return null;
         }
     }

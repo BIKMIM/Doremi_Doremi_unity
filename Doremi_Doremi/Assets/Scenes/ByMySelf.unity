@@ -4345,10 +4345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d11d7a7abdc9a4bbb623c89e2c03d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upArrowButton: {fileID: 0}
-  downArrowButton: {fileID: 0}
-  octaveDisplayText: {fileID: 0}
-  pianoMapper: {fileID: 0}
+  upArrowButton: {fileID: 1739488122}
+  downArrowButton: {fileID: 1259236146}
+  octaveDisplayText: {fileID: 1736259255}
+  pianoMapper: {fileID: 1931606392}
 --- !u!225 &1606540121
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5385,20 +5385,8 @@ MonoBehaviour:
   currentOctave: 4
   audioClipSets:
   - octave: 2
-    C: {fileID: 8300000, guid: bcb3efe400799934e9a2a2fe01871a23, type: 3}
-    CS: {fileID: 8300000, guid: e58e3c6c859e32d4cb3bf133c940103e, type: 3}
-    D: {fileID: 8300000, guid: 8913ff3d2934c41458ac5858bc97ef4f, type: 3}
-    DS: {fileID: 8300000, guid: 1ca0b6274cc586345ac8e9d5599f1445, type: 3}
-    E: {fileID: 8300000, guid: 0a07972381a87ad4198d3b136fb45f45, type: 3}
-    F: {fileID: 8300000, guid: 428e710fe041582468ff384079227bdd, type: 3}
-    FS: {fileID: 8300000, guid: e66f17ab61b64744ca2aea31e6424251, type: 3}
-    G: {fileID: 8300000, guid: 11f3a9b5e7a053e459588ede1ea6cd40, type: 3}
-    GS: {fileID: 8300000, guid: ffebe6e41bca5d0488d7c19493d925e4, type: 3}
-    A: {fileID: 8300000, guid: f3007ba36438cae4bad993982c9855be, type: 3}
-    AS: {fileID: 8300000, guid: fa4c27722942f084e903954d5e02b14e, type: 3}
-    B: {fileID: 8300000, guid: 0ed01b153c4196943add7f6810f1ef8e, type: 3}
-  - octave: 3
-    C: {fileID: 8300000, guid: dc6714bdb6de17f4fada04d67fcce068, type: 3}
+    description: 
+    C: {fileID: 8300000, guid: e1b7895bce8969a4f95207534703afe3, type: 3}
     CS: {fileID: 8300000, guid: efc4ae938ba66d04fb9a9ed77afe435f, type: 3}
     D: {fileID: 8300000, guid: 75e61fb9314b048439d363587773268c, type: 3}
     DS: {fileID: 8300000, guid: b1483a5c0dc4ed44ca677495cf416695, type: 3}
@@ -5410,8 +5398,10 @@ MonoBehaviour:
     A: {fileID: 8300000, guid: 67524168346672a4897971a8352fc38a, type: 3}
     AS: {fileID: 8300000, guid: 7d6476cdf8fe3bd43b74b958447234e6, type: 3}
     B: {fileID: 8300000, guid: 6fc462a0e7fb4384fbf009de7fb531d7, type: 3}
-  - octave: 4
-    C: {fileID: 8300000, guid: ade96961827f01f42867ebab6e5fd220, type: 3}
+    C_Next: {fileID: 8300000, guid: 58e1eb4f1d5490243bcc0f6ec41408a5, type: 3}
+  - octave: 3
+    description: 
+    C: {fileID: 8300000, guid: 19d724df87f961240ae659d597068ade, type: 3}
     CS: {fileID: 8300000, guid: 47931bad71db8104fab3e3eeb7b78393, type: 3}
     D: {fileID: 8300000, guid: 995a9137b1068454b9f9794c3129f88a, type: 3}
     DS: {fileID: 8300000, guid: c645798ba3782624e8bb2f5480bf954a, type: 3}
@@ -5420,11 +5410,13 @@ MonoBehaviour:
     FS: {fileID: 8300000, guid: 9f4f40fa1bcbe9741ac0a7d0dd5754bd, type: 3}
     G: {fileID: 8300000, guid: 0f76ad49dd6f4d24a806939741b5b517, type: 3}
     GS: {fileID: 8300000, guid: d1ff2d4484f7a4844a971f9d79fd23f5, type: 3}
-    A: {fileID: 8300000, guid: 61a980d2a30a4f243aebb481bdf013e1, type: 3}
-    AS: {fileID: 8300000, guid: 42c83685f71dde846bd575228f554a62, type: 3}
+    A: {fileID: 8300000, guid: 42c83685f71dde846bd575228f554a62, type: 3}
+    AS: {fileID: 8300000, guid: 7d6476cdf8fe3bd43b74b958447234e6, type: 3}
     B: {fileID: 8300000, guid: 4f0004e87bf4d304ca13a9f7312a7cd8, type: 3}
-  - octave: 5
-    C: {fileID: 8300000, guid: 6c2dc99cc384bbc42a607262a03c30e5, type: 3}
+    C_Next: {fileID: 8300000, guid: 8ece89caac652d74caf5b4197f105660, type: 3}
+  - octave: 4
+    description: 
+    C: {fileID: 8300000, guid: c4ea18c5a6f6fe149b32bb7ad92255d1, type: 3}
     CS: {fileID: 8300000, guid: 4db1ce162a8ec174bb56310ecb0462b5, type: 3}
     D: {fileID: 8300000, guid: 8ef4ceb0651450440b05c019e88953de, type: 3}
     DS: {fileID: 8300000, guid: 04ff2ea7cc318a84aaf76820a7eaf99c, type: 3}
@@ -5436,6 +5428,22 @@ MonoBehaviour:
     A: {fileID: 8300000, guid: d8f5b470728abbc4aa94cbaee3d846d7, type: 3}
     AS: {fileID: 8300000, guid: bb313dbdc11415541b0d37e8397c1622, type: 3}
     B: {fileID: 8300000, guid: fe6ef364682aec646bbad45423d40363, type: 3}
+    C_Next: {fileID: 8300000, guid: d72f291a40fb8034eaeda7581ce77b50, type: 3}
+  - octave: 5
+    description: 
+    C: {fileID: 8300000, guid: f53fe8e8c4793274aafa621bdaca3dcc, type: 3}
+    CS: {fileID: 8300000, guid: 5b4ada29fbfc82f4abf03afd6c16edad, type: 3}
+    D: {fileID: 8300000, guid: 639d9b5a71fb2a741a5abe539f91fced, type: 3}
+    DS: {fileID: 8300000, guid: 258e0b98a24cc404a89d96c20b737d78, type: 3}
+    E: {fileID: 8300000, guid: ed166a0b6cdae744e9f35a00dc8cbec2, type: 3}
+    F: {fileID: 8300000, guid: 84c8eca27384d1b48a261affd4f2a6ce, type: 3}
+    FS: {fileID: 8300000, guid: 60e07dfc8705f6e4f8a421298a5d025b, type: 3}
+    G: {fileID: 8300000, guid: 6bc9fde29d7b85b469d4d995dcee5248, type: 3}
+    GS: {fileID: 8300000, guid: 941c9b6d0415a8744a0f8a8db37a089c, type: 3}
+    A: {fileID: 8300000, guid: 3b4b8aad74c81e0488521f195aff5ea4, type: 3}
+    AS: {fileID: 8300000, guid: 6616c8524d8cb204889d8b81ea39cfdd, type: 3}
+    B: {fileID: 8300000, guid: 2b4a09305544ede4590747464dd05046, type: 3}
+    C_Next: {fileID: 8300000, guid: 097af0d8bf2afa547a46c7d6a60d69d8, type: 3}
 --- !u!1 &2032258844
 GameObject:
   m_ObjectHideFlags: 0
