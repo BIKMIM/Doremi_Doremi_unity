@@ -149,8 +149,8 @@ public class TupletAssembler : MonoBehaviour
 
         try
         {
-            // Flag 제거
-            RemoveFlagsFromStems(stems);
+            // Flag 제거 - 개선된 방법
+            RemoveFlagsFromNotesAndStems(noteHeads, stems);
 
             // Beam 생성
             List<Vector2> stemEndPoints = GetAccurateStemEndPoints(stems, spacing);
@@ -162,6 +162,12 @@ public class TupletAssembler : MonoBehaviour
 
                 GameObject beamObj = CreateBeamWithCode(firstStemEnd, lastStemEnd, beamThickness);
                 visualGroup.beamObject = beamObj;
+
+                if (showDebugInfo) Debug.Log($"✅ Beam 생성 완료: {firstStemEnd} → {lastStemEnd}, 두께={beamThickness}");
+            }
+            else
+            {
+                Debug.LogWarning($"⚠️ Stem 끝점 부족: {stemEndPoints.Count}개");
             }
 
             // 숫자 생성
@@ -235,6 +241,8 @@ public class TupletAssembler : MonoBehaviour
 
             endPoint.y += yAdjustment;
             endPoints.Add(endPoint);
+
+            if (showDebugInfo) Debug.Log($"   Stem 끝점: {endPoint}, stemUp={stemUp}");
         }
 
         return endPoints;
@@ -253,10 +261,15 @@ public class TupletAssembler : MonoBehaviour
     }
 
     /// <summary>
-    /// stem들에서 flag 제거
+    /// 개선된 flag 제거 - noteHeads와 stems 모두에서 flag 찾아서 제거
     /// </summary>
-    private void RemoveFlagsFromStems(List<GameObject> stems)
+    private void RemoveFlagsFromNotesAndStems(List<GameObject> noteHeads, List<GameObject> stems)
     {
+        if (showDebugInfo) Debug.Log($"🏴 Flag 제거 시작: noteHeads={noteHeads.Count}, stems={stems.Count}");
+
+        int removedCount = 0;
+
+        // 1. stem들에서 flag 제거
         foreach (GameObject stem in stems)
         {
             if (stem == null) continue;
@@ -266,10 +279,72 @@ public class TupletAssembler : MonoBehaviour
                 Transform child = stem.transform.GetChild(i);
                 if (child.name.ToLower().Contains("flag"))
                 {
+                    if (showDebugInfo) Debug.Log($"   🏴 Stem에서 flag 제거: {child.name}");
                     DestroyImmediate(child.gameObject);
+                    removedCount++;
                 }
             }
         }
+
+        // 2. noteHead들에서도 flag 찾아서 제거 (혹시 flag가 noteHead 자식으로 있을 경우)
+        foreach (GameObject noteHead in noteHeads)
+        {
+            if (noteHead == null) continue;
+
+            for (int i = noteHead.transform.childCount - 1; i >= 0; i--)
+            {
+                Transform child = noteHead.transform.GetChild(i);
+                if (child.name.ToLower().Contains("flag"))
+                {
+                    if (showDebugInfo) Debug.Log($"   🏴 NoteHead에서 flag 제거: {child.name}");
+                    DestroyImmediate(child.gameObject);
+                    removedCount++;
+                }
+                
+                // stem의 자식들도 확인
+                for (int j = child.childCount - 1; j >= 0; j--)
+                {
+                    Transform stemChild = child.GetChild(j);
+                    if (stemChild.name.ToLower().Contains("flag"))
+                    {
+                        if (showDebugInfo) Debug.Log($"   🏴 Stem 자식에서 flag 제거: {stemChild.name}");
+                        DestroyImmediate(stemChild.gameObject);
+                        removedCount++;
+                    }
+                }
+            }
+        }
+
+        // 3. StaffPanel에서 직접 flag 오브젝트 찾아서 제거 (혹시나 하는 경우)
+        if (staffPanel != null)
+        {
+            for (int i = staffPanel.childCount - 1; i >= 0; i--)
+            {
+                Transform child = staffPanel.GetChild(i);
+                if (child.name.ToLower().Contains("flag"))
+                {
+                    // 이 flag가 현재 tuplet의 noteHead들과 연관된 것인지 확인
+                    bool isRelatedToCurrentTuplet = false;
+                    foreach (GameObject noteHead in noteHeads)
+                    {
+                        if (Vector2.Distance(child.position, noteHead.transform.position) < 100f) // 근처에 있으면
+                        {
+                            isRelatedToCurrentTuplet = true;
+                            break;
+                        }
+                    }
+                    
+                    if (isRelatedToCurrentTuplet)
+                    {
+                        if (showDebugInfo) Debug.Log($"   🏴 StaffPanel에서 관련 flag 제거: {child.name}");
+                        DestroyImmediate(child.gameObject);
+                        removedCount++;
+                    }
+                }
+            }
+        }
+
+        if (showDebugInfo) Debug.Log($"✅ Flag 제거 완료: {removedCount}개 제거됨");
     }
 
     /// <summary>

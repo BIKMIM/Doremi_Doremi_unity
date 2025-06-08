@@ -146,6 +146,57 @@ public class ModularNoteAssembler : MonoBehaviour
     }
 
     /// <summary>
+    /// 잇단음표용 음표 생성 (flag 없이)
+    /// </summary>
+    public GameObject CreateTupletNote(Vector2 position, float noteIndex, int duration)
+    {
+        if (showDebugInfo) Debug.Log($"🎼 잇단음표용 음표 생성: 위치={position}, noteIndex={noteIndex}, duration={duration}");
+
+        if (staffPanel == null)
+        {
+            Debug.LogError("❌ staffPanel이 null입니다!");
+            return null;
+        }
+
+        if (headCreator == null)
+        {
+            Debug.LogError("❌ headCreator가 null입니다!");
+            return null;
+        }
+
+        // 1. 머리 생성
+        GameObject prefab = headCreator.GetHeadPrefab(duration);
+        if (prefab == null)
+        {
+            Debug.LogError($"❌ duration {duration}에 대한 프리팹을 찾을 수 없습니다!");
+            return null;
+        }
+
+        GameObject head = headCreator.CreateNoteHead(prefab, position, staffPanel);
+        
+        if (head == null)
+        {
+            Debug.LogError("❌ 음표 머리 생성 실패!");
+            return null;
+        }
+
+        if (showDebugInfo) Debug.Log($"✅ 잇단음표 머리 생성 성공: {head.name}");
+
+        // 2. 스템 붙이기 (2분음표 이상) - flag는 붙이지 않음
+        GameObject stem = null;
+        if (duration >= 2 && stemCreator != null)
+        {
+            stem = stemCreator.AttachStem(head, noteIndex, staffPanel);
+            if (showDebugInfo && stem != null) Debug.Log($"✅ 잇단음표 스템 생성 성공: {stem.name}");
+        }
+
+        // 3. 플래그는 잇단음표에서 생략 (beam으로 대체)
+
+        if (showDebugInfo) Debug.Log($"🎉 잇단음표용 음표 생성 완료: {head.name} (flag 없음)");
+        return head;
+    }
+
+    /// <summary>
     /// 점음표 생성
     /// </summary>
     public GameObject CreateDottedNote(Vector2 position, float noteIndex, int duration, bool isOnLine)
@@ -158,6 +209,24 @@ public class ModularNoteAssembler : MonoBehaviour
         {
             GameObject dot = dotCreator.AttachDot(head, isOnLine, staffPanel);
             if (showDebugInfo && dot != null) Debug.Log($"✅ 점 생성 성공: {dot.name}");
+        }
+
+        return head;
+    }
+
+    /// <summary>
+    /// 잇단음표용 점음표 생성 (flag 없이)
+    /// </summary>
+    public GameObject CreateTupletDottedNote(Vector2 position, float noteIndex, int duration, bool isOnLine)
+    {
+        if (showDebugInfo) Debug.Log($"🎯🎼 잇단음표용 점음표 생성: 위치={position}, noteIndex={noteIndex}, duration={duration}, isOnLine={isOnLine}");
+
+        GameObject head = CreateTupletNote(position, noteIndex, duration);
+        
+        if (head != null && dotCreator != null)
+        {
+            GameObject dot = dotCreator.AttachDot(head, isOnLine, staffPanel);
+            if (showDebugInfo && dot != null) Debug.Log($"✅ 잇단음표 점 생성 성공: {dot.name}");
         }
 
         return head;
@@ -301,6 +370,26 @@ public class ModularNoteAssembler : MonoBehaviour
         else
         {
             Debug.LogError("❌ 테스트 실패: 음표 생성되지 않음");
+        }
+    }
+
+    [ContextMenu("테스트 잇단음표 생성")]
+    public void TestCreateTupletNote()
+    {
+        Vector2 testPos = new Vector2(100, 0);
+        float testNoteIndex = 0f; // B4
+        int testDuration = 8;
+
+        Debug.Log($"🧪 테스트 잇단음표 생성: 위치={testPos}, noteIndex={testNoteIndex}, duration={testDuration}");
+        GameObject testNote = CreateTupletNote(testPos, testNoteIndex, testDuration);
+        
+        if (testNote != null)
+        {
+            Debug.Log($"✅ 잇단음표 테스트 성공: {testNote.name} 생성됨");
+        }
+        else
+        {
+            Debug.LogError("❌ 잇단음표 테스트 실패: 음표 생성되지 않음");
         }
     }
 }
