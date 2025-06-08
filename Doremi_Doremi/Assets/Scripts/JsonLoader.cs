@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// JsonLoader.cs - 노래를 저장한 Json 악보를 불러오기 위한 파일
-
+/// <summary>
+/// JSON 형태의 악보 데이터를 로드하는 클래스
+/// - songs.json 파일에서 곡 정보를 읽어옴
+/// - 자동으로 Resources 폴더에서 파일 검색
+/// - 음자리표, 박자표, 조표 정보 포함
+/// </summary>
 public class JsonLoader : MonoBehaviour
 {
-    [Header("노래파일 연결 songs.json")] // 인스펙터에 메뉴 생성
+    [Header("노래파일 연결 songs.json")]
     public TextAsset songsJson;
 
-    [System.Serializable] // JSON 데이터같은 연속된 DATA 구조를 정의하는 클래스
+    [System.Serializable]
     public class SongData
     {
         public string title;
-        public string clef; // 🎼 음자리표 정보 추가 (treble, bass)
-        public string timeSignature; // 곡의 박자 정보를 담을 변수
-        public string keySignature;  // ← 이 줄 추가
+        public string clef; // 음자리표 정보 (treble, bass)
+        public string timeSignature; // 박자 정보
+        public string keySignature; // 조표 정보
         public List<string> notes;
     }
 
@@ -41,7 +45,9 @@ public class JsonLoader : MonoBehaviour
         }
     }
 
-    // Resources 폴더에서 songs.json을 자동으로 로드하는 메서드
+    /// <summary>
+    /// Resources 폴더에서 songs.json을 자동으로 로드
+    /// </summary>
     private void LoadSongsFromResources()
     {
         Debug.Log("🔍 LoadSongsFromResources() 실행");
@@ -76,7 +82,10 @@ public class JsonLoader : MonoBehaviour
         }
     }
 
-    public SongList LoadSongs() // 노래 목록을 로드하는 메서드
+    /// <summary>
+    /// 노래 목록을 로드하는 메인 메서드
+    /// </summary>
+    public SongList LoadSongs()
     {
         Debug.Log("🔍 LoadSongs() 실행");
 
@@ -87,7 +96,7 @@ public class JsonLoader : MonoBehaviour
             LoadSongsFromResources();
         }
 
-        if (songsJson == null) // JSON 파일이 연결되지 않았을 경우
+        if (songsJson == null)
         {
             Debug.LogError("❗ JSON 파일이 연결되지 않았습니다.");
             Debug.LogError("💡 해결방법:");
@@ -98,9 +107,9 @@ public class JsonLoader : MonoBehaviour
 
         Debug.Log($"🔍 JSON 파싱 시도, 내용 길이: {songsJson.text.Length}");
 
-        SongList parsed = JsonUtility.FromJson<SongList>(songsJson.text); // JSON 파일을 파싱하여 SongList 객체로 변환
+        SongList parsed = JsonUtility.FromJson<SongList>(songsJson.text);
 
-        if (parsed == null || parsed.songs == null || parsed.songs.Count == 0)  // 파싱된 데이터가 없거나 곡 목록이 비어있을 경우
+        if (parsed == null || parsed.songs == null || parsed.songs.Count == 0)
         {
             Debug.LogWarning("⚠️ 노래가 없거나 JSON 구조가 잘못되었습니다.");
             Debug.LogWarning("📝 JSON 내용:");
@@ -110,7 +119,7 @@ public class JsonLoader : MonoBehaviour
 
         Debug.Log($"✅ 총 {parsed.songs.Count}곡 로딩 완료");
 
-        // 🎼 각 곡의 음자리표 정보 로그 출력
+        // 각 곡의 정보 로그 출력
         foreach (var song in parsed.songs)
         {
             string clefType = string.IsNullOrEmpty(song.clef) ? "treble (기본값)" : song.clef;
@@ -120,14 +129,14 @@ public class JsonLoader : MonoBehaviour
         return parsed;
     }
 
-    // 에디터에서 테스트용 메서드
+    // === 디버그 메서드들 ===
+
     [ContextMenu("테스트: 노래 로드")]
     public void TestLoadSongs()
     {
         LoadSongs();
     }
 
-    // 추가 디버깅 메서드
     [ContextMenu("디버그: Resources 폴더 확인")]
     public void DebugResourcesFolder()
     {

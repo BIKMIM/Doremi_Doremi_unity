@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 동적 피아노 매핑 시스템
+/// - 현재 악보에 표시된 음표들의 옥타브에 따라 피아노 키 음향을 자동 매핑
+/// - 4개 옥타브 범위 지원 (C2-C3, C3-C4, C4-C5, C5-C6)
+/// - 게임 상황에 맞는 최적의 피아노 소리 제공
+/// </summary>
 public class DynamicPianoMapper : MonoBehaviour
 {
     [Header("Piano Keys")]
@@ -26,6 +32,9 @@ public class DynamicPianoMapper : MonoBehaviour
         Debug.Log("DynamicPianoMapper initialization completed");
     }
     
+    /// <summary>
+    /// 오디오 설정 상태 확인
+    /// </summary>
     private void CheckAudioSettings()
     {
         Debug.Log("=== Audio Settings Check ===");
@@ -48,6 +57,9 @@ public class DynamicPianoMapper : MonoBehaviour
         Debug.Log("=== End Audio Settings Check ===");
     }
     
+    /// <summary>
+    /// Resources 폴더에서 옥타브별 오디오 클립 로드
+    /// </summary>
     private void LoadAudioClips()
     {
         Debug.Log("Loading AudioClips from Resources...");
@@ -158,6 +170,9 @@ public class DynamicPianoMapper : MonoBehaviour
         Debug.Log("AudioClips loading completed");
     }
     
+    /// <summary>
+    /// 피아노 키들을 찾아서 PianoKey 컴포넌트 설정
+    /// </summary>
     private void InitializePianoKeys()
     {
         Debug.Log("Initializing Piano Keys...");
@@ -212,6 +227,9 @@ public class DynamicPianoMapper : MonoBehaviour
         Debug.Log($"Total piano keys initialized: {pianoKeys.Count}");
     }
     
+    /// <summary>
+    /// 건반 이름에서 음정 추출
+    /// </summary>
     private string ExtractNoteName(string keyName)
     {
         // "C4S" -> "C#", "D4" -> "D" 등으로 변환
@@ -227,6 +245,9 @@ public class DynamicPianoMapper : MonoBehaviour
         return keyName[0].ToString();
     }
     
+    /// <summary>
+    /// 기본 옥타브로 모든 키 설정
+    /// </summary>
     private void SetupDefaultOctave()
     {
         Debug.Log($"Setting up default octave: {currentOctave}");
@@ -271,6 +292,9 @@ public class DynamicPianoMapper : MonoBehaviour
         UpdateKeyAudioClip(noteName, octave);
     }
     
+    /// <summary>
+    /// 특정 키의 오디오 클립 업데이트
+    /// </summary>
     private void UpdateKeyAudioClip(string noteName, int octave)
     {
         // 해당 음정의 건반 찾기
@@ -294,9 +318,12 @@ public class DynamicPianoMapper : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// 옥타브와 음정에 맞는 오디오 클립 반환
+    /// </summary>
     private AudioClip GetAudioClip(string noteName, int octave)
     {
-        // ⭐ 수정된 부분: 옥타브 값을 정확히 매핑
+        // 옥타브 값을 정확히 매핑
         AudioClipSet targetSet = null;
         
         // 옥타브 값으로 올바른 AudioClipSet 찾기
@@ -372,6 +399,8 @@ public class DynamicPianoMapper : MonoBehaviour
     {
         return currentOctave;
     }
+    
+    // === 디버그 메서드들 ===
     
     /// <summary>
     /// 특정 AudioClip을 직접 재생해서 테스트 (디버그용)
@@ -489,6 +518,9 @@ public class DynamicPianoMapper : MonoBehaviour
     }
 }
 
+/// <summary>
+/// 옥타브별 오디오 클립 세트
+/// </summary>
 [System.Serializable]
 public class AudioClipSet
 {
