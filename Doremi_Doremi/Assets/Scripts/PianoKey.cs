@@ -10,6 +10,7 @@ public class PianoKey : MonoBehaviour
     [SerializeField] private Button keyButton;
     
     private DynamicPianoMapper pianoMapper;
+    private SongGameController gameController;
     
     public string NoteName => noteName;
     
@@ -18,6 +19,10 @@ public class PianoKey : MonoBehaviour
         noteName = note;
         audioSource = audio;
         pianoMapper = mapper;
+        
+        // 게임 컨트롤러 찾기
+        if (gameController == null)
+            gameController = FindObjectOfType<SongGameController>();
         
         // 버튼 컴포넌트 가져오기
         keyButton = GetComponent<Button>();
@@ -57,6 +62,9 @@ public class PianoKey : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// 게임 로직과 연동해서 소리 재생 + 게임 컨트롤러에 알림
+    /// </summary>
     public void PlaySound()
     {
         if (audioSource != null && audioSource.clip != null)
@@ -87,6 +95,49 @@ public class PianoKey : MonoBehaviour
             // 오디오가 없어도 시각적 피드백은 제공
             StartCoroutine(KeyPressEffect());
         }
+        
+        // 게임 컨트롤러에 키 입력 알림
+        if (gameController != null)
+        {
+            gameController.OnKeyPressed(noteName);
+        }
+    }
+    
+    /// <summary>
+    /// 게임 로직 알림 없이 소리만 재생 (미리듣기용)
+    /// </summary>
+    public void PlaySoundOnly()
+    {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            // 재생 전 오디오 설정 재확인
+            if (audioSource.pitch != 1.0f)
+            {
+                Debug.LogWarning($"Correcting pitch from {audioSource.pitch} to 1.0f for {noteName}");
+                audioSource.pitch = 1.0f;
+            }
+            
+            audioSource.Stop(); // 이전 소리 정지
+            audioSource.Play(); // 새 소리 재생
+            
+            Debug.Log($"Playing sound ONLY for {noteName}: {audioSource.clip.name} (preview mode)");
+            
+            // 시각적 피드백
+            StartCoroutine(KeyPressEffect());
+        }
+        else
+        {
+            string debugInfo = $"Cannot play sound for {noteName} - ";
+            debugInfo += $"AudioSource: {(audioSource != null ? "OK" : "NULL")}, ";
+            debugInfo += $"AudioClip: {(audioSource?.clip != null ? audioSource.clip.name : "NULL")}";
+            
+            Debug.LogWarning(debugInfo);
+            
+            // 오디오가 없어도 시각적 피드백은 제공
+            StartCoroutine(KeyPressEffect());
+        }
+        
+        // 게임 컨트롤러에는 알리지 않음 (미리듣기용이므로)
     }
     
     private IEnumerator KeyPressEffect()
@@ -253,5 +304,11 @@ public class PianoKey : MonoBehaviour
     public void TestPlaySound()
     {
         PlaySound();
+    }
+    
+    [ContextMenu("Test Play Sound Only")]
+    public void TestPlaySoundOnly()
+    {
+        PlaySoundOnly();
     }
 }
