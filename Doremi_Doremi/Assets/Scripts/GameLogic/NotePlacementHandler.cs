@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+// System.Diagnostics 제거하여 Debug 충돌 해결
 
 public class NotePlacementHandler : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class NotePlacementHandler : MonoBehaviour
     public TupletAssembler tupletAssembler;
 
     private RectTransform staffPanel;
+
+    public List<GameObject> spawnedNoteHeadsInOrder = new List<GameObject>(); // public으로 노출하거나 getter 제공
+
 
     public void Initialize(RectTransform panel)
     {
@@ -75,15 +79,27 @@ public class NotePlacementHandler : MonoBehaviour
         Debug.Log($"음표 생성: {note.noteName} at X={pos.x:F1}, Y={pos.y:F1}, 임시표:{note.accidental}");
 
         // ModularNoteAssembler 사용
+        GameObject noteHeadResult; // 변수 선언 추가
         if (note.isDotted)
         {
-            assembler.CreateDottedNote(pos, noteIndex, note.duration, isOnLine);
+            noteHeadResult = assembler.CreateDottedNote(pos, noteIndex, note.duration, isOnLine);
         }
         else
         {
-            assembler.CreateNote(pos, noteIndex, note.duration);
+            noteHeadResult = assembler.CreateNote(pos, noteIndex, note.duration);
         }
+        // 이 부분을 추가/수정하세요.
+        if (noteHeadResult != null) spawnedNoteHeadsInOrder.Add(noteHeadResult);
     }
+
+
+
+    // NotePlacementHandler에 spawnedNoteHeadsInOrder 리스트 초기화 함수 추가 (NoteSpawner에서 호출 예정)
+    public void ClearSpawnedNotes()
+    {
+        spawnedNoteHeadsInOrder.Clear();
+    }
+
 
     // ✅ 새로운 비율 기반 잇단음표 그룹 처리 함수
     public TupletVisualGroup SpawnTupletGroup(TupletData tupletData, float startX, float availableWidth, float spacing)
@@ -181,34 +197,37 @@ public class NotePlacementHandler : MonoBehaviour
         SpawnLedgerLines(pos.x, note.noteName, spacing);
 
         // 잇단음표용 음표 생성 (flag 없이)
-        GameObject noteHead;
+        GameObject noteHeadResult; // noteHead 변수명 변경 (중복 선언 방지)
         bool isOnLine = NotePositioningData.lineNotes.Contains(note.noteName);
-        
+
         if (note.isDotted)
         {
-            noteHead = assembler.CreateTupletDottedNote(pos, noteIndex, note.duration, isOnLine);
+            noteHeadResult = assembler.CreateTupletDottedNote(pos, noteIndex, note.duration, isOnLine);
         }
         else
         {
-            noteHead = assembler.CreateTupletNote(pos, noteIndex, note.duration);
+            noteHeadResult = assembler.CreateTupletNote(pos, noteIndex, note.duration);
         }
-        
+
+        // NotePlacementHandler의 spawnedNoteHeadsInOrder 리스트에 추가 (이전 답변에서 추가 요청된 부분)
+        if (noteHeadResult != null) spawnedNoteHeadsInOrder.Add(noteHeadResult);
+
         // stem 찾기 (noteHead의 자식으로 생성됨)
-        GameObject stem = null;
-        if (noteHead != null && note.duration >= 2)
+        GameObject stem = null; // 여기서 stem을 선언
+        if (noteHeadResult != null && note.duration >= 2) // noteHeadResult 사용
         {
             // ModularNoteAssembler에서 생성된 stem 찾기
-            Transform stemTransform = noteHead.transform.Find("stem(Clone)");
+            Transform stemTransform = noteHeadResult.transform.Find("stem(Clone)"); // noteHeadResult 사용
             if (stemTransform == null)
             {
                 // 다른 가능한 이름들 시도
-                stemTransform = noteHead.transform.Find("Stem");
+                stemTransform = noteHeadResult.transform.Find("Stem"); // noteHeadResult 사용
                 if (stemTransform == null)
                 {
                     // 자식 중에서 "stem"이 포함된 이름 찾기
-                    for (int i = 0; i < noteHead.transform.childCount; i++)
+                    for (int i = 0; i < noteHeadResult.transform.childCount; i++) // noteHeadResult 사용
                     {
-                        Transform child = noteHead.transform.GetChild(i);
+                        Transform child = noteHeadResult.transform.GetChild(i);
                         if (child.name.ToLower().Contains("stem"))
                         {
                             stemTransform = child;
@@ -217,7 +236,7 @@ public class NotePlacementHandler : MonoBehaviour
                     }
                 }
             }
-            
+
             if (stemTransform != null)
             {
                 stem = stemTransform.gameObject;
@@ -226,7 +245,7 @@ public class NotePlacementHandler : MonoBehaviour
 
         Debug.Log($"🎵 잇단음표 개별 음표 생성: {note.noteName}, stem={stem != null}");
 
-        return (noteHead, stem);
+        return (noteHeadResult, stem); // noteHeadResult 반환
     }
 
     // ✅ 기존 함수들 (변경 없음)

@@ -50,6 +50,10 @@ public class NoteSpawner : MonoBehaviour
     [Tooltip("화면 분할 정보 출력")]
     public bool showScreenDivisionDebug = true;
 
+    [Header("게임 연동 (선택사항)")]
+    [Tooltip("SongGameController 참조 (게임 모드에서만 사용)")]
+    public SongGameController songGameController;
+
     private MusicLayoutConfig.TimeSignature currentSongTimeSignature;
     private string currentTimeSignatureString;
     private int barLineCount = 0; // 현재 곡의 마디선 개수
@@ -266,25 +270,77 @@ public class NoteSpawner : MonoBehaviour
 
             if (element is NoteData note)
             {
+                // 일반 음표 생성
                 notePlacementHandler.SpawnNoteAtPosition(elementX, elementSpacing, spacing, note);
-                Debug.Log($"   음표: {note.noteName}({note.duration}분음표) X={elementX:F1}");
+
+                // SongGameController가 있으면 생성된 음표를 게임에 등록
+                if (songGameController != null && notePlacementHandler.spawnedNoteHeadsInOrder.Count > 0)
+                {
+                    // 가장 최근에 생성된 음표를 가져옴
+                    GameObject lastSpawnedNote = notePlacementHandler.spawnedNoteHeadsInOrder[notePlacementHandler.spawnedNoteHeadsInOrder.Count - 1];
+                    if (lastSpawnedNote != null)
+                    {
+                        // SongGameController에 AddNoteObject 메서드가 있다고 가정
+                        // 실제 메서드명은 프로젝트에 따라 다를 수 있음
+                        try
+                        {
+                            // Reflection을 사용하여 메서드 호출 (메서드가 없어도 에러 방지)
+                            var method = songGameController.GetType().GetMethod("AddNoteObject");
+                            if (method != null)
+                            {
+                                method.Invoke(songGameController, new object[] { lastSpawnedNote });
+                            }
+                            else
+                            {
+                                Debug.LogWarning("SongGameController에 AddNoteObject 메서드를 찾을 수 없습니다.");
+                            }
+                        }
+                        catch (System.Exception ex)
+                        {
+                            Debug.LogWarning($"SongGameController 연동 실패: {ex.Message}");
+                        }
+                    }
+                }
             }
             else if (element is TupletData tuplet)
             {
                 TupletVisualGroup visualGroup = notePlacementHandler.SpawnTupletGroup(tuplet, elementX, elementSpacing, spacing);
 
-                if (visualGroup != null)
+                // 잇단음표의 경우 각 개별 음표들을 게임에 등록
+                if (songGameController != null && visualGroup != null)
                 {
-                    Debug.Log($"   잇단음표: {tuplet.GetTupletTypeName()} X={elementX:F1}");
-                }
-                else
-                {
-                    Debug.LogError($"   ❌ 잇단음표 생성 실패: {tuplet.GetTupletTypeName()}");
+                    // TupletVisualGroup에서 음표 헤드들을 가져오는 방법은 클래스 구조에 따라 다름
+                    // 여기서는 NotePlacementHandler의 spawnedNoteHeadsInOrder를 사용
+                    // (잇단음표 생성 시에도 이 리스트에 추가되므로)
+                    
+                    // 잇단음표 생성 전의 리스트 크기 저장이 필요하지만, 
+                    // 간단하게 최근 생성된 음표들을 처리
+                    try
+                    {
+                        var method = songGameController.GetType().GetMethod("AddNoteObject");
+                        if (method != null)
+                        {
+                            // 잇단음표의 각 음표 개수만큼 최근 생성된 음표들을 추가
+                            int tupletNoteCount = tuplet.notes.Count;
+                            int startIndex = Mathf.Max(0, notePlacementHandler.spawnedNoteHeadsInOrder.Count - tupletNoteCount);
+                            
+                            for (int j = startIndex; j < notePlacementHandler.spawnedNoteHeadsInOrder.Count; j++)
+                            {
+                                GameObject tupletNote = notePlacementHandler.spawnedNoteHeadsInOrder[j];
+                                if (tupletNote != null)
+                                {
+                                    method.Invoke(songGameController, new object[] { tupletNote });
+                                }
+                            }
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Debug.LogWarning($"잇단음표 SongGameController 연동 실패: {ex.Message}");
+                    }
                 }
             }
         }
-
-        Debug.Log($"   마디 {measureIndex + 1} 완료: {elements.Count}개 요소를 {elementSpacing:F1}px 간격으로 배치");
     }
 
     /// <summary>
@@ -401,6 +457,12 @@ public class NoteSpawner : MonoBehaviour
         if (scoreSymbolSpawner != null)
         {
             scoreSymbolSpawner.Initialize(staffPanel, currentSongTimeSignature);
+        }
+
+        // 생성된 음표 리스트 초기화
+        if (notePlacementHandler != null)
+        {
+            notePlacementHandler.ClearSpawnedNotes();
         }
 
         LayoutCompleteScore(song);

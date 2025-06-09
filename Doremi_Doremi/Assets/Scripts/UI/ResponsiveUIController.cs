@@ -19,7 +19,7 @@ public class ResponsiveUIController : MonoBehaviour
     [Header("Layout Settings")]
     [SerializeField] private float pianoHeightRatio = 0.35f; // 화면 높이의 35%
     [SerializeField] private float staffHeightRatio = 0.45f; // 화면 높이의 45%
-    [SerializeField] private float controlPanelWidthRatio = 0.25f; // 화면 너비의 25%
+    // controlPanelWidthRatio 제거 (사용되지 않는 변수)
     
     private CanvasScaler canvasScaler;
     private Canvas mainCanvas;
@@ -127,7 +127,7 @@ public class ResponsiveUIController : MonoBehaviour
     {
         if (gameControlPanel == null) return;
         
-        // 게임 컨트롤 패널 - 화면 오른쪽, 피아노 옆
+        // 게임 컨트롤 패널 - 화면 오른쪽, 피아노 옆 (너비 25% 사용)
         gameControlPanel.anchorMin = new Vector2(0.75f, 0f);               // 오른쪽 25% 영역
         gameControlPanel.anchorMax = new Vector2(1f, 0.8f);                // 전체 오른쪽, 높이 80%
         gameControlPanel.offsetMin = Vector2.zero;
